@@ -1,0 +1,33 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+.center-text h1 {
+    font-size: 50px;
+    font-weight: bold;
+    margin-top: 200px;  /* Center the text vertically */
+}
+
+.links {
+    margin-top: 2000px; /* Add some space to make scrolling required */
+    display: none; /* Initially hide the links */
+}
+
+a {
+    display: block;
+    font-size: 30px;
+    margin: 10px 0;
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
