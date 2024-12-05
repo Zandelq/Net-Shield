@@ -5,39 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Working Links</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Tab bar at the top -->
+
+    <!-- Tab Bar -->
     <div id="tab-bar">
-        <button class="tab-button">Home</button>
-        <button class="tab-button">Doge-Unblocker</button>
-        <button class="tab-button">Holy-Unblocker</button>
-        <button class="tab-button">Net-Shield</button>
+        <button id="home-tab">Home</button>
+        <button id="doge-unblocker-tab">Doge-Unblocker</button>
+        <button id="holy-unblocker-tab">Holy-Unblocker</button>
+        <button id="net-shield-tab">Net-Shield</button>
     </div>
 
-    <!-- Content for different sections -->
-    <div id="home" class="content active">
-        <h1>Home Page</h1>
-        <p>Welcome to the home page content!</p>
+    <!-- Home Content (Centered Text) -->
+    <div class="home-text">
+        <h1>Home</h1>
     </div>
 
+    <!-- Other Content Sections -->
     <div id="doge-unblocker" class="content">
-        <h1>Doge-Unblocker</h1>
-        <p>This is the Doge-Unblocker content.</p>
+        <h2>Doge-Unblocker Section</h2>
+        <!-- Add content for Doge-Unblocker -->
     </div>
 
     <div id="holy-unblocker" class="content">
-        <h1>Holy-Unblocker</h1>
-        <p>This is the Holy-Unblocker content.</p>
+        <h2>Holy-Unblocker Section</h2>
+        <!-- Add content for Holy-Unblocker -->
     </div>
 
     <div id="net-shield" class="content">
-        <h1>Net-Shield</h1>
-        <p>This is the Net-Shield content.</p>
+        <h2>Net-Shield Section</h2>
+        <!-- Add content for Net-Shield -->
     </div>
 
-    <!-- Button to toggle mouse trail -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
+    <script src="script.js"></script>
 </body>
 </html>
