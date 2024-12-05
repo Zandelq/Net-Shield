@@ -28,15 +28,22 @@ body, html {
     margin-top: 10px;
 }
 
-.link-1 {
+.holy-text {
+    font-size: 24px;
+    font-weight: normal;
+    color: white;
+    margin-top: 30px; /* 3 spaces down */
+}
+
+.link-1, .link-2 {
     font-size: 20px;
-    color: lightblue; /* Light blue color for the link */
+    color: lightblue; /* Light blue color for the links */
     text-decoration: none; /* No underline initially */
     margin-top: 20px;
     display: inline-block;
 }
 
-.link-1:hover {
+.link-1:hover, .link-2:hover {
     text-decoration: underline; /* Underline on hover */
     color: lightblue; /* Keep the light blue color */
 }
