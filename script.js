@@ -59,7 +59,7 @@ document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
     const trail = trailElements[trailIndex];
-    
+
     // Position the trail just below the cursor
     trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
     trail.style.top = `${event.pageY + 10}px`; // Position it below the mouse cursor by 10px (adjust as needed)
@@ -78,20 +78,4 @@ window.onload = function () {
     
     // Change the trail color every 1 second
     setInterval(changeTrailColor, 1000);
-    
-    // Set default active tab
-    showTab('doge-unblocker'); // Default tab on load
 };
-
-// Function to switch between tabs
-function showTab(tabId) {
-    // Hide all tabs
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    tabPanes.forEach(tab => {
-        tab.classList.remove('active');
-    });
-
-    // Show the selected tab
-    const selectedTab = document.getElementById(tabId);
-    selectedTab.classList.add('active');
-}
