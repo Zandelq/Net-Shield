@@ -60,4 +60,24 @@ body, html {
     display: block;
 }
 
-/* Ensure all the tabs are visible and properly styled */
+/* Mouse trail button (Disable Mouse Trail) */
+#trail-toggle {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: red; /* Set button color to red */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+#trail-toggle:hover {
+    background-color: #ff4d4d; /* Lighter red on hover */
+}
+
+/* Make sure the tab/bar styling doesn't interfere with the layout */
