@@ -5,6 +5,7 @@ let trailElements = []; // Reusable elements for the trail
 const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
 const AUDIO_URL_TOGGLE = 'https://freesound.org/data/previews/523/523012_8385276-lq.mp3'; // Toggle sound effect URL
 const AUDIO_URL_SCROLL = 'https://freesound.org/data/previews/133/133768_2383585-lq.mp3'; // Scroll sound effect URL
+const AUDIO_URL_TAB_CLICK = 'https://freesound.org/data/previews/133/133497_2383585-lq.mp3'; // Tab click sound effect URL
 
 // Initialize reusable trail elements
 function initializeTrailElements() {
@@ -83,3 +84,21 @@ window.onload = function () {
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
 };
+
+// Tab Switching Function
+function switchTab(tabNumber) {
+    // Play sound on tab click
+    playSoundEffect(AUDIO_URL_TAB_CLICK);
+
+    // Remove active class from all tabs
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    // Hide all content
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.style.display = 'none');
+
+    // Show the clicked tab's content
+    document.getElementById('content' + tabNumber).style.display = 'block';
+    document.getElementById('tab' + tabNumber).classList.add('active');
+}
