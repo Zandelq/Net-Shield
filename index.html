@@ -5,36 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Working Links</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="https://www.canva.com/design/DAGVoUImygY/SATpfGN3NAQiYGnK5x-Kfw/view?utm_content=DAGVoUImygY&utm_campaign=designshare&utm_medium=link&utm_source=editor" type="image/png">
+    <script src="script.js" defer></script>
 </head>
 <body>
-
-    <!-- Tab Navigation Bar -->
-    <div class="tab-container">
-        <button class="tab-button" onclick="showTab('doge-unblocker')">Doge-Unblocker</button>
-        <button class="tab-button" onclick="showTab('holy-unblocker')">Holy-Unblocker</button>
-        <button class="tab-button" onclick="showTab('net-shield')">Net-Shield</button>
+    <!-- Tab bar at the top -->
+    <div id="tab-bar">
+        <button class="tab-button">Home</button>
+        <button class="tab-button">Doge-Unblocker</button>
+        <button class="tab-button">Holy-Unblocker</button>
+        <button class="tab-button">Net-Shield</button>
     </div>
 
-    <!-- Tab Content Sections -->
-    <div class="tab-content">
-        <div id="doge-unblocker" class="tab-pane">
-            <h1>Doge-Unblocker</h1>
-            <p>Content for Doge-Unblocker goes here.</p>
-        </div>
-        <div id="holy-unblocker" class="tab-pane">
-            <h1>Holy-Unblocker</h1>
-            <p>Content for Holy-Unblocker goes here.</p>
-        </div>
-        <div id="net-shield" class="tab-pane">
-            <h1>Net-Shield</h1>
-            <p>Content for Net-Shield goes here.</p>
-        </div>
+    <!-- Content for different sections -->
+    <div id="home" class="content active">
+        <h1>Home Page</h1>
+        <p>Welcome to the home page content!</p>
     </div>
 
-    <!-- Toggle button for mouse trail -->
+    <div id="doge-unblocker" class="content">
+        <h1>Doge-Unblocker</h1>
+        <p>This is the Doge-Unblocker content.</p>
+    </div>
+
+    <div id="holy-unblocker" class="content">
+        <h1>Holy-Unblocker</h1>
+        <p>This is the Holy-Unblocker content.</p>
+    </div>
+
+    <div id="net-shield" class="content">
+        <h1>Net-Shield</h1>
+        <p>This is the Net-Shield content.</p>
+    </div>
+
+    <!-- Button to toggle mouse trail -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <script src="script.js"></script>
 </body>
 </html>
