@@ -1,8 +1,12 @@
+/* File path: /styles.css */
+
 body, html {
     margin: 0;
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
+    background-color: black; /* Black background for the page */
+    color: white; /* White text for better contrast */
 }
 
 .container {
@@ -13,6 +17,7 @@ body, html {
     font-size: 50px;
     font-weight: bold;
     margin-top: 200px;  /* Center the text vertically */
+    color: white; /* White text */
 }
 
 .links {
@@ -24,7 +29,7 @@ a {
     display: block;
     font-size: 30px;
     margin: 10px 0;
-    color: blue;
+    color: cyan; /* Cyan links for better visibility */
     text-decoration: none;
 }
 
