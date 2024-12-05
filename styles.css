@@ -4,12 +4,12 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: black; /* Set background color to black */
-    color: white; /* Set text color to white */
+    background-color: black; /* Black background */
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Make content align vertically */
+    flex-direction: column;
 }
 
 /* Center the "Home" text */
@@ -30,7 +30,7 @@ body, html {
     justify-content: center;
     padding: 10px 0;
     z-index: 1000;
-    border-bottom: 2px solid #444; /* Slight border to make the tab stand out */
+    border-bottom: 2px solid #444; /* Border for better visibility */
 }
 
 #tab-bar button {
@@ -45,19 +45,20 @@ body, html {
 }
 
 #tab-bar button:hover {
-    background-color: #333; /* Darker shade of black on hover */
-    color: cyan; /* Change text color on hover to cyan */
+    background-color: #333;
+    color: cyan;
 }
 
-/* Content container for different sections */
-.content {
-    display: none;
-    padding: 20px;
-}
-
-/* Show the active tab content */
-.content.active {
-    display: block;
+/* Mouse trail styling */
+.mouse-trail {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: green; /* Default green color for the trail */
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out and shrink */
 }
 
 /* Mouse trail button (Disable Mouse Trail) */
@@ -67,7 +68,7 @@ body, html {
     left: 10px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: red; /* Set button color to red */
+    background-color: red; /* Red color for toggle button */
     color: white;
     border: none;
     border-radius: 5px;
@@ -77,7 +78,11 @@ body, html {
 }
 
 #trail-toggle:hover {
-    background-color: #ff4d4d; /* Lighter red on hover */
+    background-color: #ff4d4d;
 }
 
-/* Make sure the tab/bar styling doesn't interfere with the layout */
+/* Active mouse trail button (When mouse trail is enabled) */
+#trail-toggle.active {
+    background-color: green; /* Change button to green when active */
+}
+
