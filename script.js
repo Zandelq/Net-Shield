@@ -1,4 +1,6 @@
-window.addEventListener('scroll', function() {
+// File path: /scripts/delayedLinks.js
+
+window.addEventListener('scroll', function () {
     const linksContainer = document.getElementById('links-container');
     const scrollPosition = window.scrollY;
 
@@ -9,7 +11,7 @@ window.addEventListener('scroll', function() {
                 // Create and show the links after the delay
                 for (let i = 1; i <= 10; i++) {
                     const link = document.createElement('a');
-                    link.href = 'about:blank'; // Set link to open in a blank page
+                    link.href = 'data:text/html,'; // Loads an empty page without a visible URL
                     link.target = '_blank'; // Open link in a new tab
                     link.innerText = `Link ${i}`;
                     linksContainer.appendChild(link);
