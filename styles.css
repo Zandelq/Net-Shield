@@ -15,10 +15,9 @@ body, html {
     font-size: 50px;
     font-weight: bold;
     color: white;
-    animation: textAnimation 2s ease-in-out infinite; /* Animation added */
+    animation: textAnimation 2s ease-in-out infinite;
 }
 
-/* Keyframes for the text animation */
 @keyframes textAnimation {
     0% {
         transform: scale(1);
@@ -54,13 +53,13 @@ a:hover {
 /* Mouse trail effect */
 .mouse-trail {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: cyan;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     pointer-events: none;
     opacity: 0; /* Initially hidden */
     transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out and shrink */
+    transition: background-color 0.1s ease-in-out; /* Smooth color change */
 }
 
 /* Style for the toggle button */
@@ -82,7 +81,6 @@ a:hover {
     background-color: lightblue;
 }
 
-/* Click animation for the toggle button */
 #trail-toggle.clicked {
     transform: scale(0.9);
 }
