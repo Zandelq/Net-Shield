@@ -5,8 +5,8 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: black; /* Black background for the page */
-    color: white; /* White text for better contrast */
+    background-color: black; /* Black background for the entire page */
+    color: white; /* White text for contrast */
 }
 
 .container {
@@ -42,7 +42,7 @@ a:hover {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: white; /* Trail color */
+    background-color: cyan; /* Cyan dots for trail effect */
     border-radius: 50%; /* Make it circular */
     pointer-events: none; /* Ensure it doesn't interfere with clicks */
     opacity: 0.8;
