@@ -61,9 +61,8 @@ a:hover {
     height: 20px;  /* Larger height of the trail */
     border-radius: 10px; /* Rounded corners for a smoother look */
     pointer-events: none;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 1s ease-in-out, transform 0.3s ease-in-out, background-color 1s ease-in-out; /* Smooth transitions */
-    transition-timing-function: ease-out;
+    opacity: 1; /* No fade-out, it stays visible */
+    transition: background-color 1s ease-in-out; /* Smooth color transitions */
 }
 
 /* Style for the toggle button */
