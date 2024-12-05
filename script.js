@@ -22,7 +22,7 @@ function initializeTrailElements() {
     }
 }
 
-// Change color every 3 seconds
+// Change color every 2 seconds
 function changeTrailColor() {
     currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
     const color = rainbowColors[currentColorIndex];
@@ -59,16 +59,16 @@ document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
     const trail = trailElements[trailIndex];
-    trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail on the mouse
+    trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
     trail.style.top = `${event.pageY - trail.offsetHeight / 2}px`;
-    trail.style.opacity = '0.8';
+    trail.style.opacity = '1'; // Fade in the trail segment
     trail.style.transform = 'scale(1)';
 
     // Trigger fade-out animation
     setTimeout(() => {
-        trail.style.opacity = '0';
-        trail.style.transform = 'scale(0.5)';
-    }, 0);
+        trail.style.opacity = '0'; // Fade out after a short delay
+        trail.style.transform = 'scale(0.5)'; // Shrink the trail segment
+    }, 1000);
 
     // Move to the next trail element
     trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
@@ -80,6 +80,6 @@ window.onload = function () {
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
     
-    // Change the trail color every 3 seconds
-    setInterval(changeTrailColor, 3000);
+    // Change the trail color every 2 seconds
+    setInterval(changeTrailColor, 2000);
 };
