@@ -15,7 +15,7 @@ body, html {
     font-size: 50px;
     font-weight: bold;
     color: white;
-    animation: textAnimation 2s ease-in-out infinite;
+    animation: textAnimation 2s ease-in-out infinite; /* Animation for text */
 }
 
 @keyframes textAnimation {
@@ -57,8 +57,8 @@ a:hover {
     height: 12px;
     border-radius: 50%;
     pointer-events: none;
-    opacity: 0; /* Initially hidden */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out and shrink */
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out */
     transition: background-color 0.1s ease-in-out; /* Smooth color change */
 }
 
