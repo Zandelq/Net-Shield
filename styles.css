@@ -21,20 +21,6 @@ body, html {
     animation: textAnimation 2s ease-in-out infinite; /* Animation for text */
 }
 
-.doge-text {
-    font-size: 24px;
-    font-weight: normal;
-    color: white;
-    margin-top: 10px;
-}
-
-.holy-text {
-    font-size: 24px;
-    font-weight: normal;
-    color: white;
-    margin-top: 30px; /* 3 spaces down */
-}
-
 .link-1, .link-2 {
     font-size: 20px;
     color: lightblue; /* Light blue color for the links */
@@ -46,6 +32,13 @@ body, html {
 .link-1:hover, .link-2:hover {
     text-decoration: underline; /* Underline on hover */
     color: lightblue; /* Keep the light blue color */
+}
+
+.holy-text {
+    font-size: 24px;
+    font-weight: normal;
+    color: white;
+    margin-top: 20px; /* Add space below Link 1 */
 }
 
 /* Links styling */
