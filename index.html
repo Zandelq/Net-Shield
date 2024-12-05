@@ -1,81 +1,40 @@
-// File path: /script.js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Links</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://www.canva.com/design/DAGVoUImygY/SATpfGN3NAQiYGnK5x-Kfw/view?utm_content=DAGVoUImygY&utm_campaign=designshare&utm_medium=link&utm_source=editor" type="image/png">
+</head>
+<body>
 
-let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
-let trailElements = []; // Reusable elements for the trail
-const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
-const AUDIO_URL = 'https://freesound.org/data/previews/523/523012_8385276-lq.mp3'; // Sound effect URL
+    <!-- Tab Navigation Bar -->
+    <div class="tab-container">
+        <button class="tab-button" onclick="showTab('doge-unblocker')">Doge-Unblocker</button>
+        <button class="tab-button" onclick="showTab('holy-unblocker')">Holy-Unblocker</button>
+        <button class="tab-button" onclick="showTab('net-shield')">Net-Shield</button>
+    </div>
 
-// Array of rainbow colors for the trail
-const rainbowColors = [
-    'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'
-];
+    <!-- Tab Content Sections -->
+    <div class="tab-content">
+        <div id="doge-unblocker" class="tab-pane">
+            <h1>Doge-Unblocker</h1>
+            <p>Content for Doge-Unblocker goes here.</p>
+        </div>
+        <div id="holy-unblocker" class="tab-pane">
+            <h1>Holy-Unblocker</h1>
+            <p>Content for Holy-Unblocker goes here.</p>
+        </div>
+        <div id="net-shield" class="tab-pane">
+            <h1>Net-Shield</h1>
+            <p>Content for Net-Shield goes here.</p>
+        </div>
+    </div>
 
-let currentColorIndex = 0; // Index to track the current color
+    <!-- Toggle button for mouse trail -->
+    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
-// Initialize reusable trail elements
-function initializeTrailElements() {
-    for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
-        const trail = document.createElement('div');
-        trail.className = 'mouse-trail';
-        document.body.appendChild(trail);
-        trailElements.push(trail);
-    }
-}
-
-// Change color every 1 second
-function changeTrailColor() {
-    currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
-    const color = rainbowColors[currentColorIndex];
-    trailElements.forEach(trail => {
-        trail.style.backgroundColor = color;
-    });
-}
-
-// Play a sound effect
-function playSoundEffect() {
-    const audio = new Audio(AUDIO_URL);
-    audio.volume = 0.5; // Adjust volume as needed
-    audio.play();
-}
-
-// Toggle mouse trail functionality
-function toggleMouseTrail() {
-    isMouseTrailActive = !isMouseTrailActive;
-    localStorage.setItem('mouseTrailActive', JSON.stringify(isMouseTrailActive)); // Save state
-    const button = document.getElementById('trail-toggle');
-    button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
-
-    // Add a click animation class
-    button.classList.add('clicked');
-    setTimeout(() => button.classList.remove('clicked'), 150);
-
-    // Play toggle sound
-    playSoundEffect();
-}
-
-// Handle mouse movement for the trail effect
-let trailIndex = 0; // Track the current trail element to reuse
-document.addEventListener('mousemove', (event) => {
-    if (!isMouseTrailActive) return;
-
-    const trail = trailElements[trailIndex];
-
-    // Position the trail just below the cursor
-    trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
-    trail.style.top = `${event.pageY + 10}px`; // Position it below the mouse cursor by 10px (adjust as needed)
-
-    trail.style.opacity = '1'; // Keep the trail visible
-
-    // Move to the next trail element
-    trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
-});
-
-// Initialize the button and trail on page load
-window.onload = function () {
-    initializeTrailElements();
-    const button = document.getElementById('trail-toggle');
-    button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
-    
-    // Change the trail color every 1 second
-    setInterval(changeTrailColor, 1000);
-};
+    <script src="script.js"></script>
+</body>
+</html>
