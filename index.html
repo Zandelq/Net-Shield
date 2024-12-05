@@ -3,19 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Working Links</title>
+    <title>Tab GUI with Animation</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://www.canva.com/design/DAGVoUImygY/SATpfGN3NAQiYGnK5x-Kfw/view?utm_content=DAGVoUImygY&utm_campaign=designshare&utm_medium=link&utm_source=editor" type="image/png">
 </head>
 <body>
 
     <div class="container">
-        <div class="center-text">
-            <h1>Working Links</h1>
+        <div class="tabs">
+            <div class="tab" id="tab1" onclick="switchTab(1)">Tab 1</div>
+            <div class="tab" id="tab2" onclick="switchTab(2)">Tab 2</div>
+            <div class="tab" id="tab3" onclick="switchTab(3)">Tab 3</div>
         </div>
-        <div class="links" id="links-container">
-            <!-- Links will appear here after scroll -->
-        </div>
+
+        <div class="tab-content" id="content1">Content for Tab 1</div>
+        <div class="tab-content" id="content2">Content for Tab 2</div>
+        <div class="tab-content" id="content3">Content for Tab 3</div>
     </div>
 
     <!-- Toggle button for mouse trail -->
