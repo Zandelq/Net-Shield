@@ -59,8 +59,8 @@ document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
     const trail = trailElements[trailIndex];
-    trail.style.left = `${event.pageX}px`;
-    trail.style.top = `${event.pageY}px`;
+    trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail on the mouse
+    trail.style.top = `${event.pageY - trail.offsetHeight / 2}px`;
     trail.style.opacity = '0.8';
     trail.style.transform = 'scale(1)';
 
