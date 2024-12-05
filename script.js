@@ -1,38 +1,66 @@
 // File path: /script.js
 
-window.addEventListener('scroll', function () {
-    const linksContainer = document.getElementById('links-container');
-    const scrollPosition = window.scrollY;
+let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
+let trailElements = []; // Reusable elements for the trail
+const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
+const AUDIO_URL = 'https://freesound.org/data/previews/523/523012_8385276-lq.mp3'; // Sound effect URL
 
-    // Only add links after scrolling down 500px
-    if (scrollPosition > 500) {
-        setTimeout(() => {
-            // Check if links are already added
-            if (!linksContainer.innerHTML.trim()) {
-                for (let i = 1; i <= 10; i++) {
-                    const link = document.createElement('a');
-                    link.href = 'data:text/html,'; // Creates a blank page without visible URL
-                    link.target = '_blank'; // Opens in a new tab
-                    link.innerText = `Link ${i}`;
-                    linksContainer.appendChild(link);
-                }
-                linksContainer.style.display = 'block'; // Show the links container
-            }
-        }, 2000); // 2 seconds delay
+// Initialize reusable trail elements
+function initializeTrailElements() {
+    for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
+        const trail = document.createElement('div');
+        trail.className = 'mouse-trail';
+        document.body.appendChild(trail);
+        trailElements.push(trail);
     }
-});
+}
 
-// Mouse trail effect
+// Play a sound effect
+function playSoundEffect() {
+    const audio = new Audio(AUDIO_URL);
+    audio.volume = 0.5; // Adjust volume as needed
+    audio.play();
+}
+
+// Toggle mouse trail functionality
+function toggleMouseTrail() {
+    isMouseTrailActive = !isMouseTrailActive;
+    localStorage.setItem('mouseTrailActive', JSON.stringify(isMouseTrailActive)); // Save state
+    const button = document.getElementById('trail-toggle');
+    button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+
+    // Add a click animation class
+    button.classList.add('clicked');
+    setTimeout(() => button.classList.remove('clicked'), 150);
+
+    // Play toggle sound
+    playSoundEffect();
+}
+
+// Handle mouse movement for the trail effect
+let trailIndex = 0; // Track the current trail element to reuse
 document.addEventListener('mousemove', (event) => {
-    const trail = document.createElement('div');
-    trail.className = 'mouse-trail';
+    if (!isMouseTrailActive) return;
+
+    const trail = trailElements[trailIndex];
     trail.style.left = `${event.pageX}px`;
     trail.style.top = `${event.pageY}px`;
+    trail.style.opacity = '0.8';
+    trail.style.transform = 'scale(1)';
 
-    document.body.appendChild(trail);
-
-    // Remove the trail element after a short delay
+    // Trigger fade-out animation
     setTimeout(() => {
-        trail.remove();
-    }, 500); // Adjust lifespan of the trail here
+        trail.style.opacity = '0';
+        trail.style.transform = 'scale(0.5)';
+    }, 0);
+
+    // Move to the next trail element
+    trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
 });
+
+// Initialize the button and trail on page load
+window.onload = function () {
+    initializeTrailElements();
+    const button = document.getElementById('trail-toggle');
+    button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+};
