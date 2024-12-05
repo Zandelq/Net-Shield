@@ -50,12 +50,17 @@ document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
     const trail = trailElements[trailIndex];
-    
+
     // Position the trail just below the cursor
     trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
     trail.style.top = `${event.pageY + 10}px`; // Position it below the mouse cursor by 10px (adjust as needed)
 
-    trail.style.opacity = '1'; // Keep the trail visible
+    trail.style.opacity = '1'; // Keep the trail visible initially
+
+    // Fade out the trail after 2 seconds
+    setTimeout(() => {
+        trail.style.opacity = '0'; // Fade out the trail
+    }, 2000); // After 2 seconds
 
     // Move to the next trail element
     trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
@@ -66,11 +71,11 @@ window.onload = function () {
     initializeTrailElements();
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
-    
-    // Change the trail color to green when enabled
+
+    // Change the trail color to rainbow when enabled
     if (isMouseTrailActive) {
         trailElements.forEach(trail => {
-            trail.style.backgroundColor = 'green'; // Set the trail to green when active
+            trail.style.background = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)'; // Rainbow gradient for trail
         });
     }
 };
