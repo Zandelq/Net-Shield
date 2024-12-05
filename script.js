@@ -10,6 +10,8 @@ const rainbowColors = [
     'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'
 ];
 
+let currentColorIndex = 0; // Index to track the current color
+
 // Initialize reusable trail elements
 function initializeTrailElements() {
     for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
@@ -18,6 +20,15 @@ function initializeTrailElements() {
         document.body.appendChild(trail);
         trailElements.push(trail);
     }
+}
+
+// Change color every 3 seconds
+function changeTrailColor() {
+    currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
+    const color = rainbowColors[currentColorIndex];
+    trailElements.forEach(trail => {
+        trail.style.backgroundColor = color;
+    });
 }
 
 // Play a sound effect
@@ -52,7 +63,6 @@ document.addEventListener('mousemove', (event) => {
     trail.style.top = `${event.pageY}px`;
     trail.style.opacity = '0.8';
     trail.style.transform = 'scale(1)';
-    trail.style.backgroundColor = rainbowColors[trailIndex % rainbowColors.length]; // Assign rainbow colors
 
     // Trigger fade-out animation
     setTimeout(() => {
@@ -69,4 +79,7 @@ window.onload = function () {
     initializeTrailElements();
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+    
+    // Change the trail color every 3 seconds
+    setInterval(changeTrailColor, 3000);
 };
