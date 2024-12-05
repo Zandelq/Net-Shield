@@ -1,3 +1,4 @@
+/* Global body and html styles */
 body, html {
     margin: 0;
     padding: 0;
@@ -7,6 +8,7 @@ body, html {
     color: white;
 }
 
+/* Center text and animation */
 .container {
     text-align: center;
 }
@@ -33,6 +35,7 @@ body, html {
     }
 }
 
+/* Links styling */
 .links {
     margin-top: 2000px;
     display: none;
@@ -53,13 +56,19 @@ a:hover {
 /* Mouse trail effect */
 .mouse-trail {
     position: absolute;
-    width: 96px;
-    height: 96px;
-    border-radius: 50px;
+    width: 190px; /* Set the width of the trail to approximately 5 cm */
+    height: 12px; /* Height of the snake-like trail */
+    border-radius: 5px; /* Add rounded corners to make it more snake-like */
     pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s ease, transform 0.5s ease, left 0.3s ease, top 0.3s ease; /* Smooth animations */
     transition: background-color 0.1s ease-in-out; /* Smooth color change */
+}
+
+/* Snake trail animation */
+.mouse-trail.snake {
+    transform: scaleX(1) rotate(0deg);
+    transition-timing-function: ease-out;
 }
 
 /* Style for the toggle button */
