@@ -5,24 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Working Links</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Home page content -->
-    <div class="home-text">
-        Home
+    <!-- Tab bar at the top -->
+    <div id="tab-bar">
+        <button class="tab-button">Home</button>
+        <button class="tab-button">Doge-Unblocker</button>
+        <button class="tab-button">Holy-Unblocker</button>
+        <button class="tab-button">Net-Shield</button>
     </div>
 
-    <!-- Tab Bar with links to different pages -->
-    <div id="tab-bar">
-        <button>Home</button>
-        <button>Doge-Unblocker</button>
-        <button>Holy-Unblocker</button>
-        <button>Net-Shield</button>
+    <!-- Content for different sections -->
+    <div id="home" class="content active">
+        <h1>Home Page</h1>
+        <p>Welcome to the home page content!</p>
+    </div>
+
+    <div id="doge-unblocker" class="content">
+        <h1>Doge-Unblocker</h1>
+        <p>This is the Doge-Unblocker content.</p>
+    </div>
+
+    <div id="holy-unblocker" class="content">
+        <h1>Holy-Unblocker</h1>
+        <p>This is the Holy-Unblocker content.</p>
+    </div>
+
+    <div id="net-shield" class="content">
+        <h1>Net-Shield</h1>
+        <p>This is the Net-Shield content.</p>
     </div>
 
     <!-- Button to toggle mouse trail -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <script src="script.js"></script>
 </body>
 </html>
