@@ -21,46 +21,19 @@ body, html {
     animation: textAnimation 2s ease-in-out infinite; /* Animation for text */
 }
 
-/* Doge Unblocker text below the title */
-.doge-text {
-    font-size: 24px;
-    font-weight: normal;
-    color: white;
-    margin-top: 10px;
-}
-
-/* Link 1 under Doge Unblocker */
-.link-1 {
-    font-size: 24px; /* Same size as Doge-Unblocker text */
-    color: lightblue;
-    text-decoration: none;
-    margin-top: 10px;
-}
-
-.link-1:hover {
-    text-decoration: underline;
-}
-
-/* Holy-Unblocker text */
-.holy-text {
-    font-size: 24px;
-    font-weight: normal;
-    color: white;
-    margin-top: 20px; /* Add space below Link 1 */
-}
-
-/* Link 2 with clickable link that opens in a new tab */
-.link-2 {
-    font-size: 20px;
-    color: lightblue;
-    text-decoration: none;
-    margin-top: 20px;
-    display: inline-block;
-}
-
-.link-2:hover {
-    text-decoration: underline;
-    color: lightblue;
+@keyframes textAnimation {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
 }
 
 /* Links styling */
