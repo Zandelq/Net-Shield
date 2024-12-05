@@ -52,13 +52,13 @@ body, html {
 /* Mouse trail styling */
 .mouse-trail {
     position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: green; /* Default green color for the trail */
-    border-radius: 50%;
+    width: 15px; /* Smaller width to match the cursor size */
+    height: 25px; /* Taller height to mimic the cursor's aspect ratio */
+    border-radius: 5px; /* Rounded edges */
     pointer-events: none;
-    opacity: 0; /* Initially hidden */
+    opacity: 0; /* Start with opacity 0 */
     transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out and shrink */
+    background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); /* Rainbow gradient */
 }
 
 /* Mouse trail button (Disable Mouse Trail) */
@@ -85,4 +85,3 @@ body, html {
 #trail-toggle.active {
     background-color: green; /* Change button to green when active */
 }
-
