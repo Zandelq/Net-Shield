@@ -4,8 +4,8 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Set a different background color */
-    color: black;
+    background-color: black; /* Set background color to black */
+    color: white; /* Set text color to white */
     overflow: hidden; /* Prevent scrollbars if the trail extends */
 }
 
