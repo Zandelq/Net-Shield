@@ -59,7 +59,7 @@ document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
     const trail = trailElements[trailIndex];
-
+    
     // Position the trail just below the cursor
     trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
     trail.style.top = `${event.pageY + 10}px`; // Position it below the mouse cursor by 10px (adjust as needed)
@@ -75,21 +75,7 @@ window.onload = function () {
     initializeTrailElements();
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
-
+    
     // Change the trail color every 1 second
     setInterval(changeTrailColor, 1000);
 };
-
-// Tab functionality
-const tabs = document.querySelectorAll('.tab-button');
-const tabContents = document.querySelectorAll('.content');
-
-tabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => {
-        // Hide all tab content
-        tabContents.forEach(content => content.classList.remove('active'));
-        
-        // Show the clicked tab content
-        tabContents[index].classList.add('active');
-    });
-});
