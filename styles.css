@@ -6,6 +6,7 @@ body, html {
     font-family: Arial, sans-serif;
     background-color: black;
     color: white;
+    overflow: hidden; /* Ensure no scrollbars appear */
 }
 
 /* Center text and animation */
@@ -63,19 +64,6 @@ a:hover {
     opacity: 0; /* Initially hidden */
     transition: opacity 1s ease-in-out, transform 0.3s ease-in-out, background-color 1s ease-in-out; /* Smooth transitions */
     transition-timing-function: ease-out;
-}
-
-/* Animation for text */
-@keyframes colorChange {
-    0% {
-        background-color: red;
-    }
-    50% {
-        background-color: yellow;
-    }
-    100% {
-        background-color: green;
-    }
 }
 
 /* Style for the toggle button */
