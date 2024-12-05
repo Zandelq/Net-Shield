@@ -21,19 +21,23 @@ body, html {
     animation: textAnimation 2s ease-in-out infinite; /* Animation for text */
 }
 
-@keyframes textAnimation {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
+.doge-text {
+    font-size: 24px;
+    font-weight: normal;
+    color: white;
+    margin-top: 10px;
+}
+
+.link-1 {
+    font-size: 20px;
+    color: blue;
+    text-decoration: none;
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.link-1:hover {
+    text-decoration: underline;
 }
 
 /* Links styling */
