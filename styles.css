@@ -2,67 +2,52 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
     font-family: Arial, sans-serif;
     background-color: black;
     color: white;
-    overflow: hidden; /* Ensure no scrollbars appear */
+    height: 100%;
+    overflow: hidden; /* Prevent scrollbars */
 }
 
-/* Center text and animation */
-.container {
-    text-align: center;
+/* Tab container and styling */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    background-color: gray;
+    padding: 10px;
 }
 
-.center-text h1 {
-    font-size: 50px;
-    font-weight: bold;
+.tab-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: gray;
+    border: none;
     color: white;
-    animation: textAnimation 2s ease-in-out infinite; /* Animation for text */
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-@keyframes textAnimation {
-    0% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
-    50% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.8;
-    }
+.tab-button:hover {
+    background-color: #555;
 }
 
-/* Links styling */
-.links {
-    margin-top: 2000px;
-    display: none;
+.tab-button:focus {
+    outline: none;
 }
 
-a {
-    display: block;
-    font-size: 30px;
-    margin: 10px 0;
-    color: cyan;
-    text-decoration: none;
+/* Tab content */
+.tab-content {
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px;
 }
 
-a:hover {
-    text-decoration: underline;
+.tab-pane {
+    display: none; /* Hide all tabs by default */
 }
 
-/* Mouse trail effect */
-.mouse-trail {
-    position: absolute;
-    width: 10px;  /* Smaller width of the trail */
-    height: 20px;  /* Larger height of the trail */
-    border-radius: 10px; /* Rounded corners for a smoother look */
-    pointer-events: none;
-    opacity: 1; /* No fade-out, it stays visible */
-    transition: background-color 1s ease-in-out; /* Smooth color transitions */
+.tab-pane.active {
+    display: block; /* Show the active tab */
 }
 
 /* Style for the toggle button */
