@@ -60,7 +60,7 @@ document.addEventListener('mousemove', (event) => {
 
     const trail = trailElements[trailIndex];
     trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
-    trail.style.top = `${event.pageY - trail.offsetHeight / 2}px`;
+    trail.style.top = `${event.pageY + 15}px`; // Position it slightly below the mouse cursor (adjust as needed)
     trail.style.opacity = '1'; // Fade in the trail segment
     trail.style.transform = 'scale(1)';
 
