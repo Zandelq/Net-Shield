@@ -45,7 +45,7 @@ body, html {
 }
 
 #tab-bar button:hover {
-    background-color: #ff4d4d; /* Darker shade of black on hover */
+    background-color: #333; /* Darker shade of black on hover */
     color: cyan; /* Change text color on hover to cyan */
 }
 
@@ -67,7 +67,7 @@ body, html {
     left: 10px;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: white; /* Set button color to red */
+    background-color: red; /* Set button color to red */
     color: white;
     border: none;
     border-radius: 5px;
