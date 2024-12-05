@@ -3,9 +3,12 @@
 let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
 let trailElements = []; // Reusable elements for the trail
 const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
-const AUDIO_URL_TOGGLE = 'https://freesound.org/data/previews/523/523012_8385276-lq.mp3'; // Toggle sound effect URL
-const AUDIO_URL_SCROLL = 'https://freesound.org/data/previews/133/133768_2383585-lq.mp3'; // Scroll sound effect URL
-const AUDIO_URL_TAB_CLICK = 'https://freesound.org/data/previews/133/133497_2383585-lq.mp3'; // Tab click sound effect URL
+const AUDIO_URL = 'https://freesound.org/data/previews/523/523012_8385276-lq.mp3'; // Sound effect URL
+
+// Array of rainbow colors for the trail
+const rainbowColors = [
+    'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'
+];
 
 // Initialize reusable trail elements
 function initializeTrailElements() {
@@ -18,8 +21,8 @@ function initializeTrailElements() {
 }
 
 // Play a sound effect
-function playSoundEffect(url) {
-    const audio = new Audio(url);
+function playSoundEffect() {
+    const audio = new Audio(AUDIO_URL);
     audio.volume = 0.5; // Adjust volume as needed
     audio.play();
 }
@@ -36,13 +39,11 @@ function toggleMouseTrail() {
     setTimeout(() => button.classList.remove('clicked'), 150);
 
     // Play toggle sound
-    playSoundEffect(AUDIO_URL_TOGGLE);
+    playSoundEffect();
 }
 
 // Handle mouse movement for the trail effect
 let trailIndex = 0; // Track the current trail element to reuse
-let currentColor = getRandomColor(); // Initial random color for the trail
-
 document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
@@ -51,7 +52,7 @@ document.addEventListener('mousemove', (event) => {
     trail.style.top = `${event.pageY}px`;
     trail.style.opacity = '0.8';
     trail.style.transform = 'scale(1)';
-    trail.style.backgroundColor = currentColor; // Apply the dynamic color
+    trail.style.backgroundColor = rainbowColors[trailIndex % rainbowColors.length]; // Assign rainbow colors
 
     // Trigger fade-out animation
     setTimeout(() => {
@@ -63,42 +64,9 @@ document.addEventListener('mousemove', (event) => {
     trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
 });
 
-// Generate a random color
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
-
-// Handle scroll event for sound effect
-document.addEventListener('wheel', () => {
-    playSoundEffect(AUDIO_URL_SCROLL); // Play scroll sound
-});
-
 // Initialize the button and trail on page load
 window.onload = function () {
     initializeTrailElements();
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
 };
-
-// Tab Switching Function
-function switchTab(tabNumber) {
-    // Play sound on tab click
-    playSoundEffect(AUDIO_URL_TAB_CLICK);
-
-    // Remove active class from all tabs
-    const tabs = document.querySelectorAll('.tab');
-    tabs.forEach(tab => tab.classList.remove('active'));
-
-    // Hide all content
-    const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(content => content.style.display = 'none');
-
-    // Show the clicked tab's content
-    document.getElementById('content' + tabNumber).style.display = 'block';
-    document.getElementById('tab' + tabNumber).classList.add('active');
-}
