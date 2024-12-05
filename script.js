@@ -5,6 +5,14 @@ let trailElements = []; // Reusable elements for the trail
 const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
 const AUDIO_URL = 'https://freesound.org/data/previews/523/523012_8385276-lq.mp3'; // Sound effect URL
 
+// Array of rainbow colors to cycle through
+const rainbowColors = [
+    'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'
+];
+
+let currentColorIndex = 0; // Index to track the current color
+let trailIndex = 0; // Track the current trail element to reuse
+
 // Initialize reusable trail elements
 function initializeTrailElements() {
     for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
@@ -13,6 +21,20 @@ function initializeTrailElements() {
         document.body.appendChild(trail);
         trailElements.push(trail);
     }
+}
+
+// Change color every 1 second and apply the fade effect
+function changeTrailColor() {
+    currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
+    const color = rainbowColors[currentColorIndex];
+    trailElements.forEach((trail, index) => {
+        trail.style.backgroundColor = color;
+        
+        // Set timeout for fade-in effect (2 seconds after disappearance)
+        setTimeout(() => {
+            trail.style.opacity = '1'; // Fade in
+        }, 2000); // Fading back in after 2 seconds
+    });
 }
 
 // Play a sound effect
@@ -45,7 +67,6 @@ function toggleMouseTrail() {
 }
 
 // Handle mouse movement for the trail effect
-let trailIndex = 0; // Track the current trail element to reuse
 document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
@@ -55,7 +76,7 @@ document.addEventListener('mousemove', (event) => {
     trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
     trail.style.top = `${event.pageY + 10}px`; // Position it below the mouse cursor by 10px (adjust as needed)
 
-    trail.style.opacity = '1'; // Keep the trail visible initially
+    trail.style.opacity = '1'; // Make the trail visible initially
 
     // Fade out the trail after 2 seconds
     setTimeout(() => {
@@ -72,10 +93,6 @@ window.onload = function () {
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
 
-    // Change the trail color to rainbow when enabled
-    if (isMouseTrailActive) {
-        trailElements.forEach(trail => {
-            trail.style.background = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)'; // Rainbow gradient for trail
-        });
-    }
+    // Change the trail color every 1 second
+    setInterval(changeTrailColor, 1000);
 };
