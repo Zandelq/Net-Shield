@@ -61,14 +61,8 @@ document.addEventListener('mousemove', (event) => {
     const trail = trailElements[trailIndex];
     trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
     trail.style.top = `${event.pageY - trail.offsetHeight - 10}px`; // Position it slightly above the mouse cursor (adjusted to be higher)
-    trail.style.opacity = '1'; // Fade in the trail segment
-    trail.style.transform = 'scale(1)';
 
-    // Trigger fade-out animation
-    setTimeout(() => {
-        trail.style.opacity = '0'; // Fade out after a short delay
-        trail.style.transform = 'scale(0.5)'; // Shrink the trail segment
-    }, 1000);
+    trail.style.opacity = '1'; // Keep the trail visible
 
     // Move to the next trail element
     trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
