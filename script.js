@@ -78,4 +78,20 @@ window.onload = function () {
     
     // Change the trail color every 1 second
     setInterval(changeTrailColor, 1000);
+    
+    // Set default active tab
+    showTab('doge-unblocker'); // Default tab on load
 };
+
+// Function to switch between tabs
+function showTab(tabId) {
+    // Hide all tabs
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabPanes.forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    // Show the selected tab
+    const selectedTab = document.getElementById(tabId);
+    selectedTab.classList.add('active');
+}
