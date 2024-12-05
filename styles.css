@@ -56,19 +56,26 @@ a:hover {
 /* Mouse trail effect */
 .mouse-trail {
     position: absolute;
-    width: 190px; /* Set the width of the trail to approximately 5 cm */
-    height: 12px; /* Height of the snake-like trail */
-    border-radius: 5px; /* Add rounded corners to make it more snake-like */
+    width: 10px;  /* Smaller width of the trail */
+    height: 20px;  /* Larger height of the trail */
+    border-radius: 10px; /* Rounded corners for a smoother look */
     pointer-events: none;
     opacity: 0; /* Initially hidden */
-    transition: opacity 1s ease-in-out, transform 0.3s ease-in-out; /* Smooth fade-in and fade-out */
-    transition: background-color 1s ease-in-out; /* Smooth color transition */
+    transition: opacity 1s ease-in-out, transform 0.3s ease-in-out, background-color 1s ease-in-out; /* Smooth transitions */
+    transition-timing-function: ease-out;
 }
 
-/* Snake trail animation */
-.mouse-trail.snake {
-    transform: scaleX(1) rotate(0deg);
-    transition-timing-function: ease-out;
+/* Animation for text */
+@keyframes colorChange {
+    0% {
+        background-color: red;
+    }
+    50% {
+        background-color: yellow;
+    }
+    100% {
+        background-color: green;
+    }
 }
 
 /* Style for the toggle button */
