@@ -53,9 +53,9 @@ a:hover {
 /* Mouse trail effect */
 .mouse-trail {
     position: absolute;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+    width: 96px;
+    height: 96px;
+    border-radius: 50px;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out */
