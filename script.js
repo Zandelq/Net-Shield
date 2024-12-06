@@ -1,52 +1,37 @@
-let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
-let trailElements = [];
-const MAX_TRAIL_COUNT = 20;
-const rainbowColors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
-let currentColorIndex = 0;
-let trailIndex = 0;
-
-function initializeTrailElements() {
-    for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
-        const trail = document.createElement('div');
-        trail.className = 'mouse-trail';
-        document.body.appendChild(trail);
-        trailElements.push(trail);
-    }
-}
-
-function changeTrailColor() {
-    currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
-    const color = rainbowColors[currentColorIndex];
-    trailElements.forEach(trail => {
-        trail.style.backgroundColor = color;
-    });
-}
+// Toggle mouse trail functionality
+let isMouseTrailActive = true;
 
 function toggleMouseTrail() {
     isMouseTrailActive = !isMouseTrailActive;
-    localStorage.setItem('mouseTrailActive', JSON.stringify(isMouseTrailActive));
     const button = document.getElementById('trail-toggle');
     button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
 }
 
+// Handle mouse trail effect
 document.addEventListener('mousemove', (event) => {
     if (!isMouseTrailActive) return;
 
-    const trail = trailElements[trailIndex];
+    const trail = document.createElement('div');
+    trail.className = 'mouse-trail';
     trail.style.left = `${event.pageX}px`;
     trail.style.top = `${event.pageY}px`;
-    trail.style.opacity = '1';
+    document.body.appendChild(trail);
 
-    setTimeout(() => {
-        trail.style.opacity = '0';
-    }, 1000);
-
-    trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
+    setTimeout(() => trail.remove(), 2000); // Remove trail after 2 seconds
 });
 
-window.onload = function () {
-    initializeTrailElements();
-    const button = document.getElementById('trail-toggle');
-    button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
-    setInterval(changeTrailColor, 1000);
-};
+// Mouse trail CSS (add to styles.css or dynamically set)
+const style = document.createElement('style');
+style.innerHTML = `
+    .mouse-trail {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: red;
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 0.8;
+        transition: opacity 0.5s ease;
+    }
+`;
+document.head.appendChild(style);
