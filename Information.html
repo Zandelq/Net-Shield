@@ -7,14 +7,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Information page content -->
-    <h1>Welcome to the Information Page</h1>
-    <p>This is the /Information page of your site. You can enhance it with more content!</p>
+    <!-- Top Bar with navigation links -->
+    <div id="tab-bar">
+        <button onclick="location.href='index.html'">Home</button>
+        <button>Doge-Unblocker</button>
+        <button>Holy-Unblocker</button>
+        <button>Net-Shield</button>
+        <button onclick="location.href='Information.html'">Info</button>
+    </div>
 
-    <!-- Link to navigate back to Home page -->
-    <a href="index.html" class="button">
-        <button>Back to Home</button>
-    </a>
+    <!-- Information page content -->
+    <div class="content">
+        <h1>Welcome to the Information Page</h1>
+        <p>This is the /Information page of your site. You can enhance it with more content!</p>
+    </div>
+
+    <!-- Button to toggle mouse trail -->
+    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
     <script src="script.js"></script>
 </body>
