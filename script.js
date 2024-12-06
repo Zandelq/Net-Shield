@@ -10,6 +10,7 @@ let trailIndex = 0; // Track the current trail element to reuse
 
 // Set the default size for the trail
 const CURSOR_SIZE = 24; // Default size, adjust as needed
+const OFFSET_X = 10; // Horizontal offset to make the trail appear to the right
 
 // Initialize reusable trail elements
 function initializeTrailElements() {
@@ -60,8 +61,8 @@ document.addEventListener('mousemove', (event) => {
     // Get the cursor's size dynamically (you can modify this if needed)
     const cursorSize = CURSOR_SIZE;
 
-    // Position the trail right under the cursor
-    trail.style.left = `${event.pageX - cursorSize / 2}px`; // Center horizontally under cursor
+    // Position the trail just below the cursor and to the right
+    trail.style.left = `${event.pageX + OFFSET_X - cursorSize / 2}px`; // Move trail to the right of the cursor
     trail.style.top = `${event.pageY + cursorSize / 2}px`; // Position it directly under the mouse
 
     trail.style.opacity = '1'; // Fade in
