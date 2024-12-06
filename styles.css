@@ -10,6 +10,8 @@ body, html {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
 }
 
 /* Center the "Home" text */
@@ -84,16 +86,19 @@ body, html {
 #trail-toggle.active {
     background-color: green; /* Change button to green when active */
 }
-/* Ensure the body and html are scrollable */
-html, body {
-    height: 100%;
-    margin: 0;
-    overflow-y: auto; /* Enables vertical scrolling */
-    overflow-x: hidden; /* Prevents horizontal scrolling unless necessary */
+
+/* Make the iframe fixed at the bottom */
+iframe {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Full width of the screen */
+    height: 150px; /* Adjust height as needed */
+    border: none; /* Remove border for a cleaner look */
+    z-index: 100; /* Ensure it stays above the content */
 }
 
-/* Ensure any containers or sections don't restrict overflow */
-.content, #tab-bar {
-    max-width: 100%;
-    overflow: auto; /* Makes scrollable if content overflows */
+/* Prevent content overlap with iframe */
+.content {
+    margin-bottom: 160px; /* Avoid overlap with iframe */
 }
