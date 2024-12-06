@@ -26,12 +26,12 @@ style.innerHTML = `
     }
     .mouse-trail {
         position: absolute;
-        width: 16px; /* Approximate size of mouse pointer */
-        height: 16px;
-        border-radius: 50%;
+        width: 16px; /* Approximate width of mouse pointer */
+        height: 24px; /* Approximate height of mouse pointer */
+        border-radius: 0; /* No rounding, keep it rectangle */
         pointer-events: none;
-        animation: fade-out 2s forwards, color-change 1s infinite;
-        will-change: transform, opacity;
+        animation: fade-out 2s forwards, color-fade 1s infinite;
+        will-change: transform, opacity, background-color;
     }
     @keyframes fade-out {
         0% {
@@ -43,25 +43,26 @@ style.innerHTML = `
             transform: scale(0.5);
         }
     }
-    @keyframes color-change {
-        0% {
-            background-color: red;
+    @keyframes color-fade {
+        from {
+            background-color: currentColor;
         }
-        25% {
-            background-color: blue;
-        }
-        50% {
-            background-color: green;
-        }
-        75% {
-            background-color: yellow;
-        }
-        100% {
-            background-color: red;
+        to {
+            background-color: transparent;
         }
     }
 `;
 document.head.appendChild(style);
+
+// Helper function to generate random colors
+function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
 // Mouse move event to create the trail
 document.addEventListener("mousemove", (event) => {
@@ -72,6 +73,7 @@ document.addEventListener("mousemove", (event) => {
     trail.className = "mouse-trail";
     trail.style.left = `${event.pageX}px`;
     trail.style.top = `${event.pageY}px`;
+    trail.style.backgroundColor = getRandomColor(); // Assign a random color
 
     // Append the trail to the container
     trailContainer.appendChild(trail);
