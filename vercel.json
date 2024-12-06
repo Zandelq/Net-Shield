@@ -2,15 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "public/index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "public/doge-unblocker.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "public/holy-unblocker.html",
+      "src": "public/*.html",
       "use": "@vercel/static"
     },
     {
