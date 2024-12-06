@@ -57,9 +57,9 @@ document.addEventListener('mousemove', (event) => {
 
     const trail = trailElements[trailIndex];
 
-    // Position the trail at the cursor location
-    trail.style.left = `${event.pageX - TRAIL_WIDTH / 2}px`; // Center horizontally
-    trail.style.top = `${event.pageY - TRAIL_HEIGHT / 2}px`; // Center vertically
+    // Position the trail right below the cursor
+    trail.style.left = `${event.pageX - TRAIL_WIDTH / 2}px`; // Center horizontally under cursor
+    trail.style.top = `${event.pageY + TRAIL_HEIGHT / 2}px`; // Position it directly under the mouse
 
     trail.style.opacity = '1'; // Fade in
 
