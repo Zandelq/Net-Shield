@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Logo Section -->
+    <header>
+        <img src="https://www.canva.com/design/DAGVoUImygY/SATpfGN3NAQiYGnK5x-Kfw/view?utm_content=DAGVoUImygY&utm_campaign=designshare&utm_medium=link&utm_source=editor" 
+             alt="Site Logo" 
+             style="width: 100px; height: auto; margin: 10px;">
+    </header>
+
     <!-- Home page content -->
     <div class="home-text">
         Home
@@ -14,13 +21,16 @@
 
     <!-- Tab Bar with links to different pages -->
     <div id="tab-bar">
-        <button>Home</button>
+        <button onclick="location.href='index.html'">Home</button>
         <button>Doge-Unblocker</button>
         <button>Holy-Unblocker</button>
         <button>Net-Shield</button>
-        <!-- Added Info button -->
         <button onclick="location.href='Information.html'">Info</button>
     </div>
 
     <!-- Button to toggle mouse trail -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</butto
+    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
