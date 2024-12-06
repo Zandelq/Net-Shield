@@ -3,29 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Working Links</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Your Site</title>
+    <script>
+        // Function to hide the actual URL
+        window.history.pushState({}, "", "about:blank");
+        window.onload = function() {
+            // Change the URL after the page loads to "about:blank" or any custom URL you want to show
+            history.pushState(null, null, location.href);  // Push the current URL into history
+            history.pushState({}, "", "about:blank");  // Replace it with "about:blank"
+        };
+    </script>
 </head>
-
 <body>
-    <!-- Home page content -->
-    <div class="home-text">
-        Home
-    </div>
-
-    <!-- Inside index.html -->
-<div id="tab-bar">
-    <button>Home</button>
-    <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
-    <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-    <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
-    <button onclick="window.location.href='Information.html'">info</button>
-</div>
-
-    <!-- Button to toggle mouse trail -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <!-- Script to handle mouse trail -->
-    <script src="script.js"></script>
+    <h1>Welcome to My Website!</h1>
+    <p>Now the URL is hidden from the address bar, but the site works normally.</p>
 </body>
 </html>
