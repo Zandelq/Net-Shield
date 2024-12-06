@@ -7,15 +7,6 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Top bar -->
-    <div id="top-bar">
-        <button onclick="window.location.href='index.html'">Home</button>
-        <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
-        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
-    </div>
-
     <!-- Home page content -->
     <div class="home-text">
         Home
@@ -23,15 +14,17 @@
 
     <!-- Tab Bar with links to different pages -->
     <div id="tab-bar">
-        <button onclick="window.location.href='index.html'">Home</button>
-        <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
-        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
+        <button onclick="location.href='index.html'">Home</button>
+        <button>Doge-Unblocker</button>
+        <button>Holy-Unblocker</button>
+        <button>Net-Shield</button>
+        <button onclick="location.href='Information.html'">Info</button>
     </div>
 
     <!-- Button to toggle mouse trail -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
+    <!-- Script to handle mouse trail -->
     <script src="script.js"></script>
 </body>
 </html>
