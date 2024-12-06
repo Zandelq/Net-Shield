@@ -2,8 +2,8 @@
 
 let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
 let trailElements = []; // Reusable elements for the trail
-const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
-const FADE_DURATION = 2000; // Trail fade-out duration in ms
+const MAX_TRAIL_COUNT = 50; // Limit number of trail elements
+const FADE_DURATION = 0; // Trail fade-out duration in ms
 const rainbowColors = ['red', 'yellow', 'blue', 'green', 'purple', 'orange']; // Colors to cycle through
 let currentColorIndex = 0; // Index to track the current color
 let trailIndex = 0; // Track the current trail element to reuse
