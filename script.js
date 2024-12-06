@@ -26,21 +26,38 @@ style.innerHTML = `
     }
     .mouse-trail {
         position: absolute;
-        width: 10px;
-        height: 10px;
-        background: rgba(255, 255, 255, 0.8);
+        width: 16px; /* Approximate size of mouse pointer */
+        height: 16px;
         border-radius: 50%;
         pointer-events: none;
-        animation: fade-out 1s forwards;
+        animation: fade-out 2s forwards, color-change 1s infinite;
+        will-change: transform, opacity;
     }
     @keyframes fade-out {
-        from {
+        0% {
             opacity: 1;
             transform: scale(1);
         }
-        to {
+        100% {
             opacity: 0;
             transform: scale(0.5);
+        }
+    }
+    @keyframes color-change {
+        0% {
+            background-color: red;
+        }
+        25% {
+            background-color: blue;
+        }
+        50% {
+            background-color: green;
+        }
+        75% {
+            background-color: yellow;
+        }
+        100% {
+            background-color: red;
         }
     }
 `;
@@ -62,5 +79,5 @@ document.addEventListener("mousemove", (event) => {
     // Remove the trail after the animation ends
     setTimeout(() => {
         trail.remove();
-    }, 1000); // Matches the animation duration
+    }, 2000); // Matches the fade-out duration
 });
