@@ -1,86 +1,70 @@
-/* Body and page styling */
-body, html {
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: black; /* Black background */
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    background-color: #f4f4f4;
 }
 
-/* Center the "Home" text */
-.home-text {
-    font-size: 50px;
-    font-weight: bold;
-    color: white;
+#top-bar {
+    background-color: #333;
+    padding: 10px;
     text-align: center;
 }
 
-/* Tab bar styling */
+#top-bar button {
+    color: white;
+    background-color: #444;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+#top-bar button:hover {
+    background-color: #555;
+}
+
 #tab-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: black; /* Black background for tab bar */
-    display: flex;
-    justify-content: center;
-    padding: 10px 0;
-    z-index: 1000;
-    border-bottom: 2px solid #444; /* Border for better visibility */
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
 }
 
 #tab-bar button {
-    background-color: black;
     color: white;
+    background-color: #444;
     border: none;
     padding: 10px 20px;
-    margin: 0 10px;
+    margin: 5px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #tab-bar button:hover {
-    background-color: #333;
-    color: cyan;
+    background-color: #555;
 }
 
-/* Mouse trail styling */
-.mouse-trail {
-    position: absolute;
-    width: 15px; /* Smaller width to match the cursor size */
-    height: 25px; /* Taller height to mimic the cursor's aspect ratio */
-    border-radius: 5px; /* Rounded edges */
-    pointer-events: none;
-    opacity: 0; /* Start with opacity 0 */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth fade-out and shrink */
+.home-text {
+    font-size: 2em;
+    text-align: center;
+    margin-top: 50px;
 }
 
-/* Mouse trail button (Disable Mouse Trail) */
+button {
+    margin-top: 20px;
+}
+
 #trail-toggle {
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: red; /* Red color for toggle button */
+    top: 10px;
+    right: 10px;
+    padding: 10px 15px;
+    background-color: #333;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    z-index: 1000;
 }
 
 #trail-toggle:hover {
-    background-color: #ff4d4d;
-}
-
-/* Active mouse trail button (When mouse trail is enabled) */
-#trail-toggle.active {
-    background-color: green; /* Change button to green when active */
+    background-color: #444;
 }
