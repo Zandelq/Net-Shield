@@ -1,78 +1,56 @@
-/* Global styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    overflow: hidden;
-    position: relative;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
-h1 {
-    font-size: 2rem;
-    color: #333;
-}
-
-/* Tab Bar */
 #tab-bar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: #333;
-    padding: 10px 0;
     display: flex;
     justify-content: center;
-    gap: 20px;
-    z-index: 1000;
+    gap: 15px;
+    background-color: #333;
+    padding: 10px;
 }
 
 #tab-bar button {
-    background-color: #444;
-    color: #fff;
-    padding: 10px 20px;
+    background-color: #555;
+    color: white;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
-    font-size: 1rem;
     border-radius: 5px;
+    transition: background-color 0.3s;
 }
 
 #tab-bar button:hover {
-    background-color: #555;
+    background-color: #777;
 }
 
-/* Content Section */
 .content {
-    margin-top: 70px; /* To avoid overlap with the tab bar */
     text-align: center;
+    padding: 20px;
 }
 
-button#trail-toggle {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
+#trail-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007BFF;
     color: white;
     border: none;
+    padding: 10px 20px;
     cursor: pointer;
-    font-size: 1rem;
     border-radius: 5px;
 }
 
-button#trail-toggle:hover {
-    background-color: #0056b3;
-}
-
-/* Mouse trail styles */
 .mouse-trail {
     position: absolute;
-    width: 15px;
-    height: 15px;
-    background-color: red;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
+    background-color: red;
     pointer-events: none;
-    transition: all 0.2s ease;
     opacity: 0;
+    transition: opacity 0.2s ease-out;
 }
