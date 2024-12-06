@@ -3,13 +3,13 @@
 let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
 let trailElements = []; // Reusable elements for the trail
 const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
-const TRAIL_WIDTH = 16; // Match approximate width of the cursor
-const TRAIL_HEIGHT = 24; // Match approximate height of the cursor
 const FADE_DURATION = 2000; // Trail fade-out duration in ms
-
 const rainbowColors = ['red', 'yellow', 'blue', 'green', 'purple', 'orange']; // Colors to cycle through
 let currentColorIndex = 0; // Index to track the current color
 let trailIndex = 0; // Track the current trail element to reuse
+
+// Set the default size for the trail
+const CURSOR_SIZE = 24; // Default size, adjust as needed
 
 // Initialize reusable trail elements
 function initializeTrailElements() {
@@ -20,9 +20,9 @@ function initializeTrailElements() {
 
         // Style the trail elements
         trail.style.position = 'absolute';
-        trail.style.width = `${TRAIL_WIDTH}px`;
-        trail.style.height = `${TRAIL_HEIGHT}px`;
-        trail.style.borderRadius = '0'; // Rectangle shape
+        trail.style.width = `${CURSOR_SIZE}px`;
+        trail.style.height = `${CURSOR_SIZE}px`;
+        trail.style.borderRadius = '50%'; // Circular shape for the trail
         trail.style.opacity = '0'; // Start invisible
         trail.style.pointerEvents = 'none';
         trail.style.transition = `opacity ${FADE_DURATION}ms, background-color 1s`;
@@ -57,9 +57,12 @@ document.addEventListener('mousemove', (event) => {
 
     const trail = trailElements[trailIndex];
 
-    // Position the trail right below the cursor
-    trail.style.left = `${event.pageX - TRAIL_WIDTH / 2}px`; // Center horizontally under cursor
-    trail.style.top = `${event.pageY + TRAIL_HEIGHT / 2}px`; // Position it directly under the mouse
+    // Get the cursor's size dynamically (you can modify this if needed)
+    const cursorSize = CURSOR_SIZE;
+
+    // Position the trail right under the cursor
+    trail.style.left = `${event.pageX - cursorSize / 2}px`; // Center horizontally under cursor
+    trail.style.top = `${event.pageY + cursorSize / 2}px`; // Position it directly under the mouse
 
     trail.style.opacity = '1'; // Fade in
 
