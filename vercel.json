@@ -1,16 +1,8 @@
 {
-  "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "public/**/*",
-      "use": "@vercel/static"
+      "source": "/Information",
+      "destination": "/Information"
     }
-  ],
-  "routes": [
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/doge-unblocker", "dest": "/doge-unblocker.html" },
-    { "src": "/holy-unblocker", "dest": "/holy-unblocker.html" },
-    { "src": "/net-shield", "dest": "/net-shield.html" },
-    { "src": "/Information", "dest": "/Information.html" }
   ]
 }
