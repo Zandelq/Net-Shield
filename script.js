@@ -1,85 +1,98 @@
-let isMouseTrailEnabled = true; // Default state for the mouse trail
+// File path: /script.js
 
-// Function to toggle the mouse trail
+let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
+let trailElements = []; // Reusable elements for the trail
+const MAX_TRAIL_COUNT = 20; // Limit number of trail elements
+const AUDIO_URL = 'https://freesound.org/data/previews/523/523012_8385276-lq.mp3'; // Sound effect URL
+
+// Array of rainbow colors to cycle through
+const rainbowColors = [
+    'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'
+];
+
+let currentColorIndex = 0; // Index to track the current color
+let trailIndex = 0; // Track the current trail element to reuse
+
+// Initialize reusable trail elements
+function initializeTrailElements() {
+    for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
+        const trail = document.createElement('div');
+        trail.className = 'mouse-trail';
+        document.body.appendChild(trail);
+        trailElements.push(trail);
+    }
+}
+
+// Change color every 1 second and apply the fade effect
+function changeTrailColor() {
+    currentColorIndex = (currentColorIndex + 1) % rainbowColors.length;
+    const color = rainbowColors[currentColorIndex];
+    trailElements.forEach((trail, index) => {
+        trail.style.backgroundColor = color;
+        
+        // Set timeout for fade-in effect (2 seconds after disappearance)
+        setTimeout(() => {
+            trail.style.opacity = '1'; // Fade in
+        }, 2000); // Fading back in after 2 seconds
+    });
+}
+
+// Play a sound effect
+function playSoundEffect() {
+    const audio = new Audio(AUDIO_URL);
+    audio.volume = 0.5; // Adjust volume as needed
+    audio.play();
+}
+
+// Toggle mouse trail functionality
 function toggleMouseTrail() {
-    isMouseTrailEnabled = !isMouseTrailEnabled;
-    document.getElementById("trail-toggle").innerText = isMouseTrailEnabled
-        ? "Disable Mouse Trail"
-        : "Enable Mouse Trail";
+    isMouseTrailActive = !isMouseTrailActive;
+    localStorage.setItem('mouseTrailActive', JSON.stringify(isMouseTrailActive)); // Save state
+    const button = document.getElementById('trail-toggle');
+    button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+
+    // Change button color based on the state of the trail
+    if (isMouseTrailActive) {
+        button.classList.add('active'); // Add active class for green color
+    } else {
+        button.classList.remove('active');
+    }
+
+    // Add a click animation class
+    button.classList.add('clicked');
+    setTimeout(() => button.classList.remove('clicked'), 150);
+
+    // Play toggle sound
+    playSoundEffect();
 }
 
-// Create the trail container
-const trailContainer = document.createElement("div");
-trailContainer.id = "mouse-trail-container";
-document.body.appendChild(trailContainer);
+// Handle mouse movement for the trail effect
+document.addEventListener('mousemove', (event) => {
+    if (!isMouseTrailActive) return;
 
-// CSS for the trail (append dynamically)
-const style = document.createElement("style");
-style.innerHTML = `
-    #mouse-trail-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        overflow: visible;
-        z-index: 9999;
-    }
-    .mouse-trail {
-        position: absolute;
-        width: 16px; /* Approximate width of mouse pointer */
-        height: 24px; /* Approximate height of mouse pointer */
-        border-radius: 0; /* No rounding, keep it rectangle */
-        pointer-events: none;
-        animation: fade-out 2s forwards, color-fade 1s infinite;
-        will-change: transform, opacity, background-color;
-    }
-    @keyframes fade-out {
-        0% {
-            opacity: 1;
-            transform: scale(1);
-        }
-        100% {
-            opacity: 0;
-            transform: scale(0.5);
-        }
-    }
-    @keyframes color-fade {
-        from {
-            background-color: currentColor;
-        }
-        to {
-            background-color: transparent;
-        }
-    }
-`;
-document.head.appendChild(style);
+    const trail = trailElements[trailIndex];
 
-// Helper function to generate random colors
-function getRandomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+    // Position the trail just below the cursor
+    trail.style.left = `${event.pageX - trail.offsetWidth / 2}px`; // Center the trail under the mouse
+    trail.style.top = `${event.pageY + 10}px`; // Position it below the mouse cursor by 10px (adjust as needed)
 
-// Mouse move event to create the trail
-document.addEventListener("mousemove", (event) => {
-    if (!isMouseTrailEnabled) return;
+    trail.style.opacity = '1'; // Make the trail visible initially
 
-    // Create a trail element
-    const trail = document.createElement("div");
-    trail.className = "mouse-trail";
-    trail.style.left = `${event.pageX}px`;
-    trail.style.top = `${event.pageY}px`;
-    trail.style.backgroundColor = getRandomColor(); // Assign a random color
-
-    // Append the trail to the container
-    trailContainer.appendChild(trail);
-
-    // Remove the trail after the animation ends
+    // Fade out the trail after 2 seconds
     setTimeout(() => {
-        trail.remove();
-    }, 2000); // Matches the fade-out duration
+        trail.style.opacity = '0'; // Fade out the trail
+    }, 2000); // After 2 seconds
+
+    // Move to the next trail element
+    trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
 });
+
+// Initialize the button and trail on page load
+window.onload = function () {
+    initializeTrailElements();
+    const button = document.getElementById('trail-toggle');
+    button.innerText = isMouseTrailActive ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+
+    // Change the trail color every 1 second
+    setInterval(changeTrailColor, 1000);
+};
