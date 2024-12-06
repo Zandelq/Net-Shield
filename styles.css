@@ -6,10 +6,6 @@ body, html {
     font-family: Arial, sans-serif;
     background-color: black; /* Black background */
     color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
 }
@@ -87,18 +83,14 @@ body, html {
     background-color: green; /* Change button to green when active */
 }
 
-/* Make the iframe fixed at the bottom */
+/* Center the iframe in the middle of the screen */
 iframe {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%; /* Full width of the screen */
-    height: 150px; /* Adjust height as needed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the iframe horizontally and vertically */
+    width: 80%; /* Adjust width as needed */
+    height: 60%; /* Adjust height as needed */
     border: none; /* Remove border for a cleaner look */
     z-index: 100; /* Ensure it stays above the content */
-}
-
-/* Prevent content overlap with iframe */
-.content {
-    margin-bottom: 160px; /* Avoid overlap with iframe */
 }
