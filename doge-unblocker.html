@@ -6,44 +6,70 @@
     <title>Doge-Unblocker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Centered link styling */
-        .centered-link {
+        /* Center container for title and link */
+        .center-container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh; /* Full viewport height */
             text-align: center;
         }
 
-        .centered-link a {
-            font-size: 24px;
+        /* Main title styling */
+        .center-container h1 {
+            font-size: 36px;
             font-weight: bold;
-            color: lightblue;
-            text-decoration: none;
-            transition: text-decoration 0.3s ease;
+            color: white;
+            margin: 0;
         }
 
-        .centered-link a:hover {
-            text-decoration: underline;
-        }
-
-        /* Link 1 styling for scrollable section */
-        .scrollable-section {
-            margin: 50px 0;
-            text-align: center;
-        }
-
-        .scrollable-section a {
+        /* Link styling under title */
+        .center-container a {
             font-size: 20px;
             font-weight: bold;
             color: #9af0ff; /* Light cyan */
             text-decoration: none;
+            margin-top: 10px;
             transition: color 0.3s ease, text-decoration 0.3s ease;
         }
 
-        .scrollable-section a:hover {
+        .center-container a:hover {
             text-decoration: underline;
             color: cyan;
+        }
+
+        /* Scrollable section with steps */
+        .steps-section {
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .steps-section h2 {
+            font-size: 28px;
+            color: white;
+        }
+
+        .steps-section p {
+            font-size: 18px;
+            color: #9af0ff;
+            margin: 10px 0;
+        }
+
+        .steps-section button {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .steps-section button:hover {
+            transform: scale(1.1);
+            background-color: #005bb5;
         }
     </style>
 </head>
@@ -57,14 +83,18 @@
         <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Centered link -->
-    <div class="centered-link">
-        <a href="https://netshielddoge.vercel.app/mobile.html" target="_blank">Click Here</a>
+    <!-- Centered content -->
+    <div class="center-container">
+        <h1>Doge-Unblocker</h1>
+        <a href="https://netshielddoge.vercel.app/mobile.html" target="_blank">Link 1</a>
     </div>
 
-    <!-- Scrollable section with "Link 1" -->
-    <div class="scrollable-section">
-        <a href="https://netshielddoge.vercel.app/mobile.html" target="_blank">Link 1</a>
+    <!-- Scrollable section with steps -->
+    <div class="steps-section">
+        <h2>Steps</h2>
+        <p><strong>Step 1:</strong> Click on the "Doge-Unblocker" title above to explore its features.</p>
+        <p><strong>Step 2:</strong> Use the button below to go to the mobile version:</p>
+        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">Go to Mobile Version</button>
     </div>
 </body>
 </html>
