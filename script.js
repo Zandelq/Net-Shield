@@ -1,5 +1,3 @@
-// File path: /script.js
-
 let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ?? true;
 let trailElements = [];
 const MAX_TRAIL_COUNT = 20;
@@ -94,4 +92,23 @@ window.onload = function () {
 
     // Change trail color every second
     setInterval(changeTrailColor, 1000);
+    
+    // Initialize the modal functions
+    const secretIcon = document.getElementById('secret-icon');
+    secretIcon.addEventListener('click', openModal);
+
+    const closeBtn = document.querySelector('.close-btn');
+    closeBtn.addEventListener('click', closeModal);
 };
+
+// Open the modal
+function openModal() {
+    document.getElementById("modal").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+}
+
+// Close the modal
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+}
