@@ -6,97 +6,95 @@
     <title>Holy-Unblocker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Center the content on the screen */
-        .content {
+        /* Center container for title and link */
+        .center-container {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh; /* Full viewport height */
-            margin: 0;
-            font-size: 2rem; /* Slightly smaller font size */
             text-align: center;
         }
 
-        .content h1 {
-            font-size: 2.5rem; /* Main heading size */
-            margin-bottom: 10px; /* Space below heading */
-        }
-
-        .content p {
-            font-size: 1.5rem; /* Paragraph size */
+        /* Main title styling */
+        .center-container h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
             margin: 0;
         }
 
-        /* Tab bar styling */
-        #tab-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-            z-index: 1000;
-            border-bottom: 2px solid #444;
+        /* Link styling under title */
+        .center-container a {
+            font-size: 20px;
+            font-weight: bold;
+            color: #9af0ff; /* Light cyan */
+            text-decoration: none;
+            margin-top: 10px;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
         }
 
-        #tab-bar button {
-            background-color: black;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        #tab-bar button:hover {
-            background-color: #333;
+        .center-container a:hover {
+            text-decoration: underline;
             color: cyan;
         }
 
-        /* Mouse trail toggle button styling */
-        #trail-toggle {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        /* Scrollable section with steps */
+        .steps-section {
+            margin: 50px auto;
+            text-align: center;
         }
 
-        #trail-toggle:hover {
-            background-color: #ff4d4d;
+        .steps-section h2 {
+            font-size: 28px;
+            color: white;
+        }
+
+        .steps-section p {
+            font-size: 18px;
+            color: #9af0ff;
+            margin: 10px 0;
+        }
+
+        .steps-section button {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .steps-section button:hover {
+            transform: scale(1.1);
+            background-color: #005bb5;
         }
     </style>
 </head>
 <body>
-    <!-- Tab Bar -->
+    <!-- Tab Bar for navigation -->
     <div id="tab-bar">
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
         <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
-        <button onclick="window.location.href='Information.html'">Info</button>
+        <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Content for Holy-Unblocker -->
-    <div class="content">
-        <h1>Holy-Unblocker</h1>
-        <p>Welcome to the Holy-Unblocker page. Explore tools and resources for unblocking restricted content.</p>
+    <!-- Centered content -->
+    <div class="center-container">
+        <h1>Doge-Unblocker</h1>
+        <a href="https://netshielddoge.vercel.app" target="_blank">Link 1</a>
     </div>
 
-    <!-- Mouse Trail Toggle -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <!-- Include the script for mouse trail and other functionalities -->
-    <script src="script.js"></script>
+    <!-- Scrollable section with steps -->
+    <div class="steps-section">
+        <h2>Steps</h2>
+        <p><strong>Step 1:</strong> Click on the "Doge-Unblocker" title above to explore its features.</p>
+        <p><strong>Step 2:</strong> Use the button below to go to the mobile version:</p>
+        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">Go to Mobile Version</button>
+    </div>
 </body>
 </html>
