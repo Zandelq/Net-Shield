@@ -168,3 +168,21 @@ iframe {
     transform: scale(1.2);
     background-color: darkgray;
 }
+
+/* Link inside the modal */
+#modal a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: cyan;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#modal a:hover {
+    background-color: white;
+    color: black;
+}
