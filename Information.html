@@ -5,96 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Information</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Secret icon styling */
-        #secret-icon {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            width: 30px;
-            height: 30px;
-            background-color: gray;
-            border-radius: 50%;
-            cursor: pointer;
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        #secret-icon:hover {
-            transform: scale(1.2);
-            background-color: darkgray;
-        }
-
-        /* Modal GUI */
-        #modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: black;
-            color: white;
-            width: 300px;
-            height: 200px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-            z-index: 1001;
-            padding: 20px;
-            text-align: center;
-        }
-
-        #modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #modal-header .close-btn {
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            color: red;
-        }
-
-        #modal-header .close-btn:hover {
-            color: darkred;
-        }
-
-        #download-link {
-            display: inline-block;
-            margin-top: 50px;
-            padding: 10px 20px;
-            background-color: cyan;
-            color: black;
-            font-weight: bold;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        #download-link:hover {
-            background-color: lightblue;
-        }
-
-        /* Overlay */
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-        }
-    </style>
 </head>
 <body>
 
@@ -104,7 +14,7 @@
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
         <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
-        <button>Info</button>
+        <button class="active">Info</button>
     </div>
 
     <!-- Information Page Content -->
@@ -116,23 +26,15 @@
             <li><strong>Holy-Unblocker</strong>: A powerful unblocker for accessing websites that are blocked by firewalls or network restrictions.</li>
             <li><strong>Net-Shield</strong>: A tool to improve your online security and privacy by shielding your network from malicious websites.</li>
         </ul>
-
-        <h2>How to Use</h2>
-        <p>Using our site is easy! Just click on one of the tools from the top navigation bar, and you'll be redirected to the tool page. From there, follow the instructions to start using the tool.</p>
-
-        <h2>Why Choose Us?</h2>
-        <p>Unlike other unblockers, we prioritize speed, security, and a user-friendly experience. Our site is built with cutting-edge technology to ensure reliable and fast performance for all our tools.</p>
-
-        <h2>READ THIS IT'S IMPORTANT</h2>
-        <p>We are not responsible for how you use the tools on this website. Please ensure that your use of our services complies with local laws and regulations.</p>
     </div>
 
-    <!-- Secret Icon -->
-    <div id="secret-icon" onclick="openModal()">?</div>
+    <!-- Mouse Trail Toggle Button -->
+    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
-    <!-- Modal GUI -->
+    <!-- Modal and Secret Icon -->
+    <div id="secret-icon" aria-label="Open secret download modal" onclick="openModal()">?</div>
     <div id="overlay" onclick="closeModal()"></div>
-    <div id="modal">
+    <div id="modal" role="dialog" aria-hidden="true">
         <div id="modal-header">
             <span>Secret Download</span>
             <span class="close-btn" onclick="closeModal()">X</span>
@@ -141,19 +43,6 @@
     </div>
 
     <!-- JavaScript -->
-    <script>
-        // Open the modal
-        function openModal() {
-            document.getElementById('modal').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-
-        // Close the modal
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
