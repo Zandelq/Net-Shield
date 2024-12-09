@@ -3,28 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holy Unblocker</title>
-    <link rel="stylesheet" href="styles.css"> <!-- CSS for styling -->
-    <script src="script.js" defer></script> <!-- JavaScript for interactivity -->
+    <title>Holy-Unblocker</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Center the content on the screen */
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            font-size: 2rem; /* Slightly smaller font size */
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 2.5rem; /* Main heading size */
+            margin-bottom: 10px; /* Space below heading */
+        }
+
+        .content p {
+            font-size: 1.5rem; /* Paragraph size */
+            margin: 0;
+        }
+
+        /* Tab bar styling */
+        #tab-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            z-index: 1000;
+            border-bottom: 2px solid #444;
+        }
+
+        #tab-bar button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #tab-bar button:hover {
+            background-color: #333;
+            color: cyan;
+        }
+
+        /* Mouse trail toggle button styling */
+        #trail-toggle {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #trail-toggle:hover {
+            background-color: #ff4d4d;
+        }
+    </style>
 </head>
 <body>
     <!-- Tab Bar -->
     <div id="tab-bar">
-        <button onclick="window.location.href='doge-unblocker.html';">Doge Unblocker</button>
-        <button class="active">Holy Unblocker</button>
+        <button onclick="window.location.href='index.html'">Home</button>
+        <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
+        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
+        <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
+        <button onclick="window.location.href='Information.html'">Info</button>
     </div>
 
-    <!-- Page Content -->
+    <!-- Content for Holy-Unblocker -->
     <div class="content">
-        <!-- Page Title -->
-        <h1 class="home-text">Holy-Unblocker</h1>
-
-        <!-- Link 1 -->
-        <div class="link-section">
-            <a href="https://only-augusta-quiteafancyemerald-96bfebd5.koyeb.app/ultraviolet#" target="_blank">
-                Link 1
-            </a>
-        </div>
+        <h1>Holy-Unblocker</h1>
+        <p>Welcome to the Holy-Unblocker page. Explore tools and resources for unblocking restricted content.</p>
     </div>
+
+    <!-- Mouse Trail Toggle -->
+    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
+
+    <!-- Include the script for mouse trail and other functionalities -->
+    <script src="script.js"></script>
 </body>
 </html>
