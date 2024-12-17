@@ -12,9 +12,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Full viewport height */
+            height: 90vh; /* Reduced height to show scrollable content */
             margin: 0;
-            font-size: 3rem; /* Larger font size */
+            font-size: 2.5rem; /* Smaller font size */
             font-weight: bold;
             text-align: center;
             color: white;
@@ -22,7 +22,7 @@
 
         /* Styling for the link under the title */
         .page-text a {
-            margin-top: 20px;
+            margin-top: 15px;
             font-size: 1.5rem;
             font-weight: bold;
             color: #9af0ff;
@@ -87,6 +87,56 @@
         #trail-toggle:hover {
             background-color: #ff4d4d;
         }
+
+        /* Scrollable mobile version description */
+        .mobile-section {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #9af0ff;
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        .mobile-section h2 {
+            color: cyan;
+            font-size: 1.8rem;
+        }
+
+        .mobile-section button {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-section button:hover {
+            transform: scale(1.1);
+            background-color: #005bb5;
+        }
+
+        /* Future Ideas Section */
+        .future-ideas {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 50px;
+            font-size: 1rem;
+        }
+
+        .future-ideas h3 {
+            color: cyan;
+            font-size: 1.5rem;
+        }
+
+        .future-ideas p {
+            margin: 5px 0;
+        }
     </style>
 </head>
 <body>
@@ -103,6 +153,28 @@
     <div class="page-text">
         <h1>Doge-Unblocker</h1>
         <a href="https://netshielddoge.vercel.app" target="_blank">Link 1</a>
+    </div>
+
+    <!-- Mobile Version Description -->
+    <div class="mobile-section">
+        <h2>Mobile Version Available!</h2>
+        <p>
+            If you're on a mobile device, we've got you covered. The Doge-Unblocker mobile version
+            is optimized for small screens and works just as fast.
+        </p>
+        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">
+            Open Mobile Version
+        </button>
+    </div>
+
+    <!-- Future Ideas Section -->
+    <div class="future-ideas">
+        <h3>Future Ideas:</h3>
+        <p>🔹 Add a dark/light mode toggle for better accessibility.</p>
+        <p>🔹 Integrate a search bar for quick navigation to unblocked sites.</p>
+        <p>🔹 Add animations or a custom Doge GIF for loading screens.</p>
+        <p>🔹 Display user statistics like "Websites Unblocked Today."</p>
+        <p>🔹 Include a FAQ section with troubleshooting tips.</p>
     </div>
 
     <!-- Mouse trail toggle button -->
