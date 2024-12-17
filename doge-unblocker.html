@@ -6,14 +6,36 @@
     <title>Doge-Unblocker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
+        /* Center the Doge-Unblocker text */
+        .page-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 90vh; /* Reduced height to show scrollable content */
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #1e1e1e;
+            font-size: 2.5rem; /* Smaller font size */
+            font-weight: bold;
+            text-align: center;
             color: white;
         }
 
-        /* Tab Bar */
+        /* Styling for the link under the title */
+        .page-text a {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #9af0ff;
+            text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .page-text a:hover {
+            color: cyan;
+            text-decoration: underline;
+        }
+
+        /* Fixed tab bar styling */
         #tab-bar {
             position: fixed;
             top: 0;
@@ -22,8 +44,8 @@
             display: flex;
             justify-content: center;
             padding: 10px 0;
-            border-bottom: 2px solid #444;
             z-index: 1000;
+            border-bottom: 2px solid #444;
         }
 
         #tab-bar button {
@@ -42,58 +64,78 @@
             color: cyan;
         }
 
-        .active {
+        #tab-bar button.active {
             color: cyan;
-            font-weight: bold;
+            border-bottom: 2px solid cyan;
         }
 
-        /* Content Section */
-        .content {
-            margin-top: 80px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .content h1 {
-            font-size: 48px;
-        }
-
-        .content p {
-            font-size: 18px;
-            color: #9af0ff;
-        }
-
-        /* Scrollable Section */
-        .steps-section {
-            margin: 50px auto;
-            text-align: center;
-        }
-
-        .steps-section h2 {
-            font-size: 28px;
+        /* Mouse trail toggle button styling */
+        #trail-toggle {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: red;
             color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        .steps-section p {
-            font-size: 18px;
+        #trail-toggle:hover {
+            background-color: #ff4d4d;
+        }
+
+        /* Scrollable mobile version description */
+        .mobile-section {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            font-size: 1.2rem;
             color: #9af0ff;
-            margin: 10px 0;
+            line-height: 1.8;
+            max-width: 800px;
         }
 
-        .steps-section button {
+        .mobile-section h2 {
+            color: cyan;
+            font-size: 1.8rem;
+        }
+
+        .mobile-section button {
             background: linear-gradient(45deg, #00c6ff, #0072ff);
             color: white;
             border: none;
             padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
+            font-size: 1rem;
             border-radius: 5px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        .steps-section button:hover {
+        .mobile-section button:hover {
             transform: scale(1.1);
             background-color: #005bb5;
+        }
+
+        /* Future Ideas Section */
+        .future-ideas {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 50px;
+            font-size: 1rem;
+        }
+
+        .future-ideas h3 {
+            color: cyan;
+            font-size: 1.5rem;
+        }
+
+        .future-ideas p {
+            margin: 5px 0;
         }
     </style>
 </head>
@@ -103,25 +145,82 @@
         <button onclick="window.location.href='index.html'">Home</button>
         <button class="active">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='net-shield.html'">Interstellar</button>
+        <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
         <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Content -->
-    <div class="content">
+    <!-- Main Doge-Unblocker Content -->
+    <div class="page-text">
         <h1>Doge-Unblocker</h1>
-        <p>Welcome to Doge-Unblocker! Your solution to access the content you need.</p>
+        <a href="https://netshielddoge.vercel.app" target="_blank">Link 1</a>
     </div>
 
-    <!-- Scrollable Section -->
-    <div class="steps-section">
-        <h2>Explore Doge-Unblocker</h2>
-        <p>Use this unblocker to navigate to your favorite sites without restrictions.</p>
-        <p><strong>Step 1:</strong> Click the button below to start exploring.</p>
-        <button onclick="window.open('https://netshielddoge.vercel.app', '_blank')">Start Unblocking</button>
-
-        <p><strong>Step 2:</strong> Need the mobile version? Use the button below:</p>
-        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">Mobile Version</button>
+    <!-- Mobile Version Description -->
+    <div class="mobile-section">
+        <h2>Mobile Version Available!</h2>
+        <p>
+            If you're on a mobile device, we've got you covered. The Doge-Unblocker mobile version
+            is optimized for small screens and works just as fast.
+        </p>
+        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">
+            Open Mobile Version
+        </button>
     </div>
+
+    <!-- Future Ideas Section -->
+    <div class="future-ideas">
+        <h3>Future Ideas:</h3>
+        <p>🔹 Add a dark/light mode toggle for better accessibility.</p>
+        <p>🔹 Integrate a search bar for quick navigation to unblocked sites.</p>
+        <p>🔹 Add animations or a custom Doge GIF for loading screens.</p>
+        <p>🔹 Display user statistics like "Websites Unblocked Today."</p>
+        <p>🔹 Include a FAQ section with troubleshooting tips.</p>
+    </div>
+
+    <!-- Mouse trail toggle button -->
+    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
+
+    <!-- Script for mouse trail -->
+    <script>
+        let trailEnabled = true;
+
+        // Toggle mouse trail
+        function toggleMouseTrail() {
+            trailEnabled = !trailEnabled;
+            document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+        }
+
+        // Create mouse trail effect
+        const mouseTrail = [];
+        document.addEventListener('mousemove', (e) => {
+            if (!trailEnabled) return;
+
+            const trailElement = document.createElement('div');
+            trailElement.className = 'mouse-trail';
+            trailElement.style.left = e.pageX + 'px';
+            trailElement.style.top = e.pageY + 'px';
+            document.body.appendChild(trailElement);
+
+            setTimeout(() => {
+                trailElement.remove();
+            }, 1000); // Trail fade duration
+        });
+
+        // Styling for mouse trail
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .mouse-trail {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                pointer-events: none;
+                opacity: 0.8;
+                transition: opacity 1s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
