@@ -12,22 +12,22 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 90vh; /* Reduced height to show scrollable content */
+            height: 90vh;
             margin: 0;
-            font-size: 2.5rem; /* Smaller font size */
+            font-size: 2.5rem;
             font-weight: bold;
             text-align: center;
             color: white;
         }
 
-        /* Styling for the link under the title */
+        /* Styling for the link */
         .page-text a {
             margin-top: 15px;
             font-size: 1.5rem;
             font-weight: bold;
             color: #9af0ff;
             text-decoration: none;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .page-text a:hover {
@@ -35,7 +35,7 @@
             text-decoration: underline;
         }
 
-        /* Fixed tab bar styling */
+        /* Tab bar styling */
         #tab-bar {
             position: fixed;
             top: 0;
@@ -44,8 +44,8 @@
             display: flex;
             justify-content: center;
             padding: 10px 0;
-            z-index: 1000;
             border-bottom: 2px solid #444;
+            z-index: 1000;
         }
 
         #tab-bar button {
@@ -54,8 +54,8 @@
             border: none;
             padding: 10px 20px;
             margin: 0 10px;
-            cursor: pointer;
             font-size: 16px;
+            cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -64,16 +64,11 @@
             color: cyan;
         }
 
-        #tab-bar button.active {
-            color: cyan;
-            border-bottom: 2px solid cyan;
-        }
-
-        /* Mouse trail toggle button styling */
+        /* Mouse trail toggle button */
         #trail-toggle {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 10px;
+            left: 10px;
             padding: 10px 20px;
             font-size: 16px;
             background-color: red;
@@ -82,56 +77,23 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            z-index: 1001;
         }
 
         #trail-toggle:hover {
             background-color: #ff4d4d;
         }
 
-        /* Scrollable mobile version description */
-        .mobile-section {
-            text-align: center;
-            margin: 30px auto;
-            padding: 20px;
-            font-size: 1.2rem;
-            color: #9af0ff;
-            line-height: 1.8;
-            max-width: 800px;
-        }
-
-        .mobile-section h2 {
-            color: cyan;
-            font-size: 1.8rem;
-        }
-
-        .mobile-section button {
-            background: linear-gradient(45deg, #00c6ff, #0072ff);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .mobile-section button:hover {
-            transform: scale(1.1);
-            background-color: #005bb5;
-        }
-
         /* Mouse trail styling */
         .mouse-trail {
             position: absolute;
-            width: 20px; /* Larger size */
-            height: 20px;
-            background-color: cyan;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
+            background-color: red;
+            box-shadow: 0 0 10px 4px rgba(255, 0, 0, 0.6);
             pointer-events: none;
-            opacity: 0.7;
             transition: opacity 1s ease;
-            box-shadow: 0 0 10px cyan;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -141,34 +103,24 @@
         <button onclick="window.location.href='index.html'">Home</button>
         <button class="active">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='net-shield.html'">Net-Shield</button>
+        <button onclick="window.location.href='net-shield.html'">Interstellar</button>
         <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Main Doge-Unblocker Content -->
+    <!-- Main Content -->
     <div class="page-text">
         <h1>Doge-Unblocker</h1>
-        <a href="https://netshielddoge.vercel.app" target="_blank">Link 1</a>
+        <a href="https://netshielddoge.vercel.app" target="_blank">Visit Site</a>
     </div>
 
-    <!-- Mobile Version Description -->
-    <div class="mobile-section">
-        <h2>Mobile Version Available!</h2>
-        <p>
-            If you're on a mobile device, we've got you covered. The Doge-Unblocker mobile version
-            is optimized for small screens and works just as fast.
-        </p>
-        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">
-            Open Mobile Version
-        </button>
-    </div>
-
-    <!-- Mouse trail toggle button -->
+    <!-- Mouse Trail Toggle Button -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
-    <!-- Script for mouse trail -->
+    <!-- Script for Dynamic Mouse Trail -->
     <script>
         let trailEnabled = true;
+        const colors = ["#ff0000", "#ff7300", "#ffeb00", "#47ff00", "#00ffee", "#2b65ff", "#8000ff"];
+        let colorIndex = 0;
 
         function toggleMouseTrail() {
             trailEnabled = !trailEnabled;
@@ -180,14 +132,19 @@
 
             const trail = document.createElement('div');
             trail.className = 'mouse-trail';
-            trail.style.left = `${e.pageX}px`;
-            trail.style.top = `${e.pageY}px`;
+            trail.style.left = e.pageX + 'px';
+            trail.style.top = e.pageY + 'px';
+            trail.style.backgroundColor = colors[colorIndex];
+            trail.style.boxShadow = `0 0 10px 4px ${colors[colorIndex]}80`;
 
             document.body.appendChild(trail);
 
             setTimeout(() => {
                 trail.remove();
-            }, 1000); // Adjust fade-out duration
+            }, 1000); // Fade-out duration
+
+            // Change color index for next trail
+            colorIndex = (colorIndex + 1) % colors.length;
         });
     </script>
 </body>
