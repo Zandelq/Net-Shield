@@ -72,8 +72,8 @@
         /* Mouse trail toggle button styling */
         #trail-toggle {
             position: fixed;
-            bottom: 10px;
-            left: 10px;
+            bottom: 20px;
+            left: 20px;
             padding: 10px 20px;
             font-size: 16px;
             background-color: red;
@@ -82,6 +82,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            z-index: 1001;
         }
 
         #trail-toggle:hover {
@@ -120,22 +121,17 @@
             background-color: #005bb5;
         }
 
-        /* Future Ideas Section */
-        .future-ideas {
-            text-align: center;
-            padding: 20px;
-            color: white;
-            margin-top: 50px;
-            font-size: 1rem;
-        }
-
-        .future-ideas h3 {
-            color: cyan;
-            font-size: 1.5rem;
-        }
-
-        .future-ideas p {
-            margin: 5px 0;
+        /* Mouse trail styling */
+        .mouse-trail {
+            position: absolute;
+            width: 20px; /* Larger size */
+            height: 20px;
+            background-color: cyan;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.7;
+            transition: opacity 1s ease;
+            box-shadow: 0 0 10px cyan;
         }
     </style>
 </head>
@@ -167,16 +163,6 @@
         </button>
     </div>
 
-    <!-- Future Ideas Section -->
-    <div class="future-ideas">
-        <h3>Future Ideas:</h3>
-        <p>🔹 Add a dark/light mode toggle for better accessibility.</p>
-        <p>🔹 Integrate a search bar for quick navigation to unblocked sites.</p>
-        <p>🔹 Add animations or a custom Doge GIF for loading screens.</p>
-        <p>🔹 Display user statistics like "Websites Unblocked Today."</p>
-        <p>🔹 Include a FAQ section with troubleshooting tips.</p>
-    </div>
-
     <!-- Mouse trail toggle button -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
@@ -184,43 +170,25 @@
     <script>
         let trailEnabled = true;
 
-        // Toggle mouse trail
         function toggleMouseTrail() {
             trailEnabled = !trailEnabled;
             document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
         }
 
-        // Create mouse trail effect
-        const mouseTrail = [];
         document.addEventListener('mousemove', (e) => {
             if (!trailEnabled) return;
 
-            const trailElement = document.createElement('div');
-            trailElement.className = 'mouse-trail';
-            trailElement.style.left = e.pageX + 'px';
-            trailElement.style.top = e.pageY + 'px';
-            document.body.appendChild(trailElement);
+            const trail = document.createElement('div');
+            trail.className = 'mouse-trail';
+            trail.style.left = `${e.pageX}px`;
+            trail.style.top = `${e.pageY}px`;
+
+            document.body.appendChild(trail);
 
             setTimeout(() => {
-                trailElement.remove();
-            }, 1000); // Trail fade duration
+                trail.remove();
+            }, 1000); // Adjust fade-out duration
         });
-
-        // Styling for mouse trail
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .mouse-trail {
-                position: absolute;
-                width: 10px;
-                height: 10px;
-                background-color: red;
-                border-radius: 50%;
-                pointer-events: none;
-                opacity: 0.8;
-                transition: opacity 1s ease;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
