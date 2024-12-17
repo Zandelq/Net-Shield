@@ -89,7 +89,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background-color: red;
+            background-color: red; /* Constant color */
             box-shadow: 0 0 10px 4px rgba(255, 0, 0, 0.6);
             pointer-events: none;
             transition: opacity 1s ease;
@@ -116,17 +116,17 @@
     <!-- Mouse Trail Toggle Button -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
-    <!-- Script for Dynamic Mouse Trail -->
+    <!-- Script for Mouse Trail -->
     <script>
         let trailEnabled = true;
-        const colors = ["#ff0000", "#ff7300", "#ffeb00", "#47ff00", "#00ffee", "#2b65ff", "#8000ff"];
-        let colorIndex = 0;
 
+        // Toggle Mouse Trail
         function toggleMouseTrail() {
             trailEnabled = !trailEnabled;
             document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
         }
 
+        // Create Mouse Trail Effect
         document.addEventListener('mousemove', (e) => {
             if (!trailEnabled) return;
 
@@ -134,17 +134,11 @@
             trail.className = 'mouse-trail';
             trail.style.left = e.pageX + 'px';
             trail.style.top = e.pageY + 'px';
-            trail.style.backgroundColor = colors[colorIndex];
-            trail.style.boxShadow = `0 0 10px 4px ${colors[colorIndex]}80`;
-
             document.body.appendChild(trail);
 
             setTimeout(() => {
                 trail.remove();
-            }, 1000); // Fade-out duration
-
-            // Change color index for next trail
-            colorIndex = (colorIndex + 1) % colors.length;
+            }, 1000); // Trail fade-out duration
         });
     </script>
 </body>
