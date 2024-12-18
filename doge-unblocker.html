@@ -9,30 +9,13 @@
         /* Center the page text */
         .page-text {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 90vh;
+            height: 100vh; /* Full viewport height */
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 3rem; /* Larger font size for visibility */
             font-weight: bold;
             text-align: center;
-            color: white;
-        }
-
-        /* Styling for links */
-        .page-text a {
-            margin-top: 15px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #9af0ff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .page-text a:hover {
-            color: cyan;
-            text-decoration: underline;
         }
 
         /* Fixed tab bar styling */
@@ -44,8 +27,8 @@
             display: flex;
             justify-content: center;
             padding: 10px 0;
-            border-bottom: 2px solid #444;
             z-index: 1000;
+            border-bottom: 2px solid #444;
         }
 
         #tab-bar button {
@@ -54,8 +37,8 @@
             border: none;
             padding: 10px 20px;
             margin: 0 10px;
-            font-size: 16px;
             cursor: pointer;
+            font-size: 16px;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
@@ -69,7 +52,7 @@
             border-bottom: 2px solid cyan;
         }
 
-        /* Mouse trail toggle button */
+        /* Mouse trail toggle button styling */
         #trail-toggle {
             position: fixed;
             bottom: 10px;
@@ -87,21 +70,14 @@
         #trail-toggle:hover {
             background-color: #ff4d4d;
         }
-
-        /* Mouse trail styling */
-        .mouse-trail {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: red; /* Solid red color */
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.8;
-            transition: opacity 1s ease;
-        }
     </style>
 </head>
 <body>
+    <!-- Doge-Unblocker page content -->
+    <div class="page-text">
+        <h1>Doge-Unblocker</h1>
+    </div>
+
     <!-- Tab Bar -->
     <div id="tab-bar">
         <button onclick="window.location.href='index.html'">Home</button>
@@ -111,56 +87,10 @@
         <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Main Content for Doge-Unblocker -->
-    <div class="page-text">
-        <h1>Doge-Unblocker</h1>
-        <a href="https://netshielddoge.vercel.app" target="_blank">Try Doge-Unblocker Here</a>
-    </div>
-
-    <!-- Mouse trail toggle button -->
+    <!-- Button to toggle mouse trail -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
     <!-- Script for mouse trail -->
-    <script>
-        let trailEnabled = true;
-
-        // Toggle mouse trail
-        function toggleMouseTrail() {
-            trailEnabled = !trailEnabled;
-            document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
-        }
-
-        // Create mouse trail effect
-        const mouseTrail = [];
-        document.addEventListener('mousemove', (e) => {
-            if (!trailEnabled) return;
-
-            const trailElement = document.createElement('div');
-            trailElement.className = 'mouse-trail';
-            trailElement.style.left = e.pageX + 'px';
-            trailElement.style.top = e.pageY + 'px';
-            document.body.appendChild(trailElement);
-
-            setTimeout(() => {
-                trailElement.remove();
-            }, 1000); // Trail fade duration
-        });
-
-        // Styling for mouse trail
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .mouse-trail {
-                position: absolute;
-                width: 10px;
-                height: 10px;
-                background-color: red;
-                border-radius: 50%;
-                pointer-events: none;
-                opacity: 0.8;
-                transition: opacity 1s ease;
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
