@@ -108,6 +108,18 @@
             color: cyan;
             text-decoration: underline;
         }
+
+        /* Mouse trail styling */
+        .mouse-trail {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 2s ease, transform 0.5s ease;
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -132,37 +144,62 @@
         <a href="https://example-adfree1.com" target="_blank">Ad-Free Link 1</a>
         <a href="https://example-adfree2.com" target="_blank">Ad-Free Link 2</a>
         <a href="https://example-adfree3.com" target="_blank">Ad-Free Link 3</a>
-        <!-- Add more links as needed -->
     </div>
 
     <div id="normal" class="link-container">
         <a href="https://example-normal1.com" target="_blank">Normal Link 1</a>
         <a href="https://example-normal2.com" target="_blank">Normal Link 2</a>
         <a href="https://example-normal3.com" target="_blank">Normal Link 3</a>
-        <!-- Add more links as needed -->
     </div>
 
     <div id="v1" class="link-container">
         <a href="https://example-v1-1.com" target="_blank">V1 Link 1</a>
         <a href="https://example-v1-2.com" target="_blank">V1 Link 2</a>
         <a href="https://example-v1-3.com" target="_blank">V1 Link 3</a>
-        <!-- Add more links as needed -->
     </div>
 
-    <!-- JavaScript for Tab Switching -->
+    <!-- JavaScript -->
     <script>
+        // Tab switching functionality
         function showLinks(tabId) {
             const containers = document.querySelectorAll('.link-container');
             const buttons = document.querySelectorAll('.inner-tab-bar button');
 
-            // Hide all link containers and remove active class from buttons
             containers.forEach(container => container.classList.remove('active'));
             buttons.forEach(button => button.classList.remove('active'));
 
-            // Show the selected tab and set its button as active
             document.getElementById(tabId).classList.add('active');
             document.getElementById(tabId + '-tab').classList.add('active');
         }
+
+        // Mouse trail code
+        const MAX_TRAIL_COUNT = 20;
+        const FADE_DURATION = 2000;
+        const CURSOR_SIZE = 24;
+        let trailElements = [];
+        let trailIndex = 0;
+
+        function initializeTrailElements() {
+            for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'mouse-trail';
+                trail.style.width = `${CURSOR_SIZE}px`;
+                trail.style.height = `${CURSOR_SIZE}px`;
+                document.body.appendChild(trail);
+                trailElements.push(trail);
+            }
+        }
+
+        document.addEventListener('mousemove', (event) => {
+            const trail = trailElements[trailIndex];
+            trail.style.left = `${event.pageX - CURSOR_SIZE / 2}px`;
+            trail.style.top = `${event.pageY - CURSOR_SIZE / 2}px`;
+            trail.style.opacity = '1';
+            setTimeout(() => (trail.style.opacity = '0'), FADE_DURATION);
+            trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
+        });
+
+        window.onload = initializeTrailElements;
     </script>
 </body>
 </html>
