@@ -5,6 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Information</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Center the home text on the screen */
+        .home-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            font-size: 3rem; /* Larger font size for visibility */
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Ensure tab bar stays fixed at the top */
+        #tab-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            z-index: 1000;
+            border-bottom: 2px solid #444;
+        }
+
+        #tab-bar button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #tab-bar button:hover {
+            background-color: #333;
+            color: cyan;
+        }
+
+        /* Mouse trail toggle button styling */
+        #trail-toggle {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #trail-toggle:hover {
+            background-color: #ff4d4d;
+        }
+    </style>
 </head>
 <body>
 
