@@ -6,95 +6,174 @@
     <title>Holy-Unblocker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Center container for title and link */
-        .center-container {
+        /* Body and page styling */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: black; /* Black background */
+            color: white;
+            overflow-y: auto; /* Enables vertical scrolling */
+            overflow-x: hidden; /* Prevents horizontal scrolling */
+        }
+
+        /* Main page text styling */
+        .page-text {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Full viewport height */
-            text-align: center;
-        }
-
-        /* Main title styling */
-        .center-container h1 {
-            font-size: 36px;
-            font-weight: bold;
-            color: white;
+            height: 90vh;
             margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: white;
         }
 
-        /* Link styling under title */
-        .center-container a {
-            font-size: 20px;
+        /* Link styling */
+        .page-text a {
+            margin-top: 15px;
+            font-size: 1.5rem;
             font-weight: bold;
-            color: #9af0ff; /* Light cyan */
+            color: #9af0ff;
             text-decoration: none;
-            margin-top: 10px;
             transition: color 0.3s ease, text-decoration 0.3s ease;
         }
 
-        .center-container a:hover {
-            text-decoration: underline;
+        .page-text a:hover {
             color: cyan;
+            text-decoration: underline;
         }
 
-        /* Scrollable section with steps */
-        .steps-section {
-            margin: 50px auto;
-            text-align: center;
+        /* Tab bar styling */
+        #tab-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            z-index: 1000;
+            border-bottom: 2px solid #444;
         }
 
-        .steps-section h2 {
-            font-size: 28px;
-            color: white;
-        }
-
-        .steps-section p {
-            font-size: 18px;
-            color: #9af0ff;
-            margin: 10px 0;
-        }
-
-        .steps-section button {
-            background: linear-gradient(45deg, #00c6ff, #0072ff);
+        #tab-bar button {
+            background-color: black;
             color: white;
             border: none;
             padding: 10px 20px;
-            font-size: 16px;
+            margin: 0 10px;
             cursor: pointer;
-            border-radius: 5px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .steps-section button:hover {
-            transform: scale(1.1);
-            background-color: #005bb5;
+        #tab-bar button:hover {
+            background-color: #333;
+            color: cyan;
+        }
+
+        #tab-bar button.active {
+            color: cyan;
+            border-bottom: 2px solid cyan;
+        }
+
+        /* Mouse trail styling */
+        .mouse-trail {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            transition: opacity 1s ease;
+        }
+
+        /* Mouse trail toggle button */
+        #trail-toggle {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #trail-toggle:hover {
+            background-color: #ff4d4d;
         }
     </style>
 </head>
 <body>
-    <!-- Tab Bar for navigation -->
+    <!-- Tab Bar -->
     <div id="tab-bar">
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
-        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
+        <button class="active">Holy-Unblocker</button>
         <button onclick="window.location.href='net-shield.html'">Interstellar</button>
         <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Centered content -->
-    <div class="center-container">
-        <h1>Doge-Unblocker</h1>
-        <a href="https://netshielddoge.vercel.app" target="_blank">Link 1</a>
+    <!-- Main Holy-Unblocker Content -->
+    <div class="page-text">
+        <h1>Holy-Unblocker</h1>
+        <a href="https://example-link1.com" target="_blank">Link 1</a>
+        <a href="https://example-link2.com" target="_blank">Link 2</a>
     </div>
 
-    <!-- Scrollable section with steps -->
-    <div class="steps-section">
-        <h2>Steps</h2>
-        <p><strong>Step 1:</strong> Click on the "Doge-Unblocker" title above to explore its features.</p>
-        <p><strong>Step 2:</strong> Use the button below to go to the mobile version:</p>
-        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">Go to Mobile Version</button>
-    </div>
+    <!-- Mouse trail toggle button -->
+    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
+
+    <!-- Script for mouse trail -->
+    <script>
+        let trailEnabled = true;
+
+        // Toggle mouse trail
+        function toggleMouseTrail() {
+            trailEnabled = !trailEnabled;
+            document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+        }
+
+        // Create mouse trail effect
+        const mouseTrail = [];
+        document.addEventListener('mousemove', (e) => {
+            if (!trailEnabled) return;
+
+            const trailElement = document.createElement('div');
+            trailElement.className = 'mouse-trail';
+            trailElement.style.left = e.pageX + 'px';
+            trailElement.style.top = e.pageY + 'px';
+            document.body.appendChild(trailElement);
+
+            setTimeout(() => {
+                trailElement.remove();
+            }, 1000); // Trail fade duration
+        });
+
+        // Styling for mouse trail
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .mouse-trail {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                pointer-events: none;
+                opacity: 0.8;
+                transition: opacity 1s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
