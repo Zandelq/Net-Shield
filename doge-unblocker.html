@@ -6,7 +6,7 @@
     <title>Doge-Unblocker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Center the Doge-Unblocker text */
+        /* Center the page text */
         .page-text {
             display: flex;
             flex-direction: column;
@@ -20,7 +20,7 @@
             color: white;
         }
 
-        /* Styling for the link */
+        /* Styling for links */
         .page-text a {
             margin-top: 15px;
             font-size: 1.5rem;
@@ -35,7 +35,7 @@
             text-decoration: underline;
         }
 
-        /* Tab bar styling */
+        /* Fixed tab bar styling */
         #tab-bar {
             position: fixed;
             top: 0;
@@ -64,6 +64,11 @@
             color: cyan;
         }
 
+        #tab-bar button.active {
+            color: cyan;
+            border-bottom: 2px solid cyan;
+        }
+
         /* Mouse trail toggle button */
         #trail-toggle {
             position: fixed;
@@ -86,14 +91,13 @@
         /* Mouse trail styling */
         .mouse-trail {
             position: absolute;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
+            background-color: red; /* Solid red color */
             border-radius: 50%;
-            background-color: red; /* Constant color */
-            box-shadow: 0 0 10px 4px rgba(255, 0, 0, 0.6);
             pointer-events: none;
-            transition: opacity 1s ease;
             opacity: 0.8;
+            transition: opacity 1s ease;
         }
     </style>
 </head>
@@ -107,39 +111,56 @@
         <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Content for Doge-Unblocker -->
     <div class="page-text">
         <h1>Doge-Unblocker</h1>
-        <a href="https://netshielddoge.vercel.app" target="_blank">Visit Site</a>
+        <a href="https://netshielddoge.vercel.app" target="_blank">Try Doge-Unblocker Here</a>
     </div>
 
-    <!-- Mouse Trail Toggle Button -->
+    <!-- Mouse trail toggle button -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
-    <!-- Script for Mouse Trail -->
+    <!-- Script for mouse trail -->
     <script>
         let trailEnabled = true;
 
-        // Toggle Mouse Trail
+        // Toggle mouse trail
         function toggleMouseTrail() {
             trailEnabled = !trailEnabled;
             document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
         }
 
-        // Create Mouse Trail Effect
+        // Create mouse trail effect
+        const mouseTrail = [];
         document.addEventListener('mousemove', (e) => {
             if (!trailEnabled) return;
 
-            const trail = document.createElement('div');
-            trail.className = 'mouse-trail';
-            trail.style.left = e.pageX + 'px';
-            trail.style.top = e.pageY + 'px';
-            document.body.appendChild(trail);
+            const trailElement = document.createElement('div');
+            trailElement.className = 'mouse-trail';
+            trailElement.style.left = e.pageX + 'px';
+            trailElement.style.top = e.pageY + 'px';
+            document.body.appendChild(trailElement);
 
             setTimeout(() => {
-                trail.remove();
-            }, 1000); // Trail fade-out duration
+                trailElement.remove();
+            }, 1000); // Trail fade duration
         });
+
+        // Styling for mouse trail
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .mouse-trail {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                pointer-events: none;
+                opacity: 0.8;
+                transition: opacity 1s ease;
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>
