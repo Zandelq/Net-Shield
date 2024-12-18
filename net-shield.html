@@ -6,22 +6,97 @@
     <title>Interstellar</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Page text styling */
-        .page-text {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 90vh;
+        /* General styling */
+        body, html {
             margin: 0;
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-align: center;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: black;
             color: white;
         }
 
-        .page-text a {
-            margin-top: 10px;
+        /* Main tab bar */
+        #tab-bar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            z-index: 1000;
+            border-bottom: 2px solid #444;
+        }
+
+        #tab-bar button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #tab-bar button:hover {
+            background-color: #333;
+            color: cyan;
+        }
+
+        #tab-bar button.active {
+            background-color: #444;
+            color: cyan;
+            border-bottom: 2px solid cyan;
+        }
+
+        /* Inner tab bar for Interstellar page */
+        .inner-tab-bar {
+            display: flex;
+            justify-content: center;
+            background-color: #111;
+            padding: 10px 0;
+            margin-top: 70px; /* Offset for main tab bar */
+            border-bottom: 2px solid #444;
+        }
+
+        .inner-tab-bar button {
+            background-color: #222;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .inner-tab-bar button:hover {
+            background-color: #333;
+            color: cyan;
+        }
+
+        .inner-tab-bar button.active {
+            background-color: #444;
+            color: cyan;
+            border-bottom: 2px solid cyan;
+        }
+
+        /* Links section styling */
+        .link-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .link-container.active {
+            display: flex;
+        }
+
+        .link-container a {
+            margin: 10px 0;
             font-size: 1.2rem;
             font-weight: bold;
             color: #9af0ff;
@@ -29,14 +104,14 @@
             transition: color 0.3s ease, text-decoration 0.3s ease;
         }
 
-        .page-text a:hover {
+        .link-container a:hover {
             color: cyan;
             text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <!-- Tab Bar -->
+    <!-- Main Tab Bar -->
     <div id="tab-bar">
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
@@ -45,76 +120,49 @@
         <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Main Interstellar Content -->
-    <div class="page-text">
-        <h1>Interstellar</h1>
-        <!-- Links -->
-        <a href="https://example-link1.com" target="_blank">Link 1</a>
-        <a href="https://example-link2.com" target="_blank">Link 2</a>
-        <a href="https://example-link3.com" target="_blank">Link 3</a>
-        <a href="https://example-link4.com" target="_blank">Link 4</a>
-        <a href="https://example-link5.com" target="_blank">Link 5</a>
-        <a href="https://example-link6.com" target="_blank">Link 6</a>
-        <a href="https://example-link7.com" target="_blank">Link 7</a>
-        <a href="https://example-link8.com" target="_blank">Link 8</a>
-        <a href="https://example-link9.com" target="_blank">Link 9</a>
-        <a href="https://example-link10.com" target="_blank">Link 10</a>
-        <a href="https://example-link11.com" target="_blank">Link 11</a>
-        <a href="https://example-link12.com" target="_blank">Link 12</a>
-        <a href="https://example-link13.com" target="_blank">Link 13</a>
-        <a href="https://example-link14.com" target="_blank">Link 14</a>
-        <a href="https://example-link15.com" target="_blank">Link 15</a>
-        <a href="https://example-link16.com" target="_blank">Link 16</a>
-        <a href="https://example-link17.com" target="_blank">Link 17</a>
-        <a href="https://example-link18.com" target="_blank">Link 18</a>
-        <a href="https://example-link19.com" target="_blank">Link 19</a>
-        <a href="https://example-link20.com" target="_blank">Link 20</a>
+    <!-- Inner Tab Bar -->
+    <div class="inner-tab-bar">
+        <button id="ad-free-tab" class="active" onclick="showLinks('ad-free')">Ad-Free</button>
+        <button id="normal-tab" onclick="showLinks('normal')">Normal</button>
+        <button id="v1-tab" onclick="showLinks('v1')">V1</button>
     </div>
 
-    <!-- Mouse trail toggle button -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
+    <!-- Content for Links -->
+    <div id="ad-free" class="link-container active">
+        <a href="https://example-adfree1.com" target="_blank">Ad-Free Link 1</a>
+        <a href="https://example-adfree2.com" target="_blank">Ad-Free Link 2</a>
+        <a href="https://example-adfree3.com" target="_blank">Ad-Free Link 3</a>
+        <!-- Add more links as needed -->
+    </div>
 
-    <!-- Mouse trail script -->
+    <div id="normal" class="link-container">
+        <a href="https://example-normal1.com" target="_blank">Normal Link 1</a>
+        <a href="https://example-normal2.com" target="_blank">Normal Link 2</a>
+        <a href="https://example-normal3.com" target="_blank">Normal Link 3</a>
+        <!-- Add more links as needed -->
+    </div>
+
+    <div id="v1" class="link-container">
+        <a href="https://example-v1-1.com" target="_blank">V1 Link 1</a>
+        <a href="https://example-v1-2.com" target="_blank">V1 Link 2</a>
+        <a href="https://example-v1-3.com" target="_blank">V1 Link 3</a>
+        <!-- Add more links as needed -->
+    </div>
+
+    <!-- JavaScript for Tab Switching -->
     <script>
-        let trailEnabled = true;
+        function showLinks(tabId) {
+            const containers = document.querySelectorAll('.link-container');
+            const buttons = document.querySelectorAll('.inner-tab-bar button');
 
-        // Toggle mouse trail
-        function toggleMouseTrail() {
-            trailEnabled = !trailEnabled;
-            document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+            // Hide all link containers and remove active class from buttons
+            containers.forEach(container => container.classList.remove('active'));
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show the selected tab and set its button as active
+            document.getElementById(tabId).classList.add('active');
+            document.getElementById(tabId + '-tab').classList.add('active');
         }
-
-        // Create mouse trail effect
-        const mouseTrail = [];
-        document.addEventListener('mousemove', (e) => {
-            if (!trailEnabled) return;
-
-            const trailElement = document.createElement('div');
-            trailElement.className = 'mouse-trail';
-            trailElement.style.left = e.pageX + 'px';
-            trailElement.style.top = e.pageY + 'px';
-            document.body.appendChild(trailElement);
-
-            setTimeout(() => {
-                trailElement.remove();
-            }, 1000);
-        });
-
-        // Styling for mouse trail
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .mouse-trail {
-                position: absolute;
-                width: 10px;
-                height: 10px;
-                background-color: cyan;
-                border-radius: 50%;
-                pointer-events: none;
-                opacity: 0.8;
-                transition: opacity 1s ease;
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 </body>
 </html>
