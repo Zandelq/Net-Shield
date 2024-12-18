@@ -6,19 +6,17 @@
     <title>Information</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Center the home text on the screen */
-        .home-text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
+        /* General styling */
+        body, html {
             margin: 0;
-            font-size: 3rem; /* Larger font size for visibility */
-            font-weight: bold;
-            text-align: center;
+            padding: 0;
+            height: 100%;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
         }
 
-        /* Ensure tab bar stays fixed at the top */
+        /* Tab bar styling */
         #tab-bar {
             position: fixed;
             top: 0;
@@ -45,6 +43,34 @@
         #tab-bar button:hover {
             background-color: #333;
             color: cyan;
+        }
+
+        #tab-bar button.active {
+            background-color: #333;
+            color: cyan;
+        }
+
+        /* Main content styling */
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .content h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: cyan;
+        }
+
+        .content p {
+            font-size: 2rem;
+            margin-top: 0;
+            color: white;
         }
 
         /* Mouse trail toggle button styling */
@@ -80,25 +106,12 @@
 
     <!-- Information Page Content -->
     <div class="content">
-       
-        <h2>READ THIS IT'S IMPORTANT</h2>
-        <p>i am not responsible for how you use the tools on this website. Please ensure that your use of our services complies with local laws and regulations DO NOT BLAME ME I AM FORCED TO ADD THIS.</p>
+        <h1>READ THIS IT'S IMPORTANT</h1>
+        <p>eid</p>
     </div>
 
     <!-- Mouse Trail Toggle Button -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <!-- Modal and Secret Icon -->
-    <div id="secret-icon" aria-label="Open secret download modal" onclick="openModal()">?</div>
-    <div id="overlay" onclick="closeModal()"></div>
-    <div id="modal" role="dialog" aria-hidden="true">
-        <div id="modal-header">
-            <span>Secret Download</span>
-            <span class="close-btn" onclick="closeModal()">X</span>
-        </div>
-        <!-- Redirects to the MediaFire URL on click -->
-        <a id="download-link" href="https://download1335.mediafire.com/fxkgy8giuv5gr1b7GKnF-cpQUv9eT3gzkdQl5fEVSpJxIxsXl7zhNBpwTGi2HfLqnZ1rNiYykkTLzjZ31TByQMzcY3ZGBE7kKjmswqbTQ_mELo-CNTIwPxOaCMdDzZoQPaPRlbzvNDkSprX_DW3Nb3o8AfNOftgDtYRnWzsoczteYg/lfterapn3k32hoe/EZFNLauncherV2.apk" target="_blank">Download</a>
-    </div>
 
     <!-- JavaScript -->
     <script src="script.js"></script>
