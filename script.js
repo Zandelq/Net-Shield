@@ -6,7 +6,8 @@ const rainbowColors = ['red', 'yellow', 'blue', 'green', 'purple', 'orange'];
 let currentColorIndex = 0;
 let trailIndex = 0;
 const CURSOR_SIZE = 24;
-const OFFSET_X = 10;
+const OFFSET_X = 10; // Horizontal offset
+const OFFSET_Y = 20; // Vertical offset for positioning trail below the cursor
 
 // Initialize reusable trail elements
 function initializeTrailElements() {
@@ -56,8 +57,9 @@ document.addEventListener('mousemove', (event) => {
 
     const trail = trailElements[trailIndex];
 
-    trail.style.left = `${event.pageX + OFFSET_X - CURSOR_SIZE / 2}px`; // Adjust position
-    trail.style.top = `${event.pageY - CURSOR_SIZE / 2}px`;
+    // Adjust trail position (with vertical offset)
+    trail.style.left = `${event.pageX + OFFSET_X - CURSOR_SIZE / 2}px`;
+    trail.style.top = `${event.pageY + OFFSET_Y - CURSOR_SIZE / 2}px`;
 
     trail.style.opacity = '1'; // Fade in
 
