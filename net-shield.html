@@ -3,77 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Net-Shield</title>
+    <title>Interstellar</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Center the content on the screen */
-        .content {
+        /* Page text styling */
+        .page-text {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* Full viewport height */
+            height: 90vh;
             margin: 0;
-            font-size: 2rem; /* Slightly smaller font size */
+            font-size: 2.5rem;
+            font-weight: bold;
             text-align: center;
-        }
-
-        .content h1 {
-            font-size: 2.5rem; /* Main heading size */
-            margin-bottom: 10px; /* Space below heading */
-        }
-
-        .content p {
-            font-size: 1.5rem; /* Paragraph size */
-            margin: 0;
-        }
-
-        /* Tab bar styling */
-        #tab-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-            z-index: 1000;
-            border-bottom: 2px solid #444;
-        }
-
-        #tab-bar button {
-            background-color: black;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        #tab-bar button:hover {
-            background-color: #333;
+        .page-text a {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #9af0ff;
+            text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .page-text a:hover {
             color: cyan;
-        }
-
-        /* Mouse trail toggle button styling */
-        #trail-toggle {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #trail-toggle:hover {
-            background-color: #ff4d4d;
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -83,20 +41,80 @@
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button>Interstellar</button>
-        <button onclick="window.location.href='Information.html'">Info</button>
+        <button class="active">Interstellar</button>
+        <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
-    <!-- Content for Net-Shield -->
-    <div class="content">
-        <h1>Net-Shield</h1>
-        <p>Explore the Net-Shield page, where we provide tools for online security and privacy.</p>
+    <!-- Main Interstellar Content -->
+    <div class="page-text">
+        <h1>Interstellar</h1>
+        <!-- Links -->
+        <a href="https://example-link1.com" target="_blank">Link 1</a>
+        <a href="https://example-link2.com" target="_blank">Link 2</a>
+        <a href="https://example-link3.com" target="_blank">Link 3</a>
+        <a href="https://example-link4.com" target="_blank">Link 4</a>
+        <a href="https://example-link5.com" target="_blank">Link 5</a>
+        <a href="https://example-link6.com" target="_blank">Link 6</a>
+        <a href="https://example-link7.com" target="_blank">Link 7</a>
+        <a href="https://example-link8.com" target="_blank">Link 8</a>
+        <a href="https://example-link9.com" target="_blank">Link 9</a>
+        <a href="https://example-link10.com" target="_blank">Link 10</a>
+        <a href="https://example-link11.com" target="_blank">Link 11</a>
+        <a href="https://example-link12.com" target="_blank">Link 12</a>
+        <a href="https://example-link13.com" target="_blank">Link 13</a>
+        <a href="https://example-link14.com" target="_blank">Link 14</a>
+        <a href="https://example-link15.com" target="_blank">Link 15</a>
+        <a href="https://example-link16.com" target="_blank">Link 16</a>
+        <a href="https://example-link17.com" target="_blank">Link 17</a>
+        <a href="https://example-link18.com" target="_blank">Link 18</a>
+        <a href="https://example-link19.com" target="_blank">Link 19</a>
+        <a href="https://example-link20.com" target="_blank">Link 20</a>
     </div>
 
-    <!-- Mouse Trail Toggle -->
+    <!-- Mouse trail toggle button -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
-    <!-- Include the script for mouse trail and other functionalities -->
-    <script src="script.js"></script>
+    <!-- Mouse trail script -->
+    <script>
+        let trailEnabled = true;
+
+        // Toggle mouse trail
+        function toggleMouseTrail() {
+            trailEnabled = !trailEnabled;
+            document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
+        }
+
+        // Create mouse trail effect
+        const mouseTrail = [];
+        document.addEventListener('mousemove', (e) => {
+            if (!trailEnabled) return;
+
+            const trailElement = document.createElement('div');
+            trailElement.className = 'mouse-trail';
+            trailElement.style.left = e.pageX + 'px';
+            trailElement.style.top = e.pageY + 'px';
+            document.body.appendChild(trailElement);
+
+            setTimeout(() => {
+                trailElement.remove();
+            }, 1000);
+        });
+
+        // Styling for mouse trail
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .mouse-trail {
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color: cyan;
+                border-radius: 50%;
+                pointer-events: none;
+                opacity: 0.8;
+                transition: opacity 1s ease;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
