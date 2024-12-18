@@ -62,11 +62,11 @@ body, html {
     height: 24px;
     border-radius: 50%; /* Circular trail */
     pointer-events: none;
-    opacity: 0; /* Start with opacity 0 */
-    transition: opacity 2s ease, transform 0.5s ease; /* Smooth fade-out and shrink */
+    opacity: 1; /* Fully visible */
+    transition: opacity 2s ease, transform 0.5s ease; /* Smooth fade-out */
     background-color: red; /* Default trail color */
 }
-
+    
 /* Mouse trail toggle button */
 #trail-toggle {
     position: fixed;
