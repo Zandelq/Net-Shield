@@ -8,6 +8,7 @@ body, html {
     color: white;
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
+    cursor: url('assets/custom-cursor.png'), auto; /* Custom cursor */
 }
 
 /* Center the "Home" text */
