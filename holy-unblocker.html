@@ -3,36 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holy-Unblocker</title>
+    <title>Doge-Unblocker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Body and page styling */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: black; /* Black background */
-            color: white;
-            overflow-y: auto; /* Enables vertical scrolling */
-            overflow-x: hidden; /* Prevents horizontal scrolling */
-        }
-
-        /* Main page text styling */
+        /* Center the page text */
         .page-text {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 90vh;
+            height: 100vh; /* Full viewport height */
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 3rem; /* Larger font size for visibility */
             font-weight: bold;
             text-align: center;
             color: white;
         }
 
-        /* Link styling */
+        /* Styling for the link under the title */
         .page-text a {
             margin-top: 15px;
             font-size: 1.5rem;
@@ -47,7 +35,7 @@
             text-decoration: underline;
         }
 
-        /* Tab bar styling */
+        /* Fixed tab bar styling */
         #tab-bar {
             position: fixed;
             top: 0;
@@ -81,19 +69,7 @@
             border-bottom: 2px solid cyan;
         }
 
-        /* Mouse trail styling */
-        .mouse-trail {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: red;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0.8;
-            transition: opacity 1s ease;
-        }
-
-        /* Mouse trail toggle button */
+        /* Mouse trail toggle button styling */
         #trail-toggle {
             position: fixed;
             bottom: 10px;
@@ -111,10 +87,42 @@
         #trail-toggle:hover {
             background-color: #ff4d4d;
         }
+
+        /* Mobile version section */
+        .mobile-section {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #9af0ff;
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        .mobile-section h2 {
+            color: cyan;
+            font-size: 1.8rem;
+        }
+
+        .mobile-section button {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-section button:hover {
+            transform: scale(1.1);
+            background-color: #005bb5;
+        }
     </style>
 </head>
 <body>
-    <!-- Tab Bar -->
+     <!-- Tab Bar -->
     <div id="tab-bar">
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
@@ -130,50 +138,10 @@
         <a href="https://example-link2.com" target="_blank">Link 2</a>
     </div>
 
-    <!-- Mouse trail toggle button -->
+    <!-- Button to toggle mouse trail -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
     <!-- Script for mouse trail -->
-    <script>
-        let trailEnabled = true;
-
-        // Toggle mouse trail
-        function toggleMouseTrail() {
-            trailEnabled = !trailEnabled;
-            document.getElementById('trail-toggle').innerText = trailEnabled ? 'Disable Mouse Trail' : 'Enable Mouse Trail';
-        }
-
-        // Create mouse trail effect
-        const mouseTrail = [];
-        document.addEventListener('mousemove', (e) => {
-            if (!trailEnabled) return;
-
-            const trailElement = document.createElement('div');
-            trailElement.className = 'mouse-trail';
-            trailElement.style.left = e.pageX + 'px';
-            trailElement.style.top = e.pageY + 'px';
-            document.body.appendChild(trailElement);
-
-            setTimeout(() => {
-                trailElement.remove();
-            }, 1000); // Trail fade duration
-        });
-
-        // Styling for mouse trail
-        const style = document.createElement('style');
-        style.innerHTML = `
-            .mouse-trail {
-                position: absolute;
-                width: 10px;
-                height: 10px;
-                background-color: red;
-                border-radius: 50%;
-                pointer-events: none;
-                opacity: 0.8;
-                transition: opacity 1s ease;
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
