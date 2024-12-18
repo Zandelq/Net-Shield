@@ -9,6 +9,7 @@
         /* Center the page text */
         .page-text {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh; /* Full viewport height */
@@ -16,6 +17,22 @@
             font-size: 3rem; /* Larger font size for visibility */
             font-weight: bold;
             text-align: center;
+            color: white;
+        }
+
+        /* Styling for the link under the title */
+        .page-text a {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #9af0ff;
+            text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .page-text a:hover {
+            color: cyan;
+            text-decoration: underline;
         }
 
         /* Fixed tab bar styling */
@@ -70,11 +87,51 @@
         #trail-toggle:hover {
             background-color: #ff4d4d;
         }
+
+        /* Mobile version section */
+        .mobile-section {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #9af0ff;
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        .mobile-section h2 {
+            color: cyan;
+            font-size: 1.8rem;
+        }
+
+        .mobile-section button {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-section button:hover {
+            transform: scale(1.1);
+            background-color: #005bb5;
+        }
     </style>
 </head>
 <body>
+    <!-- Tab Bar -->
+    <div id="tab-bar">
+        <button onclick="window.location.href='index.html'">Home</button>
+        <button class="active">Doge-Unblocker</button>
+        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
+        <button onclick="window.location.href='net-shield.html'">Interstellar</button>
+        <button onclick="window.location.href='info.html'">Info</button>
+    </div>
 
-  <!-- Main Doge-Unblocker Content -->
+    <!-- Main Doge-Unblocker Content -->
     <div class="page-text">
         <h1>Doge-Unblocker</h1>
         <a href="https://netshielddoge.vercel.app" target="_blank">Link 1</a>
@@ -90,15 +147,6 @@
         <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">
             Open Mobile Version
         </button>
-    </div>
-
-    <!-- Tab Bar -->
-    <div id="tab-bar">
-        <button onclick="window.location.href='index.html'">Home</button>
-        <button class="active">Doge-Unblocker</button>
-        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='net-shield.html'">Interstellar</button>
-        <button onclick="window.location.href='info.html'">Info</button>
     </div>
 
     <!-- Button to toggle mouse trail -->
