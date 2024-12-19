@@ -1,5 +1,5 @@
-RUN npm install
+CMD npm install
 
-RUN npm i @vercel/analytics
+CMD npm i @vercel/analytics
 
-RUN import { Analytics } from "@vercel/analytics/react"
+CMD import { Analytics } from "@vercel/analytics/react"
