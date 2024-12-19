@@ -8,7 +8,7 @@ body, html {
     color: white;
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
-   cursor: url('IMG_0613.gif') 12 20, auto; /* Custom cursor with adjusted hot spot
+   cursor: url('cursor.png') 12 20, auto; /* Custom cursor with adjusted hot spot
 }
 
 /* Center the "Home" text */
