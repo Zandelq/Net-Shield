@@ -8,8 +8,9 @@ body, html {
     color: white;
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
-   cursor: url('cursor.png') 12 20, auto; /* Custom cursor with adjusted hot spot */
-    cursor: url('-cursor.png') 12 20 pointer; /* for the pointer not the main one */
+   cursor: url('cursor.png') 12 20, auto;
+cursor: url('-cursor.png') 12 20 pointer;
+
 }
 
 /* Center the "Home" text */
