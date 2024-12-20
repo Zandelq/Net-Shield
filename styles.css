@@ -8,9 +8,12 @@ body, html {
     color: white;
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
-   cursor: url('cursor.png') 12 20, auto;
-cursor: url('-cursor.png') 12 20 pointer;
+    cursor: url('cursor.png') 12 20, auto; /* Custom cursor with fallback */
+}
 
+/* Pointer-specific cursor */
+a, button, #tab-bar button:hover {
+    cursor: url('pointer-cursor.png') 12 20, pointer; /* Custom pointer with fallback */
 }
 
 /* Center the "Home" text */
