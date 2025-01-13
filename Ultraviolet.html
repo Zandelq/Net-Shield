@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Ultraviolet | TN</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Center the home text on the screen */
-        .home-text {
+        /* Center the page text */
+        .page-text {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh; /* Full viewport height */
@@ -16,9 +17,25 @@
             font-size: 3rem; /* Larger font size for visibility */
             font-weight: bold;
             text-align: center;
+            color: white;
         }
 
-        /* Ensure tab bar stays fixed at the top */
+        /* Styling for the link under the title */
+        .page-text a {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #9af0ff;
+            text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+
+        .page-text a:hover {
+            color: cyan;
+            text-decoration: underline;
+        }
+
+        /* Fixed tab bar styling */
         #tab-bar {
             position: fixed;
             top: 0;
@@ -47,6 +64,11 @@
             color: cyan;
         }
 
+        #tab-bar button.active {
+            color: cyan;
+            border-bottom: 2px solid cyan;
+        }
+
         /* Mouse trail toggle button styling */
         #trail-toggle {
             position: fixed;
@@ -65,27 +87,62 @@
         #trail-toggle:hover {
             background-color: #ff4d4d;
         }
+
+        /* Mobile version section */
+        .mobile-section {
+            text-align: center;
+            margin: 30px auto;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: #9af0ff;
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        .mobile-section h2 {
+            color: cyan;
+            font-size: 1.8rem;
+        }
+
+        .mobile-section button {
+            background: linear-gradient(45deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-section button:hover {
+            transform: scale(1.1);
+            background-color: #005bb5;
+        }
     </style>
 </head>
 <body>
-    <!-- Home page content -->
-    <div class="home-text">
-        <h1>Home</h1>
-    </div>
-
-    <!-- Tab Bar -->
+     <!-- Tab Bar -->
     <div id="tab-bar">
-        <button>Home</button>
+        <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
         <button onclick="window.location.href='net-shield.html'">Interstellar</button>
         <button onclick="window.location.href='Information.html'">Info</button>
+        <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
+    </div>
+
+    <!-- Main Holy-Unblocker Content -->
+    <div class="page-text">
+        <h1>Ultraviolet | TN</h1>
+        <a href="https://only-augusta-quiteafancyemerald-96bfebd5.koyeb.app/ultraviolet#" target="_blank">Link 1</a>
+        <a href="https://hauntcircles.com/" target="_blank">Link 2</a>
     </div>
 
     <!-- Button to toggle mouse trail -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
-    <!-- Script to handle mouse trail -->
+    <!-- Script for mouse trail -->
     <script src="script.js"></script>
 </body>
 </html>
