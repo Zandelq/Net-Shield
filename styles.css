@@ -103,6 +103,15 @@ canvas{
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
 }
 
+/* Style for highlighted text */
+.highlight {
+    background-color: white; /* White background */
+    color: black; /* Black text color */
+    padding: 5px 10px; /* Add spacing inside */
+    border-radius: 5px; /* Rounded corners */
+}
+
+
 /* Body and page styling */
 body, html {
     margin: 0;
