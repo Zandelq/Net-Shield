@@ -3,10 +3,10 @@ particlesJS('particles-js',
   {
     "particles": {
       "number": {
-        "value": 80,
+        "value": 100,
         "density": {
           "enable": true,
-          "value_area": 800
+          "value_area": 700
         }
       },
       "color": {
@@ -109,7 +109,7 @@ particlesJS('particles-js',
     "retina_detect": true,
     "config_demo": {
       "hide_card": false,
-      "background_color": "#b61924",
+      "background_color": "#000000",
       "background_image": "",
       "background_position": "50% 50%",
       "background_repeat": "no-repeat",
@@ -124,7 +124,7 @@ let isMouseTrailActive = JSON.parse(localStorage.getItem('mouseTrailActive')) ??
 let trailElements = [];
 const MAX_TRAIL_COUNT = 20;
 const FADE_DURATION = 2000;
-const rainbowColors = ['red', 'yellow', 'blue', 'green', 'purple', 'orange'];
+const rainbowColors = ['red', 'yellow', 'blue', 'green', 'purple', 'orange', 'cyan', 'pink', 'teal'];
 let currentColorIndex = 0;
 let trailIndex = 0;
 const CURSOR_SIZE = 24;
