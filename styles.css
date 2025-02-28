@@ -107,8 +107,8 @@ canvas{
 .highlight {
     background-color: white; /* White background */
     color: black; /* Black text color */
-    padding: 5px 10px; /* Add spacing inside */
-    border-radius: 5px; /* Rounded corners */
+    padding: 4px 8px; /* Add spacing inside */
+    border-radius: 4px; /* Rounded corners */
 }
 
 
