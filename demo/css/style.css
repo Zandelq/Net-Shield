@@ -94,3 +94,193 @@ canvas{
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
+
+/* Body and page styling */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: black; /* Black background */
+    color: white;
+    overflow-y: auto; /* Enables vertical scrolling */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+   cursor: url('cursor.png') 12 20, auto; /* Custom cursor with adjusted hot spot
+}
+
+/* Center the "Home" text */
+.home-text {
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+/* Tab bar styling */
+#tab-bar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: black; /* Black background for tab bar */
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+    z-index: 1000;
+    border-bottom: 2px solid #444; /* Border for better visibility */
+}
+
+#tab-bar button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#tab-bar button:hover {
+    background-color: #333;
+    color: cyan;
+}
+
+/* Active tab styling */
+#tab-bar button.active {
+    background-color: #444; /* Highlight active tab */
+    color: cyan;
+    border-bottom: 2px solid cyan;
+}
+
+/* Mouse trail styling */
+.mouse-trail {
+    position: absolute;
+    width: 24px; /* Trail element size */
+    height: 24px;
+    border-radius: 50%; /* Circular trail */
+    pointer-events: none;
+    opacity: 1; /* Fully visible */
+    transition: opacity 2s ease, transform 0.5s ease; /* Smooth fade-out */
+    background-color: red; /* Default trail color */
+}
+    
+/* Mouse trail toggle button */
+#trail-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4caf50; /* Green for active */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+}
+
+#trail-toggle:hover {
+    background-color: #45a049;
+}
+
+/* Toggle button when disabled */
+#trail-toggle.inactive {
+    background-color: red;
+    color: white;
+}
+
+/* Center the iframe in the middle of the screen */
+iframe {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the iframe horizontally and vertically */
+    width: 80%; /* Adjust width as needed */
+    height: 60%; /* Adjust height as needed */
+    border: none; /* Remove border for a cleaner look */
+    z-index: 100; /* Ensure it stays above the content */
+}
+
+/* Modal and overlay styling */
+#modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    color: white;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    z-index: 1001;
+}
+
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+}
+
+/* Modal close button */
+#modal-header .close-btn {
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+}
+
+#modal-header .close-btn:hover {
+    color: darkred;
+}
+
+/* Secret icon */
+#secret-icon {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#secret-icon:hover {
+    transform: scale(1.2);
+    background-color: darkgray;
+}
+
+/* Link inside the modal */
+#modal a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: cyan;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#modal a:hover {
+    background-color: white;
+    color: black;
+}
