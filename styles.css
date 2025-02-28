@@ -90,7 +90,18 @@ canvas{
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
-
+/* Center the text over the particles */
+.center-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white; /* Adjust for contrast */
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+}
 
 /* Body and page styling */
 body, html {
@@ -103,14 +114,6 @@ body, html {
     overflow-y: auto; /* Enables vertical scrolling */
     overflow-x: hidden; /* Prevents horizontal scrolling */
    cursor: url('cursor.png') 12 20, auto; /* Custom cursor with adjusted hot spot
-}
-
-/* Center the "Home" text */
-.home-text {
-    font-size: 50px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
 }
 
 /* Tab bar styling */
