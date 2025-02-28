@@ -85,6 +85,14 @@
         <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
     </div>
 
+    <div id="particles-js"></div> <!-- Background Container -->
+    
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log("Particles.js loaded successfully!");
+        });
+    </script>
+
     <!-- Button to toggle mouse trail -->
     <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
 
