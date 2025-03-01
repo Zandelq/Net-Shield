@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doge-Unblocker</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
     <style>
-          /* Center the home text on the screen */
+        /* Center the home text on the screen */
         .home-text {
             display: flex;
             justify-content: center;
@@ -83,38 +84,16 @@
   };
   requestAnimationFrame(update);
 </script>
+
     <!-- Tab Bar -->
     <div id="tab-bar">
-        <button onclick="window.location.href='index.html'">Home</button>
-        <button class="active">Doge-Unblocker</button>
+        <button>Home</button>
+        <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
         <button onclick="window.location.href='net-shield.html'">Interstellar</button>
         <button onclick="window.location.href='Information.html'">Info</button>
         <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
     </div>
-
-    <!-- Main Doge-Unblocker Content -->
-    <div class="page-text">
-        <h1>Doge-Unblocker</h1>
-        <a href="https://netshielddoge.vercel.app" target="_blank">Link 1</a>
-    </div>
-
-    <!-- Mobile Version Description -->
-    <div class="mobile-section">
-        <h2>Mobile Version Available!</h2>
-        <p>
-            If you're on a mobile device, we've got you covered. The Doge-Unblocker mobile version
-            is optimized for small screens and works just as fast.
-        </p>
-        <button onclick="window.open('https://netshielddoge.vercel.app/mobile.html', '_blank')">
-            Open Mobile Version
-        </button>
-    </div>
-
-    <!-- Button to toggle mouse trail -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <!-- Script for mouse trail -->
-    <script src="script.js"></script>
+    <script src="demo/js/app.js"></script>
 </body>
 </html>
