@@ -1,128 +1,63 @@
-html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
-body{line-height:1}
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
-nav ul{list-style:none}
-blockquote,q{quotes:none}
-blockquote:before,blockquote:after,q:before,q:after{content:none}
-a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;text-decoration:none}
-mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}
-del{text-decoration:line-through}
-abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}
-table{border-collapse:collapse;border-spacing:0}
-hr{display:block;height:1px;border:0;border-top:1px solid #ccc;margin:1em 0;padding:0}
-input,select{vertical-align:middle}
-li{list-style:none}
-
-
 /* =============================================================================
-   My CSS
+   Reset CSS
    ========================================================================== */
 
-/* ---- base ---- */
-
-html,body{ 
-	width:100%;
-	height:100%;
-	background:#0f0f0f;
+html, body { 
+    width: 100%;
+    height: 100%;
+    background: #0f0f0f;
+    font: normal 75% Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-html{
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+canvas {
+    display: block;
+    vertical-align: bottom;
 }
-
-body{
-  font:normal 75% Arial, Helvetica, sans-serif;
-}
-
-canvas{
-  display:block;
-  vertical-align:bottom;
-}
-
 
 /* ---- stats.js ---- */
 
-.count-particles{
-  background: #000022;
-  position: absolute;
-  top: 48px;
-  left: 0;
-  width: 80px;
-  color: #13E8E9;
-  font-size: .8em;
-  text-align: left;
-  text-indent: 4px;
-  line-height: 14px;
-  padding-bottom: 2px;
-  font-family: Helvetica, Arial, sans-serif;
-  font-weight: bold;
+.count-particles {
+    background: #000022;
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 80px;
+    color: #13E8E9;
+    font-size: .8em;
+    text-align: left;
+    text-indent: 4px;
+    line-height: 14px;
+    padding-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-weight: bold;
 }
 
-.js-count-particles{
-  font-size: 1.1em;
+.js-count-particles {
+    font-size: 1.1em;
 }
 
 #stats,
-.count-particles{
-  -webkit-user-select: none;
-  margin-top: 5px;
-  margin-left: 5px;
+.count-particles {
+    -webkit-user-select: none;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
-#stats{
-  border-radius: 3px 3px 0 0;
-  overflow: hidden;
-}
-
-.count-particles{
-  border-radius: 0 0 3px 3px;
-}
-
-
-/* ---- particles.js container ---- */
-
-#particles-js{
-  width: 100%;
-  height: 100%;
-  background-color: ##000000;
-  background-image: url('');
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-}
-/* Center the text over the particles */
-.center-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white; /* Adjust for contrast */
-    font-size: 3rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+#stats {
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
 }
 
 /* Style for highlighted text */
 .highlight {
-    background-color: white; /* White background */
-    color: black; /* Black text color */
-    padding: 4px 8px; /* Add spacing inside */
-    border-radius: 4px; /* Rounded corners */
-}
-
-
-/* Body and page styling */
-body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: black; /* Black background */
-    color: white;
-    overflow-y: auto; /* Enables vertical scrolling */
-    overflow-x: hidden; /* Prevents horizontal scrolling */
-   cursor: url('cursor.png') 12 20, auto; /* Custom cursor with adjusted hot spot
+    background-color: white;
+    color: black;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 /* Tab bar styling */
@@ -130,12 +65,12 @@ body, html {
     position: fixed;
     top: 0;
     width: 100%;
-    background-color: black; /* Black background for tab bar */
+    background-color: black;
     display: flex;
     justify-content: center;
     padding: 10px 0;
     z-index: 1000;
-    border-bottom: 2px solid #444; /* Border for better visibility */
+    border-bottom: 2px solid #444;
 }
 
 #tab-bar button {
@@ -156,47 +91,9 @@ body, html {
 
 /* Active tab styling */
 #tab-bar button.active {
-    background-color: #444; /* Highlight active tab */
+    background-color: #444;
     color: cyan;
     border-bottom: 2px solid cyan;
-}
-
-/* Mouse trail styling */
-.mouse-trail {
-    position: absolute;
-    width: 24px; /* Trail element size */
-    height: 24px;
-    border-radius: 50%; /* Circular trail */
-    pointer-events: none;
-    opacity: 1; /* Fully visible */
-    transition: opacity 2s ease, transform 0.5s ease; /* Smooth fade-out */
-    background-color: red; /* Default trail color */
-}
-    
-/* Mouse trail toggle button */
-#trail-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4caf50; /* Green for active */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    z-index: 1000;
-}
-
-#trail-toggle:hover {
-    background-color: #45a049;
-}
-
-/* Toggle button when disabled */
-#trail-toggle.inactive {
-    background-color: red;
-    color: white;
 }
 
 /* Center the iframe in the middle of the screen */
@@ -204,11 +101,11 @@ iframe {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Center the iframe horizontally and vertically */
-    width: 80%; /* Adjust width as needed */
-    height: 60%; /* Adjust height as needed */
-    border: none; /* Remove border for a cleaner look */
-    z-index: 100; /* Ensure it stays above the content */
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 60%;
+    border: none;
+    z-index: 100;
 }
 
 /* Modal and overlay styling */
@@ -235,61 +132,6 @@ iframe {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
-}
-
-/* Modal close button */
-#modal-header .close-btn {
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    color: red;
-}
-
-#modal-header .close-btn:hover {
-    color: darkred;
-}
-
-/* Secret icon */
-#secret-icon {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    background-color: gray;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-}
-
-#secret-icon:hover {
-    transform: scale(1.2);
-    background-color: darkgray;
-}
-
-/* Link inside the modal */
-#modal a {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 14px;
-    background-color: cyan;
-    color: black;
-    border-radius: 5px;
-    text-decoration: none;
-    margin-top: 10px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#modal a:hover {
-    background-color: white;
-    color: black;
 }
