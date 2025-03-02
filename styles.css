@@ -339,17 +339,16 @@ a {
     font-size: 16px;
     transition: color 0.3s ease;
 }
-
 #logo-link {
-    display: flex;
-    align-items: center;
+    display: inline-block;  /* Limits the clickable area */
     position: absolute;
-    left: 20px; /* Adjust to move further from the left */
+    left: 20px;  /* Adjusts spacing from the left */
     top: 50%;
-    transform: translateY(-50%); /* Center vertically */
+    transform: translateY(-50%);  /* Centers vertically */
 }
 
 #logo-img {
     width: 50px;  /* Adjust size as needed */
     height: auto;
+    display: block;  /* Prevents extra spacing */
 }
