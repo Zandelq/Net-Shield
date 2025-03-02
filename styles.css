@@ -377,7 +377,7 @@ a {
 
 	*/
 	/* Make sure the navbar is a flex container */
-	.navbar {
+.navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -386,70 +386,31 @@ a {
 /* Dropdown container */
 .dropdown {
     position: relative;
+    display: inline-block;
 }
 
-/* Dropdown button (More tab) */
+/* Dropdown button */
 .dropbtn {
     padding: 10px 15px;
     color: white;
     text-decoration: none;
     display: block;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
-/* Fix dropdown positioning to stay inside the navbar */
+/* Dropdown menu */
 .dropdown-content {
     display: none;
     position: absolute;
     left: 0;
-    top: 100%; /* Appears right under the "More" tab */
+    top: 100%;
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 10px;
     min-width: 160px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     z-index: 100;
-}
-
-/* Make sure menu items look good */
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    border-radius: 8px;
-}
-
-/* Hover effect */
-.dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Show dropdown when hovering */
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Dropdown container */
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-/* Button for dropdown */
-.dropbtn {
-    padding: 10px 15px;
-    color: white;
-    text-decoration: none;
-    display: block;
-}
-
-/* Dropdown menu hidden by default */
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px; /* No sharp edges */
-    min-width: 160px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 /* Dropdown menu items */
@@ -458,31 +419,15 @@ a {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-    border-radius: 8px; /* Rounded corners */
+    border-radius: 8px;
+}
+
+/* Hover effect for dropdown items */
+.dropdown-content a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 /* Show dropdown when hovering */
 .dropdown:hover .dropdown-content {
     display: block;
-}
-
-/* Hover effect */
-.dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: black;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(255,255,255,0.2);
-    z-index: 1;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-.dropdown {
-    position: relative;
-    display: inline-block;
 }
