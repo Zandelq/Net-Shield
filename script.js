@@ -268,3 +268,18 @@ window.addEventListener("scroll", () => {
     }
     lastScrollY = window.scrollY;
 });
+document.querySelector('.dropbtn').addEventListener('click', function () {
+    document.querySelector('.dropdown-content').classList.toggle('show');
+});
+
+// Close dropdown when clicking outside
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        let dropdowns = document.querySelectorAll(".dropdown-content");
+        dropdowns.forEach(function (dropdown) {
+            if (dropdown.classList.contains("show")) {
+                dropdown.classList.remove("show");
+            }
+        });
+    }
+};
