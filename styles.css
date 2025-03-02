@@ -147,7 +147,7 @@ a {
 */
 #tab-bar {
     position: fixed;
-    top: 120px; /* Lowered more */
+    top: 500px; /* Lowered more */
     left: 40px;
     right: 40px;
     max-width: 90%;
