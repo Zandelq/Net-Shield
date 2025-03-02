@@ -137,16 +137,44 @@ This is the end for this css code next will be for the tab
 */
 #tab-bar {
     position: fixed;
-    top: 20px; /* More space from the top */
-    left: 30px; /* More space from the left */
-    right: 30px; /* More space from the right */
-    background-color: rgba(0, 0, 0, 0.8); /* Darker than background for contrast */
-    padding: 15px 30px; /* More inner spacing */
+    top: 50px; /* Lower the tab bar */
+    left: 40px; /* Move away from left */
+    right: 40px; /* Move away from right */
+    background-color: rgba(0, 0, 0, 0.85); /* Darker than background for contrast */
+    padding: 15px 40px; /* More inner spacing */
     border-radius: 15px; /* Softer rounded edges */
     text-align: center;
-    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2); /* Glow effect for contrast */
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2); /* Glow effect */
     z-index: 1000;
+    display: flex;
+    align-items: center;
 }
+
+/* 🔥 3. Icon Styling (Inside the Red Circle) */
+#tab-icon {
+    height: 35px; /* Smaller icon */
+    width: auto;
+    position: absolute;
+    left: 15px; /* Push it inside the tab */
+    top: 50%;
+    transform: translateY(-50%); /* Center it vertically */
+}
+
+/* 🔥 4. Adjust the links so they don't overlap the icon */
+#tab-bar a {
+    margin-left: 50px; /* Push text away from the icon */
+    font-size: 14px; /* Make links smaller */
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#tab-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 #tab-icon {
     height: 40px; /* Adjust size */
     width: auto;
