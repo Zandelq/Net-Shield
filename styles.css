@@ -326,15 +326,16 @@ a {
 
 
 */
-.center-text a {
-    display: block; /* Forces each link to appear on a new line */
-    margin: 10px 0; /* Adds spacing between links */
-    font-size: 1.5rem; /* Adjust font size as needed */
-    color: cyan; /* Ensure color is consistent */
-    text-decoration: none;
-}
 .center-text {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center align the links */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 10px 20px; /* Adjust spacing */
+    text-align: center;
+}
+
+.center-text a {
+    display: block; /* Ensure block behavior */
+    font-size: 1.5rem; /* Adjust as needed */
+    color: cyan;
+    text-decoration: none;
 }
