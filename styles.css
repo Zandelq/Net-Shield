@@ -328,8 +328,8 @@ a {
 */
 .center-text {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
-    gap: 10px; /* Space between links */
+    grid-template-columns: repeat(6, 1fr); /* 4 equal columns */
+    gap: 5px; /* Space between links */
     text-align: center;
 }
 
