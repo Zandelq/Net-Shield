@@ -137,9 +137,9 @@ This is the end for this css code next will be for the tab
 */
 #tab-bar {
     position: fixed;
-    top: 50px; /* Lower the tab bar */
+    top: 70px; /* Lower the tab bar */
     left: 40px; /* Move away from left */
-    right: 40px; /* Move away from right */
+    width: calc(100% - 80px); /* Ensure right-side space matches left */
     background-color: rgba(0, 0, 0, 0.85); /* Darker than background for contrast */
     padding: 15px 40px; /* More inner spacing */
     border-radius: 15px; /* Softer rounded edges */
@@ -148,6 +148,7 @@ This is the end for this css code next will be for the tab
     z-index: 1000;
     display: flex;
     align-items: center;
+    justify-content: center; /* Ensure links are centered */
 }
 
 /* 🔥 3. Icon Styling (Inside the Red Circle) */
@@ -180,4 +181,32 @@ This is the end for this css code next will be for the tab
     width: auto;
     vertical-align: middle;
     margin-right: 15px; /* Space from links */
+}
+/*
+
+	Fade in tab is next
+	And tab stand out
+
+
+					*/
+#tab-bar {
+    opacity: 0;
+    transform: translateY(-20px); /* Start slightly higher */
+    animation: fadeInTab 0.5s ease-out forwards;
+}
+
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+#tab-bar:hover {
+    box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.4);
+    background-color: rgba(0, 0, 0, 0.95); /* Slightly darker */
+    transition: all 0.3s ease;
 }
