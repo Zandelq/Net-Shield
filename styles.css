@@ -328,20 +328,18 @@ a {
 */
 .center-text {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns */
-    gap: 10px 20px; /* Adjust spacing */
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    gap: 10px; /* Space between links */
     text-align: center;
 }
 
 .center-text a {
-    display: block; /* Ensure block behavior */
-    font-size: 1.5rem; /* Adjust as needed */
-    color: cyan;
+    color: cyan; /* Adjust link color */
     text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
 }
-.center-text {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
-    gap: 10px; /* Adjust space between links */
-    text-align: center;
+
+.center-text a:hover {
+    color: lightblue; /* Change color on hover */
 }
