@@ -339,3 +339,9 @@ a {
     color: cyan;
     text-decoration: none;
 }
+.center-text {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 10px; /* Adjust space between links */
+    text-align: center;
+}
