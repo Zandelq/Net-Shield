@@ -3,30 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interstellar</title>
+    <title>Holy Unblocker</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* General styling */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
-        }
-
-        /* Main tab bar */
-        #tab-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: black;
+        /* Center the home text on the screen */
+        .home-text {
             display: flex;
             justify-content: center;
-            padding: 10px 0;
-            z-index: 1000;
-            border-bottom: 2px solid #444;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            font-size: 3rem; /* Larger font size for visibility */
+            font-weight: bold;
+            text-align: center;
         }
 
         #tab-bar button {
@@ -43,164 +32,57 @@
         #tab-bar button:hover {
             background-color: #333;
             color: cyan;
-        }
-
-        #tab-bar button.active {
-            background-color: #444;
-            color: cyan;
-            border-bottom: 2px solid cyan;
-        }
-
-        /* Inner tab bar for Interstellar page */
-        .inner-tab-bar {
-            display: flex;
-            justify-content: center;
-            background-color: #111;
-            padding: 10px 0;
-            margin-top: 70px; /* Offset for main tab bar */
-            border-bottom: 2px solid #444;
-        }
-
-        .inner-tab-bar button {
-            background-color: #222;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .inner-tab-bar button:hover {
-            background-color: #333;
-            color: cyan;
-        }
-
-        .inner-tab-bar button.active {
-            background-color: #444;
-            color: cyan;
-            border-bottom: 2px solid cyan;
-        }
-
-        /* Links section styling */
-        .link-container {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
-
-        .link-container.active {
-            display: flex;
-        }
-
-        .link-container a {
-            margin: 10px 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #9af0ff;
-            text-decoration: none;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-
-        .link-container a:hover {
-            color: cyan;
-            text-decoration: underline;
-        }
-
-        /* Mouse trail styling */
-        .mouse-trail {
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 2s ease, transform 0.5s ease;
-            background-color: red;
-        }
     </style>
+     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="css/style.css">
 </head>
 <body>
-    <!-- Main Tab Bar -->
+<!-- particles.js container -->
+<div id="particles-js"></div>
+      <!-- Centered Text -->
+    <div class="center-text">
+      <h1>Holy<span class="highlight">Unblocker</span></h1>
+        <h1><a href="https://only-augusta-quiteafancyemerald-96bfebd5.koyeb.app/ultraviolet#" target="_blank">Link 1</span></h1>
+        <a href="https://hauntcircles.com/a" target="_blank">Link 2</a>
+    </div>
+<!-- scripts -->
+<script src="../particles.js"></script>
+<script src="js/app.js"></script>
+
+<!-- stats.js -->
+<script src="js/lib/stats.js"></script>
+<script>
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+</script>
+
+    <!-- Tab Bar -->
     <div id="tab-bar">
+        <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
         <button class="active">Interstellar</button>
-        <button onclick="window.location.href='Information.html'">Info</button>
         <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
+        <button onclick="window.location.href='Information.html'">Info</button>
     </div>
-
-    <!-- Inner Tab Bar -->
-    <div class="inner-tab-bar">
-        <button id="ad-free-tab" class="active" onclick="showLinks('ad-free')">Ad-Free</button>
-        <button id="normal-tab" onclick="showLinks('normal')">Normal</button>
-        <button id="v1-tab" onclick="showLinks('v1')">V1</button>
-    </div>
-
-    <!-- Content for Links -->
-    <div id="ad-free" class="link-container active">
-        <a href="https://interstellaradfree.vercel.app/" target="_blank">Ad-Free Link 1</a>
-        <a href="https://education-for-science.vercel.app/" target="_blank">Ad-Free Link 2</a>
-        <a href="https://education-for-middle-school.vercel.app/" target="_blank">Ad-Free Link 3</a>
-    </div>
-
-    <div id="normal" class="link-container">
-        <a href="https://sodorkskf.vercel.app/" target="_blank">Normal Link 1</a>
-        <a href="https://rb.gy/2n3j06" target="_blank">Normal Link 2</a>
-        <a href="https://education-for-history-dob.vercel.app/" target="_blank">Normal Link 3</a>
-    </div>
-
-    <div id="v1" class="link-container">
-        <a href="https://interstellarv3f.vercel.app/" target="_blank">V1 Link 1</a>
-        <a href="https://helpforkidsinschool.vercel.app/" target="_blank">V1 Link 2</a>
-        <a href="https://technologytoo.vercel.app/" target="_blank">V1 Link 3</a>
-    </div>
-
-    <!-- JavaScript -->
-    <script>
-        // Tab switching functionality
-        function showLinks(tabId) {
-            const containers = document.querySelectorAll('.link-container');
-            const buttons = document.querySelectorAll('.inner-tab-bar button');
-
-            containers.forEach(container => container.classList.remove('active'));
-            buttons.forEach(button => button.classList.remove('active'));
-
-            document.getElementById(tabId).classList.add('active');
-            document.getElementById(tabId + '-tab').classList.add('active');
-        }
-
-        // Mouse trail code
-        const MAX_TRAIL_COUNT = 20;
-        const FADE_DURATION = 2000;
-        const CURSOR_SIZE = 24;
-        let trailElements = [];
-        let trailIndex = 0;
-
-        function initializeTrailElements() {
-            for (let i = 0; i < MAX_TRAIL_COUNT; i++) {
-                const trail = document.createElement('div');
-                trail.className = 'mouse-trail';
-                trail.style.width = `${CURSOR_SIZE}px`;
-                trail.style.height = `${CURSOR_SIZE}px`;
-                document.body.appendChild(trail);
-                trailElements.push(trail);
-            }
-        }
-
-        document.addEventListener('mousemove', (event) => {
-            const trail = trailElements[trailIndex];
-            trail.style.left = `${event.pageX - CURSOR_SIZE / 2}px`;
-            trail.style.top = `${event.pageY - CURSOR_SIZE / 2}px`;
-            trail.style.opacity = '1';
-            setTimeout(() => (trail.style.opacity = '0'), FADE_DURATION);
-            trailIndex = (trailIndex + 1) % MAX_TRAIL_COUNT;
-        });
-
-        window.onload = initializeTrailElements;
-    </script>
+    <script src="demo/js/app.js"></script>
 </body>
 </html>
