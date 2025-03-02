@@ -148,7 +148,7 @@ a {
 #tab-bar {
     position: fixed;
     top: 20px; /* Kept it 20px lower as you requested */
-    left: 7%; /* Start from the center */
+    left: 6%; /* Start from the center */
     transform: translateX(-50%); /* Ensure equal spacing on both sides */
     width: 85%; /* Adjusted width to avoid touching the sides */
     max-width: 1100px; /* Prevent stretching on large screens */
