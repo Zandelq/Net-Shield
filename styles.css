@@ -147,3 +147,9 @@ This is the end for this css code next will be for the tab
     box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2); /* Glow effect for contrast */
     z-index: 1000;
 }
+#tab-icon {
+    height: 40px; /* Adjust size */
+    width: auto;
+    vertical-align: middle;
+    margin-right: 15px; /* Space from links */
+}
