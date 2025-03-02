@@ -340,9 +340,16 @@ a {
     transition: color 0.3s ease;
 }
 
-.center-text a:hover {
-    color: lightblue; /* Change color on hover */
+#logo-link {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 20px; /* Adjust to move further from the left */
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically */
 }
-#logo-link:hover {
-    opacity: 0.7; /* Slight fade effect on hover */
+
+#logo-img {
+    width: 50px;  /* Adjust size as needed */
+    height: auto;
 }
