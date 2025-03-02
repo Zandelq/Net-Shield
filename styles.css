@@ -376,58 +376,35 @@ a {
 
 
 	*/
-	/* Make sure the navbar is a flex container */
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-/* Dropdown container */
 .dropdown {
     position: relative;
     display: inline-block;
 }
 
-/* Dropdown button */
-.dropbtn {
-    padding: 10px 15px;
-    color: white;
-    text-decoration: none;
-    display: block;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-/* Dropdown menu */
 .dropdown-content {
     display: none;
     position: absolute;
-    left: 0;
-    top: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
     min-width: 160px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-    z-index: 100;
+    box-shadow: 0px 8px 16px rgba(255, 255, 255, 0.2);
+    z-index: 1000;
+    border-radius: 10px;
 }
 
-/* Dropdown menu items */
 .dropdown-content a {
     color: white;
     padding: 12px 16px;
-    text-decoration: none;
     display: block;
-    border-radius: 8px;
+    text-align: left;
 }
 
-/* Hover effect for dropdown items */
 .dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Show dropdown when hovering */
 .dropdown:hover .dropdown-content {
     display: block;
+}
+.dropdown-content {
+    z-index: 2000;
 }
