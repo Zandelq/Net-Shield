@@ -166,17 +166,19 @@ a {
 
 
 /* 🔥 3. Icon Styling (Inside the Red Circle) */
+#logo-link {
+    position: absolute;
+    left: 15px; /* Keeps it inside the tab */
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-block; /* Ensures it behaves like a clickable element */
+}
+
 #tab-icon {
     height: 35px; /* Smaller icon */
     width: auto;
-    position: absolute;
-    left: 15px; /* Push it inside the tab */
-    top: 50%;
-    transform: translateY(-50%); /* Center it vertically */
 }
-#tab-icon:hover {
-    transform: scale(1.3.1.3); /* Slightly enlarge on hover */
-}
+
 
 /* 🔥 4. Adjust the links so they don't overlap the icon */
 #tab-bar a {
