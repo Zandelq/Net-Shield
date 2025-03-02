@@ -117,7 +117,7 @@ a {
 a:visited {
     color: cyan; /* Ensure visited links match normal links */
 }
-
+t
 /* Change the color of links when hovered */
 a:hover {
     color: lightblue; /* Change to a different color on hover */
@@ -125,21 +125,13 @@ a:hover {
 a {
     font-size: 14px; /* Adjust size as needed */
 }
-#tab-bar {
-    position: fixed; /* Keeps it at the top */
-    top: 10px; /* Space from the top */
-    left: 10px; /* Space from the left */
-    right: 10px; /* Space from the right */
-    background-color: black; /* Bar background */
-    padding: 10px 20px; /* Inner spacing */
-    border-radius: 10px; /* Rounded edges */
-    text-align: center; /* Center the text */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Optional shadow */
-    z-index: 1000; /* Ensures it's above other elements */
-}
-.tab-icon {
-    height: 30px; /* Adjust as needed */
-    width: auto; /* Keeps aspect ratio */
-    vertical-align: middle; /* Aligns with text */
-    margin-right: 10px; /* Space from links */
-}
+/*
+
+
+
+This is the end for this css code next will be for the tab
+
+
+
+
+*/
