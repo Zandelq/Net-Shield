@@ -173,6 +173,8 @@ a {
     left: 15px; /* Push it inside the tab */
     top: 50%;
     transform: translateY(-50%); /* Center it vertically */
+}
+
 /* 🔥 4. Adjust the links so they don't overlap the icon */
 #tab-bar a {
     margin-left: 50px; /* Push text away from the icon */
