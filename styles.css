@@ -289,3 +289,16 @@ a {
     transform: translateY(-5px);
     transition: all 0.3s ease-in-out;
 }
+#tab-bar:hover {
+    box-shadow: 0px 6px 20px rgba(0, 255, 255, 0.5); /* Cyan glow effect */
+    transition: all 0.3s ease-in-out;
+}
+#tab-bar:active {
+    animation: bounceTab 0.2s ease;
+}
+
+@keyframes bounceTab {
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(0.95); }
+    100% { transform: translateX(-50%) scale(1); }
+}
