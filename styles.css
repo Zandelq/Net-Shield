@@ -117,7 +117,7 @@ a {
 a:visited {
     color: cyan; /* Ensure visited links match normal links */
 }
-
+t
 /* Change the color of links when hovered */
 a:hover {
     color: lightblue; /* Change to a different color on hover */
@@ -339,72 +339,7 @@ a {
     font-size: 16px;
     transition: color 0.3s ease;
 }
-/*
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-						Drop Donw menu next watch out
-
-
-
-
-
-
-
-
-
-
-
-
-
-	*/
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.9);
-    min-width: 160px;
-    box-shadow: 0px 8px 16px rgba(255, 255, 255, 0.2);
-    z-index: 1000;
-    border-radius: 10px;
-}
-
-.dropdown-content a {
-    color: white;
-    padding: 12px 16px;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-.dropdown-content {
-    z-index: 2000;
+.center-text a:hover {
+    color: lightblue; /* Change color on hover */
 }
