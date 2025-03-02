@@ -277,4 +277,14 @@ a {
         display: inline-block; /* Show links when hovered */
     }
 }
+#tab-bar a {
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
 
+#tab-bar a:active {
+    transform: scale(0.95); /* Shrinks slightly when clicked */
+}
+#tab-bar:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease-in-out;
+}
