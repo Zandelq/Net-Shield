@@ -108,3 +108,17 @@ canvas{
     padding: 4px 8px; /* Add spacing inside */
     border-radius: 4px; /* Rounded corners */
 }
+a {
+    color: cyan; /* Change to your desired color */
+    text-decoration: none; /* Optional: Removes the underline */
+}
+
+/* Change the color of visited links */
+a:visited {
+    color: cyan; /* Ensure visited links match normal links */
+}
+
+/* Change the color of links when hovered */
+a:hover {
+    color: lightblue; /* Change to a different color on hover */
+}
