@@ -343,3 +343,14 @@ a {
 .center-text a:hover {
     color: lightblue; /* Change color on hover */
 }
+#logo-link {
+    text-decoration: none; /* Remove underline */
+    color: white; /* Keep text color */
+    font-size: 24px;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+#logo-link:hover {
+    opacity: 0.7; /* Slight fade effect on hover */
+}
