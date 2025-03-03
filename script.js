@@ -236,35 +236,3 @@ function closeModal() {
     document.getElementById("modal").style.display = "none";
     document.getElementById("overlay").style.display = "none";
 }
-
-
-
-
-
-
-
-
-                                      //My Code After this
-
-
-
-
-
-
-
-
-
-
-
-
-let lastScrollY = window.scrollY;
-const tabBar = document.getElementById("tab-bar");
-
-window.addEventListener("scroll", () => {
-    if (window.scrollY > lastScrollY) {
-        tabBar.style.top = "-100px"; // Hide when scrolling down
-    } else {
-        tabBar.style.top = "120px"; // Show when scrolling up
-    }
-    lastScrollY = window.scrollY;
-});
