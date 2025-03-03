@@ -142,17 +142,16 @@ a {
 
 
 
-
+https://vercel.com/darwins-projects-b06b5254/working-links-sc/7EFrPAk9tKxS8JxYCzbC99YRU8hQ
 
 */
 /* Tab Bar */
 #tab-bar {
     position: fixed;
-    top: 20px;
-    left: 50%; /* Center it */
-    transform: translateX(-50%); /* Ensure equal spacing on both sides */
-    width: 85%; /* Adjust width */
-    max-width: 1150px; /* Prevent it from being too wide */
+    top: 20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(250px, 85%, 1100px); /* Keeps it responsive */
     background-color: rgba(0, 0, 0, 0.85);
     padding: 15px 40px;
     border-radius: 15px;
@@ -163,8 +162,7 @@ a {
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-}
-/* Icon inside the tab */
+}/* Icon inside the tab */
 #tab-icon {
     height: 35px;
     width: auto;
