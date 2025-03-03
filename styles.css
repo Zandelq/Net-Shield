@@ -148,23 +148,22 @@ a {
 /* Tab Bar */
 #tab-bar {
     position: fixed;
-    top: 20px; /* Maintain spacing from the top */
+    top: 20px;
     left: 50%; /* Center it */
-    transform: translateX(-50%); /* Proper centering */
-    width: 85%; /* Avoid touching the sides */
-    max-width: 1100px; /* Prevent stretching */
+    transform: translateX(-50%); /* Ensure equal spacing on both sides */
+    width: 85%; /* Adjust width */
+    max-width: 1100px; /* Prevent it from being too wide */
     background-color: rgba(0, 0, 0, 0.85);
     padding: 15px 40px;
     border-radius: 15px;
     text-align: center;
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
-    z-index: 1000;
     transition: all 0.3s ease;
 }
-
 /* Icon inside the tab */
 #tab-icon {
     height: 35px;
