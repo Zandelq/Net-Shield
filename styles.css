@@ -356,3 +356,6 @@ a {
 .center-text a:hover {
     color: lightblue; /* Change color on hover */
 }
+.info-text {
+    font-size: 12px; /* Smaller text */
+}
