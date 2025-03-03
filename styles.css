@@ -145,23 +145,92 @@ a {
 
 
 */
+/* Tab Bar */
 #tab-bar {
     position: fixed;
-    top: 20px; /* Kept it 20px lower as you requested */
-    left: 6.6%; /* Start from the center */
-    transform: translateX(-50%); /* Ensure equal spacing on both sides */
-    width: 85%; /* Adjusted width to avoid touching the sides */
-    max-width: 1100px; /* Prevent stretching on large screens */
+    top: 20px; /* Maintain spacing from the top */
+    left: 50%; /* Center it */
+    transform: translateX(-50%); /* Proper centering */
+    width: 85%; /* Avoid touching the sides */
+    max-width: 1100px; /* Prevent stretching */
     background-color: rgba(0, 0, 0, 0.85);
     padding: 15px 40px;
     border-radius: 15px;
     text-align: center;
-    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
-    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+    z-index: 1000;
     transition: all 0.3s ease;
+}
+
+/* Icon inside the tab */
+#tab-icon {
+    height: 35px;
+    width: auto;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Tab Bar Links */
+#tab-bar a {
+    margin-left: 50px;
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+#tab-bar a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Fade-in Animation */
+#tab-bar {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInTab 0.5s ease-out forwards;
+}
+
+@keyframes fadeInTab {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effect for desktop */
+#tab-bar:hover {
+    box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.4);
+    background-color: rgba(0, 0, 0, 0.95);
+    transform: scale(1.02);
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+    #tab-bar {
+        width: 90%;
+        height: auto;
+        border-radius: 15px;
+        padding: 10px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #tab-bar a {
+        display: block; /* Ensure links are always visible */
+        margin: 5px 0;
+    }
 }
 
 
