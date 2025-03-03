@@ -1,32 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Information</title>
+    <title>Doge-Unblocker</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* General styling */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: black;
-            color: white;
-        }
-
-        /* Tab bar styling */
-        #tab-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: black;
+        /* Center the home text on the screen */
+        .home-text {
             display: flex;
             justify-content: center;
-            padding: 10px 0;
-            z-index: 1000;
-            border-bottom: 2px solid #444;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            font-size: 3rem; /* Larger font size for visibility */
+            font-weight: bold;
+            text-align: center;
         }
 
         #tab-bar button {
@@ -42,79 +33,74 @@
 
         #tab-bar button:hover {
             background-color: #333;
-            color: white;
-        }
-
-        #tab-bar button.active {
-            background-color: #333;
             color: cyan;
-        }
-
-        /* Main content styling */
-        .content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-
-        .content h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .content p {
-            font-size: 2rem;
-            margin-top: 0;
-            color: white;
-        }
-
-        /* Mouse trail toggle button styling */
-        #trail-toggle {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #trail-toggle:hover {
-            background-color: #ff4d4d;
-        }
     </style>
+     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="css/style.css">
 </head>
 <body>
+<!-- particles.js container -->
+<div id="particles-js"></div>
+      <!-- Centered Text -->
+    <div class="center-text">
+              <h1>About This Site</h1>
+        <p>Welcome! This site provides multiple proxy tools to help you browse securely and bypass restrictions.</p>
 
-    <!-- Tab Bar for navigation -->
+        <h2>Our Proxies</h2>
+        <ul>
+            <li><strong>Home</strong> - The main entry point of the site.</li>
+            <li><strong>Doge-Unblocker</strong> - A proxy service with fast speeds.</li>
+            <li><strong>Holy-Unblocker</strong> - Designed for secure and private browsing.</li>
+            <li><strong>Interstellar</strong> - Offers high-speed anonymous browsing.</li>
+            <li><strong>Ultraviolet</strong> - Another reliable proxy with smooth performance.</li>
+            <li><strong>Information Page</strong> - Provides details on all services.</li>
+        </ul>
+
+        <h2>How to Use</h2>
+        <ol>
+            <li>Click on any proxy link from the navigation bar.</li>
+            <li>Follow the instructions on the page.</li>
+            <li>Enjoy unrestricted browsing!</li>
+        </ol>
+
+<!-- scripts -->
+<script src="../particles.js"></script>
+<script src="js/app.js"></script>
+
+<!-- stats.js -->
+<script src="js/lib/stats.js"></script>
+<script>
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+</script>
+
+    <!-- Tab Bar -->
     <div id="tab-bar">
+        <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='net-shield.html'">Interstellar</button>
-        <button class="active">Info</button>
+        <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
         <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
+        <button class="active">Info</button>
     </div>
-
-    <!-- Information Page Content -->
-    <div class="content">
-        <h1>READ THIS IT'S IMPORTANT</h1>
-        <p>I AM NOT RESPONSIBLE FOR WHAT YOU DO NOTHING OR ANYTHING THAT GETS YOU IN TROUBLE DONT BLAME ME</p>
-    </div>
-
-    <!-- Mouse Trail Toggle Button -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <!-- JavaScript -->
-    <script src="script.js"></script>
+    <script src="demo/js/app.js"></script>
 </body>
 </html>
