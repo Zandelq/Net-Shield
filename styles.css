@@ -152,7 +152,7 @@ a {
     left: 50%; /* Center it */
     transform: translateX(-50%); /* Ensure equal spacing on both sides */
     width: 85%; /* Adjust width */
-    max-width: 1100px; /* Prevent it from being too wide */
+    max-width: 1150px; /* Prevent it from being too wide */
     background-color: rgba(0, 0, 0, 0.85);
     padding: 15px 40px;
     border-radius: 15px;
