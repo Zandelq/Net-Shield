@@ -1,5 +1,7 @@
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
 body{line-height:1}
+ahtml,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
+body{line-height:1}
 article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
 nav ul{list-style:none}
 blockquote,q{quotes:none}
@@ -142,16 +144,16 @@ a {
 
 
 
-https://vercel.com/darwins-projects-b06b5254/working-links-sc/7EFrPAk9tKxS8JxYCzbC99YRU8hQ
+
 
 */
-/* Tab Bar */
 #tab-bar {
     position: fixed;
-    top: 20px; /* Adjust as needed */
-    left: 50%;
-    transform: translateX(-50%);
-    width: clamp(250px, 85%, 1100px); /* Keeps it responsive */
+    top: 20px; /* Kept it 20px lower as you requested */
+    left: 6.6%; /* Start from the center */
+    transform: translateX(-50%); /* Ensure equal spacing on both sides */
+    width: 85%; /* Adjusted width to avoid touching the sides */
+    max-width: 1100px; /* Prevent stretching on large screens */
     background-color: rgba(0, 0, 0, 0.85);
     padding: 15px 40px;
     border-radius: 15px;
@@ -162,72 +164,6 @@ https://vercel.com/darwins-projects-b06b5254/working-links-sc/7EFrPAk9tKxS8JxYCz
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-}/* Icon inside the tab */
-#tab-icon {
-    height: 35px;
-    width: auto;
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* Tab Bar Links */
-#tab-bar a {
-    margin-left: 50px;
-    font-size: 14px;
-    text-decoration: none;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-}
-
-#tab-bar a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Fade-in Animation */
-#tab-bar {
-    opacity: 0;
-    transform: translateY(-20px);
-    animation: fadeInTab 0.5s ease-out forwards;
-}
-
-@keyframes fadeInTab {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Hover effect for desktop */
-#tab-bar:hover {
-    box-shadow: 0px 6px 20px rgba(255, 255, 255, 0.4);
-    background-color: rgba(0, 0, 0, 0.95);
-    transform: scale(1.02);
-}
-
-/* Mobile Fix */
-@media (max-width: 768px) {
-    #tab-bar {
-        width: 90%;
-        height: auto;
-        border-radius: 15px;
-        padding: 10px;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-
-    #tab-bar a {
-        display: block; /* Ensure links are always visible */
-        margin: 5px 0;
-    }
 }
 
 
@@ -239,6 +175,8 @@ https://vercel.com/darwins-projects-b06b5254/working-links-sc/7EFrPAk9tKxS8JxYCz
     left: 15px; /* Push it inside the tab */
     top: 50%;
     transform: translateY(-50%); /* Center it vertically */
+}
+
 /* 🔥 4. Adjust the links so they don't overlap the icon */
 #tab-bar a {
     margin-left: 50px; /* Push text away from the icon */
