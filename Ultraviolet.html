@@ -1,15 +1,15 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultraviolet | TN</title>
+    <title>Ultraviolet</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Center the page text */
-        .page-text {
+        /* Center the home text on the screen */
+        .home-text {
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh; /* Full viewport height */
@@ -17,35 +17,6 @@
             font-size: 3rem; /* Larger font size for visibility */
             font-weight: bold;
             text-align: center;
-            color: white;
-        }
-
-        /* Styling for the link under the title */
-        .page-text a {
-            margin-top: 15px;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #9af0ff;
-            text-decoration: none;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-
-        .page-text a:hover {
-            color: cyan;
-            text-decoration: underline;
-        }
-
-        /* Fixed tab bar styling */
-        #tab-bar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
-            z-index: 1000;
-            border-bottom: 2px solid #444;
         }
 
         #tab-bar button {
@@ -62,85 +33,55 @@
         #tab-bar button:hover {
             background-color: #333;
             color: cyan;
-        }
-
-        #tab-bar button.active {
-            color: cyan;
-            border-bottom: 2px solid cyan;
-        }
-
-        /* Mouse trail toggle button styling */
-        #trail-toggle {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: red;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #trail-toggle:hover {
-            background-color: #ff4d4d;
-        }
-
-        /* Mobile version section */
-        .mobile-section {
-            text-align: center;
-            margin: 30px auto;
-            padding: 20px;
-            font-size: 1.2rem;
-            color: #9af0ff;
-            line-height: 1.8;
-            max-width: 800px;
-        }
-
-        .mobile-section h2 {
-            color: cyan;
-            font-size: 1.8rem;
-        }
-
-        .mobile-section button {
-            background: linear-gradient(45deg, #00c6ff, #0072ff);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .mobile-section button:hover {
-            transform: scale(1.1);
-            background-color: #005bb5;
-        }
     </style>
+     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="css/style.css">
 </head>
 <body>
-     <!-- Tab Bar -->
+<!-- particles.js container -->
+<div id="particles-js"></div>
+      <!-- Centered Text -->
+    <div class="center-text">
+      <h1>Ultra<span class="highlight">Violet</span></h1>
+    </div>
+<!-- scripts -->
+<script src="../particles.js"></script>
+<script src="js/app.js"></script>
+
+<!-- stats.js -->
+<script src="js/lib/stats.js"></script>
+<script>
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
+    requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+</script>
+
+    <!-- Tab Bar -->
     <div id="tab-bar">
+        <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
         <button onclick="window.location.href='index.html'">Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
         <button onclick="window.location.href='net-shield.html'">Interstellar</button>
+        <button class="active">UltraViolet</button>
         <button onclick="window.location.href='Information.html'">Info</button>
-        <button class="active">Ultraviolet</button>
     </div>
-
-    <!-- Main Holy-Unblocker Content -->
-    <div class="page-text">
-        <h1>Ultraviolet | TN</h1>
-        <a href="https://flying-jannelle-johnfk-cfdad7b9.koyeb.app/" target="_blank">Link 1 </a>
-    </div>
-    <!-- Button to toggle mouse trail -->
-    <button id="trail-toggle" onclick="toggleMouseTrail()">Disable Mouse Trail</button>
-
-    <!-- Script for mouse trail -->
-    <script src="script.js"></script>
+    <script src="demo/js/app.js"></script>
 </body>
-</html>
+</html
