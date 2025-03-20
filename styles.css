@@ -360,3 +360,15 @@ a {
 .info-text {
     font-size: 12px; /* Smaller text */
 }
+.text-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5rem; /* Adjust as needed */
+    font-weight: bold;
+    text-align: center;
+    z-index: 10; /* Ensures it stays above particles */
+    width: 80%; /* Adjust width if necessary */
+}
