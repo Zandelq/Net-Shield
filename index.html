@@ -83,5 +83,30 @@
         <button onclick="window.location.href='Information.html'">Info</button>
     </div>
     <script src="demo/js/app.js"></script>
+    <button id="admin-button" style="position:fixed;bottom:10px;right:10px;z-index:1001;background:none;border:none;color:white;" onclick="showLogin()">Admin</button>
+
+<div id="admin-login-box" class="admin-login" style="display:none;">
+  <h2>Enter Admin Password</h2>
+  <input type="password" id="admin-password" placeholder="Password" />
+  <br>
+  <button onclick="checkPassword()">Enter</button>
+</div>
+
+<script>
+  function showLogin() {
+    document.getElementById("admin-login-box").style.display = "block";
+  }
+
+  function checkPassword() {
+    const input = document.getElementById("admin-password").value;
+    if (input === "5fn") {
+      localStorage.setItem("admin-auth", "true");
+      window.location.href = "NS.html";
+    } else {
+      alert("Wrong password!");
+    }
+  }
+</script>
+
 </body>
 </html
