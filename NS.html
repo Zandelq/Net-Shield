@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NS Admin</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    if (localStorage.getItem("admin-auth") !== "true") {
+      window.location.href = "index.html";
+    }
+  </script>
+</head>
+<body>
+  <div id="tab-bar">
+    <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
+    <button onclick="window.location.href='index.html'">Home</button>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <div class="center-text">
+    <h1>Welcome to Admin Panel</h1>
+    <p>Only accessible with password.</p>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.removeItem("admin-auth");
+      window.location.href = "index.html";
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.key === "k") {
+        document.getElementById("admin-button").click();
+      }
+    });
+  </script>
+</body>
+</html>
