@@ -469,3 +469,14 @@ a {
 .admin-login button:hover {
     background-color: deepskyblue;
 }
+#secret-admin-access {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    opacity: 0.01; /* Invisible but clickable */
+    z-index: 9999;
+    cursor: pointer;
+}
