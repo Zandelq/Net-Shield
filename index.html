@@ -53,6 +53,9 @@
 <!-- stats.js -->
 <script src="js/lib/stats.js"></script>
 <script>
+    document.getElementById("secret-admin-box")?.addEventListener("click", () => {
+        window.location.href = "admin-login.html";
+    });
   var count_particles, stats, update;
   stats = new Stats;
   stats.setMode(0);
