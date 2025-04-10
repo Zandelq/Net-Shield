@@ -480,3 +480,20 @@ a {
     z-index: 9999;
     cursor: pointer;
 }
+#secret-admin-box {
+    position: fixed;
+    bottom: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    background-color: black;
+    opacity: 0.05; /* Nearly invisible */
+    border-radius: 4px;
+    z-index: 9999;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+#secret-admin-box:hover {
+    opacity: 0.2; /* Slight reveal on hover */
+}
