@@ -1,39 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NS Admin</title>
-  <link rel="stylesheet" href="styles.css">
-  <script>
-    if (localStorage.getItem("admin-auth") !== "true") {
-      window.location.href = "index.html";
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Net-Shield Admin</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    #admin-login-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      z-index: 100;
     }
-  </script>
+    #admin-login-box input {
+      padding: 10px;
+      margin: 10px;
+      font-size: 1rem;
+    }
+    #admin-login-box button {
+      padding: 10px 20px;
+      background-color: cyan;
+      border: none;
+      cursor: pointer;
+    }
+    #admin-login-box button:hover {
+      background-color: deepskyblue;
+    }
+    #secret-admin-btn {
+      position: fixed;
+      bottom: 5px;
+      right: 5px;
+      width: 5px;
+      height: 5px;
+      background-color: transparent;
+      border: none;
+      z-index: 1000;
+      opacity: 0;
+    }
+  </style>
 </head>
 <body>
-  <div id="tab-bar">
-    <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
-    <button onclick="window.location.href='index.html'">Home</button>
-    <button onclick="logout()">Logout</button>
-  </div>
+  <div id="particles-js"></div>
 
-  <div class="center-text">
-    <h1>Welcome to Admin Panel</h1>
-    <p>Only accessible with password.</p>
+  <!-- Hidden clickable admin button -->
+  <button id="secret-admin-btn" onclick="showLogin()"></button>
+
+  <!-- Admin login popup -->
+  <div id="admin-login-box" style="display:none;">
+    <h2>Admin Access</h2>
+    <input type="password" id="admin-password" placeholder="Enter Password" />
+    <input type="checkbox" onclick="togglePassword()"> Show Password
+    <br />
+    <button onclick="checkPassword()">Submit</button>
   </div>
 
   <script>
-    function logout() {
-      localStorage.removeItem("admin-auth");
-      window.location.href = "index.html";
+    function showLogin() {
+      document.getElementById("admin-login-box").style.display = "block";
     }
 
-    document.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.key === "k") {
-        document.getElementById("admin-button").click();
+    function checkPassword() {
+      const input = document.getElementById("admin-password").value;
+      if (input === "5fn") {
+        localStorage.setItem("admin-auth", "true");
+        window.location.href = "NS.html";
+      } else {
+        alert("Wrong password");
       }
-    });
+    }
+
+    function togglePassword() {
+      const input = document.getElementById("admin-password");
+      input.type = input.type === "password" ? "text" : "password";
+    }
   </script>
 </body>
 </html>
