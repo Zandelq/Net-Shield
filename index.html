@@ -42,7 +42,6 @@
 <body>
 <!-- particles.js container -->
 <div id="particles-js"></div>
-        <div id="secret-admin-box" onclick="window.location.href='NS.html'"></div>
       <!-- Centered Text -->
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
@@ -55,7 +54,6 @@
 <script src="js/lib/stats.js"></script>
 <script>
     document.getElementById("secret-admin-box")?.addEventListener("click", () => {
-        window.location.href = "admin-login.html";
     });
   var count_particles, stats, update;
   stats = new Stats;
@@ -87,29 +85,7 @@
         <button onclick="window.location.href='Information.html'">Info</button>
     </div>
     <script src="demo/js/app.js"></script>
-    <div id="secret-admin-box" onclick="window.location.href='NS.html'"></div>
-<div id="admin-login-box" class="admin-login" style="display:none;">
-  <h2>Enter exclusive Password</h2>
-  <input type="password" id="admin-password" placeholder="Password" />
-  <br>
-  <button onclick="checkPassword()">Enter</button>
 </div>
-
-<script>
-  function showLogin() {
-    document.getElementById("admin-login-box").style.display = "block";
-  }
-
-  function checkPassword() {
-    const input = document.getElementById("admin-password").value;
-    if (input === "5fn") {
-      localStorage.setItem("admin-auth", "true");
-      window.location.href = "NS.html";
-    } else {
-      alert("Wrong password!");
-    }
-  }
-</script>
-
+    <div id="secret-admin-box" onclick="window.location.href='NS.html'"></div>
 </body>
 </html
