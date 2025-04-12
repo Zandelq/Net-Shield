@@ -216,18 +216,18 @@ a {
 
 																*/
 #tab-bar {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(-20px); /* Start slightly higher */
     animation: fadeInTab 0.5s ease-out forwards;
 }
 
 @keyframes fadeInTab {
     from {
-        opacity: 0;
+        opacity: 1;
         transform: translateY(-20px);
     }
     to {
-        opacity: 1;
+        opacity: 2;
         transform: translateY(0);
     }
 }
