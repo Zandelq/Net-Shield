@@ -506,7 +506,7 @@ a {
     z-index: 999;
     cursor: pointer;
     background-color: black;
-    opacity: 0; /* invisible */
+    opacity: 1; /* invisible */
     transition: opacity 0.3s;
 }
 
