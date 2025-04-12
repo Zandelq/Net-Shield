@@ -1,84 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Net-Shield Admin</title>
-  <link rel="stylesheet" href="styles.css" />
-  <style>
-     if (localStorage.getItem('admin-auth') !== 'true') {
-    window.location.href = 'index.html';
-  }
-    #admin-login-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      text-align: center;
-      z-index: 100;
-    }
-    #admin-login-box input {
-      padding: 10px;
-      margin: 10px;
-      font-size: 1rem;
-    }
-    #admin-login-box button {
-      padding: 10px 20px;
-      background-color: cyan;
-      border: none;
-      cursor: pointer;
-    }
-    #admin-login-box button:hover {
-      background-color: deepskyblue;
-    }
-    #secret-admin-btn {
-      position: fixed;
-      bottom: 5px;
-      right: 5px;
-      width: 5px;
-      height: 5px;
-      background-color: transparent;
-      border: none;
-      z-index: 1000;
-      opacity: 0;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Net-Shield</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="particles-js"></div>
+    <!-- Invisible admin trigger -->
+    <div id="secret-admin-box" onclick="window.location.href='admin-login.html'"></div>
 
-  <!-- Hidden clickable admin button -->
-  <button id="secret-admin-btn" onclick="showLogin()"></button>
+    <!-- Visible content -->
+    <div class="center-text">
+        <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
+        <p>Protect your browsing. Choose a proxy tab above to begin.</p>
+    </div>
 
-  <!-- Admin login popup -->
-  <div id="admin-login-box" style="display:none;">
-    <h2>Admin Access</h2>
-    <input type="password" id="admin-password" placeholder="Enter Password" />
-    <input type="checkbox" onclick="togglePassword()"> Show Password
-    <br />
-    <button onclick="checkPassword()">Submit</button>
-  </div>
-
-  <script>
-    function showLogin() {
-      document.getElementById("admin-login-box").style.display = "block";
-    }
-
-    function checkPassword() {
-      const input = document.getElementById("admin-password").value;
-      if (input === "5fn") {
-        localStorage.setItem("admin-auth", "true");
-        window.location.href = "NS.html";
-      } else {
-        alert("Wrong password");
-      }
-    }
-
-    function togglePassword() {
-      const input = document.getElementById("admin-password");
-      input.type = input.type === "password" ? "text" : "password";
-    }
-  </script>
+    <!-- particles.js -->
+    <div id="particles-js"></div>
+    <script src="particles.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
