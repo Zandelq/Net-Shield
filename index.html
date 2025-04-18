@@ -71,13 +71,11 @@
       <!-- Centered Text -->
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
-            <h2>Recent Updates</h2>
-    <ul id="updates-list"></ul>
-</div>
-    </div>
-<div id="updates-section" class="updates-container">
+  <h1>  <div id="updates-section" class="updates-container">
     <h2>Recent Updates</h2>
-    <ul id="updates-list"></ul>
+    <ul id="updates-list"></ul>  </h1>
+</div>
+
 </div>
 
 <!-- 🔒 Secret Admin Access Points -->
@@ -88,7 +86,7 @@
 <script src="../particles.js"></script>
 <script src="js/app.js"></script>
     <script>
-fetch("https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/updates.json")
+fetch("https://raw.githubusercontent.com/zandelq/working-links/main/updates.json")
     .then(response => response.json())
     .then(data => {
         const updatesList = document.getElementById("updates-list");
