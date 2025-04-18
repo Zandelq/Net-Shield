@@ -1,0 +1,12 @@
+[
+  {
+    "date": "2025-04-17",
+    "title": "Added Holy-Unblocker",
+    "description": "Integrated Holy-Unblocker with secure proxy support."
+  },
+  {
+    "date": "2025-04-16",
+    "title": "New Hidden Admin Access",
+    "description": "Added secret NS.html login via invisible button."
+  }
+]
