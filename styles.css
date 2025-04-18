@@ -427,3 +427,14 @@ a {
     text-align: left;
     font-size: 0.9rem;
 }
+.center-small-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: 1rem; /* smaller text size */
+    font-weight: normal;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+}
