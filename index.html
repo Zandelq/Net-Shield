@@ -116,7 +116,9 @@
 </head>
 <body>
 <!-- particles.js container -->
-<div id="particles-js"></div>
+<div id="particles-js">
+  
+</div>
       <!-- Centered Text -->
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
@@ -136,7 +138,11 @@
   <!-- Admin Access Boxes -->
   <div id="secret-admin-box"></div>
   <div id="visible-admin-box"></div>
-
+  
+<script src="../particles.js"></script>
+<script src="js/app.js"></script>
+    <script>
+  
   <!-- Navigation Bar -->
   <div id="tab-bar">
     <img src="assets/logo.png" alt="Tab Icon" id="tab-icon" />
@@ -167,6 +173,24 @@
       if (window.pJSDom[0]?.pJS?.particles?.array) {
         count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
       }
+      <script src="js/lib/stats.js"></script>
+<script>
+    document.getElementById("secret-admin-box")?.addEventListener("click", () => {
+    });
+  var count_particles, stats, update;
+  stats = new Stats;
+  stats.setMode(0);
+  stats.domElement.style.position = 'absolute';
+  stats.domElement.style.left = '0px';
+  stats.domElement.style.top = '0px';
+  document.body.appendChild(stats.domElement);
+  count_particles = document.querySelector('.js-count-particles');
+  update = function() {
+    stats.begin();
+    stats.end();
+    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+    }
       requestAnimationFrame(update);
     };
     requestAnimationFrame(update);
