@@ -432,9 +432,11 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
     color: white;
-    font-size: 1rem; /* smaller text size */
+    font-size: 1rem; /* small text */
     font-weight: normal;
+    text-align: center;
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    z-index: 10; /* ensures it's above particles */
+    width: 80%; /* keep it centered nicely */
 }
