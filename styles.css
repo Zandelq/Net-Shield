@@ -414,3 +414,16 @@ a {
 #secret-admin-box:hover {
     opacity: 0.05; /* barely visible on hover */
 }
+.updates-container {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: left;
+    font-size: 0.9rem;
+}
