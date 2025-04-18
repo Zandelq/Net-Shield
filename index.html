@@ -71,6 +71,9 @@
       <!-- Centered Text -->
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
+            <h2>Recent Updates</h2>
+    <ul id="updates-list"></ul>
+</div>
     </div>
 <div id="updates-section" class="updates-container">
     <h2>Recent Updates</h2>
@@ -84,6 +87,22 @@
 <!-- scripts -->
 <script src="../particles.js"></script>
 <script src="js/app.js"></script>
+    <script>
+fetch("https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/updates.json")
+    .then(response => response.json())
+    .then(data => {
+        const updatesList = document.getElementById("updates-list");
+        data.forEach(update => {
+            const li = document.createElement("li");
+            li.innerHTML = `<strong>${update.date}</strong>: <u>${update.title}</u> — ${update.description}`;
+            updatesList.appendChild(li);
+        });
+    })
+    .catch(err => {
+        console.error("Failed to fetch updates", err);
+    });
+</script>
+
 
 <!-- stats.js -->
 <script src="js/lib/stats.js"></script>
