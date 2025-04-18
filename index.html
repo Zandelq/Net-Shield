@@ -71,12 +71,7 @@
       <!-- Centered Text -->
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
-</div>
-    <div class="center-small-text">
-        <div id="updates-section" class="updates-container">
-    <h2>Recent Updates</h2>
-    <ul id="updates-list"></ul>
-</div>
+    </div>
 
 <!-- 🔒 Secret Admin Access Points -->
   <div id="secret-admin-box"></div>
@@ -85,22 +80,6 @@
 <!-- scripts -->
 <script src="../particles.js"></script>
 <script src="js/app.js"></script>
-    <script>
-fetch("https://raw.githubusercontent.com/zandelq/working-links/main/updates.json")
-    .then(response => response.json())
-    .then(data => {
-        const updatesList = document.getElementById("updates-list");
-        data.forEach(update => {
-            const li = document.createElement("li");
-            li.innerHTML = `<strong>${update.date}</strong>: <u>${update.title}</u> — ${update.description}`;
-            updatesList.appendChild(li);
-        });
-    })
-    .catch(err => {
-        console.error("Failed to fetch updates", err);
-    });
-</script>
-
 
 <!-- stats.js -->
 <script src="js/lib/stats.js"></script>
