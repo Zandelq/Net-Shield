@@ -1,4 +1,4 @@
-fetch("https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/updates.md")
+fetch("https://raw.githubusercontent.com/Zandelq/Working-Links/main/updates.md")
     .then(response => response.text())
     .then(markdown => {
         document.getElementById("updates-list").innerHTML = markdown
