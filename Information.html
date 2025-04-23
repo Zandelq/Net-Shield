@@ -9,19 +9,6 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Center the home text on the screen */
-        .center-small-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1rem; /* small text */
-            font-weight: normal;
-            text-align: center;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-            z-index: 10; /* ensures it's above particles */
-            width: 80%; /* keep it centered nicely */
-    }
         .text-overlay {
             display: flex;
             justify-content: center;
@@ -48,12 +35,21 @@
             background-color: #333;
             color: cyan;
         }
-    </style>
-     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
-  <meta name="author" content="Vincent Garreau" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" media="screen" href="css/style.css">
-</head>
+        .center-small-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1rem; /* small text */
+            font-weight: normal;
+            text-align: center;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10; /* ensures it's above particles */
+            width: 80%; /* keep it centered nicely */
+    }
+</style>
+    </head>
 <body>
 <!-- particles.js container -->
 <div id="particles-js"></div>
