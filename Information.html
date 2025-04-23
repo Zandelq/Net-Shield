@@ -9,16 +9,19 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Center the home text on the screen */
-        .home-text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-            margin: 0;
-            font-size: 3rem; /* Larger font size for visibility */
-            font-weight: bold;
+        .center-small-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1rem; /* small text */
+            font-weight: normal;
             text-align: center;
-        }
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10; /* ensures it's above particles */
+            width: 80%; /* keep it centered nicely */
+    }
         .text-overlay {
             display: flex;
             justify-content: center;
@@ -55,7 +58,7 @@
 <!-- particles.js container -->
 <div id="particles-js"></div>
       <!-- Centered Text -->
-    <div class="info-text">
+    <div class="center-small-text">
               <h1>About This Site</h1>
         <p>Welcome! This site provides multiple proxy tools to help you browse securely and bypass restrictions.</p>
 
