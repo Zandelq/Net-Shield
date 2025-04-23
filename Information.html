@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <link rel="icon" type="image/png" href="assets/logo.png">
@@ -9,31 +8,15 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Center the home text on the screen */
-        .text-overlay {
+        .home-text {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 37vh; /* Full viewport height */
+            height: 100vh; /* Full viewport height */
             margin: 0;
             font-size: 3rem; /* Larger font size for visibility */
             font-weight: bold;
             text-align: center;
-        }
-
-        #tab-bar button {
-            background-color: black;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        #tab-bar button:hover {
-            background-color: #333;
-            color: cyan;
         }
         .center-small-text {
             position: absolute;
@@ -48,8 +31,52 @@
             z-index: 10; /* ensures it's above particles */
             width: 80%; /* keep it centered nicely */
     }
-</style>
-    </head>
+        #tab-bar button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #tab-bar button:hover {
+            background-color: #333;
+            color: cyan;
+            
+    #secret-admin-box,
+    #visible-admin-box {
+      position: fixed;
+      width: 30px;
+      height: 30px;
+      z-index: 9999;
+      cursor: pointer;
+    }
+
+    #secret-admin-box {
+      bottom: 10px;
+      right: 10px;
+      background-color: rgba(0, 0, 0, 0.01); /* invisible black */
+    }
+
+    #visible-admin-box {
+      bottom: 10px;
+      left: 10px;
+      background-color: #111;
+      border-radius: 6px;
+    }
+
+    #visible-admin-box:hover {
+      box-shadow: 0 0 10px cyan;
+    }
+    </style>
+     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="css/style.css">
+</head>
 <body>
 <!-- particles.js container -->
 <div id="particles-js"></div>
@@ -58,25 +85,21 @@
               <h1>About This Site</h1>
         <p>Welcome! This site provides multiple proxy tools to help you browse securely and bypass restrictions.</p>
 
-        <h2>Our Proxies</h2>
+        <h2>The Proxies</h2>
         <ul>
             <li><strong>Home</strong> - The main entry point of the site.</li>
-            <li><strong>Doge-Unblocker</strong> - A proxy service with fast speeds.</li>
+            <li><strong>Doge-Unblocker</strong> - A proxy service with fast speeds, but with many ads.</li>
             <li><strong>Holy-Unblocker</strong> - Designed for secure and private browsing.</li>
-            <li><strong>Interstellar</strong> - Offers high-speed anonymous browsing.</li>
+            <li><strong>Interstellar</strong> - Offers slow-speed anonymous browsing.</li>
             <li><strong>Ultraviolet</strong> - Another reliable proxy with smooth performance.</li>
-            <li><strong>Information Page</strong> - Provides details on all services.</li>
+            <li><strong>Information Page</strong> - Provides details on all proxies</li>
         </ul>
-
-        <h2>How to Use</h2>
-        <ol>
-            <li>Click on any proxy link from the navigation bar.</li>
-            <li>Follow the instructions on the page.</li>
-            <li>Enjoy unrestricted browsing!</li>
-        </ol>
         <style>
     /* Add necessary CSS styles */
 </style> <!-- This tag was missing -->
+<!-- 🔒 Secret Admin Access Points -->
+  <div id="secret-admin-box"></div>
+  <div id="visible-admin-box"></div>
 
 <!-- scripts -->
 <script src="../particles.js"></script>
@@ -85,6 +108,8 @@
 <!-- stats.js -->
 <script src="js/lib/stats.js"></script>
 <script>
+    document.getElementById("secret-admin-box")?.addEventListener("click", () => {
+    });
   var count_particles, stats, update;
   stats = new Stats;
   stats.setMode(0);
@@ -102,18 +127,31 @@
     requestAnimationFrame(update);
   };
   requestAnimationFrame(update);
+        const goToAdmin = () => {
+      window.location.href = "NS-login.html";
+    };
+
+    document.getElementById("secret-admin-box").addEventListener("click", goToAdmin);
+    document.getElementById("visible-admin-box").addEventListener("click", goToAdmin);
 </script>
 
     <!-- Tab Bar -->
     <div id="tab-bar">
         <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
-        <button onclick="window.location.href='index.html'">Home</button>
+        <button>Home</button>
         <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
         <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
         <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
         <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
-        <button class="active">Info</button>
+        <button onclick="window.location.href='Information.html'">Info</button>
     </div>
     <script src="demo/js/app.js"></script>
+</div>
+    <script>
+    document.getElementById("secret-admin-box")?.addEventListener("click", () => {
+        window.location.href = "admin-login.html";
+    });
+</script>
+    <div id="secret-admin-box" onclick="window.location.href='NS.html'"></div>
 </body>
-</html>
+</html
