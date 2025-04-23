@@ -1,39 +1,47 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Center the home text on the screen */
-        .home-text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-            margin: 0;
-            font-size: 3rem; /* Larger font size for visibility */
-            font-weight: bold;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="icon" type="image/png" href="assets/logo.png" />
+  <link rel="stylesheet" href="styles.css" />
 
-        #tab-bar button {
-            background-color: black;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+  <style>
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      top: 0;
+      left: 0;
+    }
 
-        #tab-bar button:hover {
-            background-color: #333;
-            color: cyan;
-            
+    .center-text {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      font-size: 3rem;
+      font-weight: bold;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+      z-index: 10;
+    }
+
+    .center-small-text {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      font-size: 1rem;
+      font-weight: normal;
+      z-index: 10;
+    }
+
     #secret-admin-box,
     #visible-admin-box {
       position: fixed;
@@ -46,7 +54,7 @@
     #secret-admin-box {
       bottom: 10px;
       right: 10px;
-      background-color: rgba(0, 0, 0, 0.01); /* invisible black */
+      background-color: rgba(0, 0, 0, 0.01); /* invisible */
     }
 
     #visible-admin-box {
@@ -59,23 +67,83 @@
     #visible-admin-box:hover {
       box-shadow: 0 0 10px cyan;
     }
-    </style>
-     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
-  <meta name="author" content="Vincent Garreau" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" media="screen" href="css/style.css">
+
+    #tab-bar {
+      position: fixed;
+      top: 20px;
+      left: 6.6%;
+      transform: translateX(-50%);
+      width: 85%;
+      max-width: 1100px;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 15px 40px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    #tab-bar button {
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #tab-bar button:hover {
+      background-color: #333;
+      color: cyan;
+    }
+
+    #tab-icon {
+      height: 35px;
+      width: auto;
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
 </head>
 <body>
+<!-- count particles -->
+<div class="count-particles">
+  <span class="js-count-particles">--</span> particles
+</div>
+
 <!-- particles.js container -->
 <div id="particles-js"></div>
-      <!-- Centered Text -->
-    <div class="center-text">
-      <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
-    </div>
 
-<!-- 🔒 Secret Admin Access Points -->
+  <div class="center-text">
+    <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
+  </div>
+
+  <div class="center-small-text">
+    <div id="updates-section" class="updates-container">
+      <h2>Recent Updates</h2>
+      <ul id="updates-list"></ul>
+    </div>
+  </div>
+
+  <!-- Admin Access Boxes -->
   <div id="secret-admin-box"></div>
   <div id="visible-admin-box"></div>
+
+  <!-- Navigation Bar -->
+  <div id="tab-bar">
+    <img src="assets/logo.png" alt="Tab Icon" id="tab-icon" />
+    <button>Home</button>
+    <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
+    <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
+    <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
+    <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
+    <button onclick="window.location.href='Information.html'">Info</button>
+  </div>
 
 <!-- scripts -->
 <script src="../particles.js"></script>
@@ -84,8 +152,6 @@
 <!-- stats.js -->
 <script src="js/lib/stats.js"></script>
 <script>
-    document.getElementById("secret-admin-box")?.addEventListener("click", () => {
-    });
   var count_particles, stats, update;
   stats = new Stats;
   stats.setMode(0);
@@ -103,31 +169,28 @@
     requestAnimationFrame(update);
   };
   requestAnimationFrame(update);
-        const goToAdmin = () => {
+    requestAnimationFrame(update);
+
+    const goToAdmin = () => {
       window.location.href = "NS-login.html";
     };
 
     document.getElementById("secret-admin-box").addEventListener("click", goToAdmin);
     document.getElementById("visible-admin-box").addEventListener("click", goToAdmin);
-</script>
 
-    <!-- Tab Bar -->
-    <div id="tab-bar">
-        <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
-        <button>Home</button>
-        <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
-        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
-        <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
-        <button onclick="window.location.href='Information.html'">Info</button>
-    </div>
-    <script src="demo/js/app.js"></script>
-</div>
-    <script>
-    document.getElementById("secret-admin-box")?.addEventListener("click", () => {
-        window.location.href = "admin-login.html";
-    });
-</script>
-    <div id="secret-admin-box" onclick="window.location.href='NS.html'"></div>
+    fetch("https://raw.githubusercontent.com/zandelq/working-links/main/updates.js")
+      .then((res) => res.json())
+      .then((data) => {
+        const updatesList = document.getElementById("updates-list");
+        data.forEach((update) => {
+          const li = document.createElement("li");
+          li.innerHTML = `<strong>${update.date}</strong>: <u>${update.title}</u> — ${update.description}`;
+          updatesList.appendChild(li);
+        });
+      })
+      .catch((err) => {
+        console.error("Failed to fetch updates", err);
+      });
+  </script>
 </body>
-</html
+</html>
