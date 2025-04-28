@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/Information",
-      "destination": "/Information"
+      "source": "/NS-login",
+      "destination": "/NS-login"
     }
   ]
 }
