@@ -149,7 +149,7 @@ a {
 
 */
 #tab-bar {
-    position: fixed;
+    position: center;
     top: 20px; /* Kept it 20px lower as you requested */
     left: 6.6%; /* Start from the center */
     transform: translateX(-50%); /* Ensure equal spacing on both sides */
