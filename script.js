@@ -300,3 +300,56 @@ function sendChatMessage() {
   }
 }
 </script>
+<script>
+  let ws;
+  const chatLog = document.getElementById("chat-log");
+  const input = document.getElementById("chat-input");
+  const sendBtn = document.getElementById("send-button");
+
+  function appendMessage(message, type = "in") {
+    const msg = document.createElement("div");
+    msg.textContent = message;
+    msg.style.color = type === "in" ? "white" : "cyan";
+    chatLog.appendChild(msg);
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+
+  function connectWebSocket() {
+    ws = new WebSocket("wss://ws.postman-echo.com/raw");
+
+    ws.onopen = () => {
+      appendMessage("Connected to NetShield Chatroom");
+    };
+
+    ws.onmessage = (event) => {
+      appendMessage(event.data);
+    };
+
+    ws.onerror = (err) => {
+      appendMessage("WebSocket Error", "out");
+      console.error(err);
+    };
+
+    ws.onclose = () => {
+      appendMessage("Disconnected from Chatroom", "out");
+    };
+  }
+
+  sendBtn.addEventListener("click", () => {
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      const msg = input.value;
+      if (msg.trim() !== "") {
+        ws.send(msg);
+        appendMessage("You: " + msg, "out");
+        input.value = "";
+      }
+    }
+  });
+
+  // Optional: press enter to send
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendBtn.click();
+  });
+
+  connectWebSocket();
+</script>
