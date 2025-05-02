@@ -440,6 +440,65 @@ a {
     z-index: 10; /* ensures it's above particles */
     width: 80%; /* keep it centered nicely */
 }
+#chatroom-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 300px;
+  background-color: rgba(0, 0, 0, 0.85); /* Semi-transparent black */
+  border: 1px solid #555;
+  z-index: 1000;
+  border-radius: 10px;
+  color: white;
+  backdrop-filter: blur(4px);
+}
+
+#chatroom-header {
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #666;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#chatroom-body {
+  padding: 10px;
+  height: 200px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+#chatroom-footer {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+#chat-input {
+  flex: 1;
+  padding: 5px;
+  background: #222;
+  border: 1px solid #555;
+  color: white;
+  border-radius: 4px;
+}
+
+#chatroom-footer button {
+  background: #333;
+  color: cyan;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#chatroom-footer button:hover {
+  background: #444;
+}
 #chat-toggle-btn {
   background-color: #111;
   color: white;
