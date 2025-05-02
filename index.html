@@ -236,6 +236,66 @@
 <script src="../particles.js"></script>
 <script src="js/app.js"></script>
 
+<script>
+const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
+let nickname = "";
+let userCount = 0;
+
+function openNicknamePrompt() {
+  document.getElementById("nicknameModal").style.display = "flex";
+}
+
+function closeChat() {
+  document.getElementById("chatPopup").style.display = "none";
+}
+
+function submitNickname() {
+  const input = document.getElementById("nicknameInput").value.trim();
+  const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
+  if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
+    alert("Invalid nickname.");
+    return;
+  }
+  nickname = input;
+  document.getElementById("nicknameModal").style.display = "none";
+  document.getElementById("chatPopup").style.display = "block";
+  sendSystemMessage(`${nickname} joined the chat.`);
+}
+
+socket.onmessage = (e) => {
+  const msgBox = document.getElementById("chatMessages");
+  const msg = JSON.parse(e.data);
+  if (msg.type === "chat") {
+    msgBox.innerHTML += `<div><strong>${msg.name}:</strong> ${msg.text}</div>`;
+  } else if (msg.type === "system") {
+    msgBox.innerHTML += `<div style="color:gray;">${msg.text}</div>`;
+  } else if (msg.type === "count") {
+    document.getElementById("onlineCount").innerText = msg.count;
+  }
+  msgBox.scrollTop = msgBox.scrollHeight;
+};
+
+socket.onopen = () => {
+  setInterval(() => {
+    socket.send(JSON.stringify({ type: "ping" }));
+  }, 10000);
+};
+
+document.getElementById("chatInput").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    const text = e.target.value.trim();
+    if (text) {
+      socket.send(JSON.stringify({ type: "chat", name: nickname, text }));
+      e.target.value = "";
+    }
+  }
+});
+
+function sendSystemMessage(text) {
+  socket.send(JSON.stringify({ type: "system", text }));
+}
+</script>
+
 <!-- stats.js -->
 <script src="js/lib/stats.js"></script>
 <script>
