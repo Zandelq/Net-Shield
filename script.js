@@ -269,87 +269,33 @@ window.addEventListener("scroll", () => {
     lastScrollY = window.scrollY;
 });
 <script>
+const ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
+
 const chatPopup = document.getElementById("chat-popup");
-const chatToggleBtn = document.getElementById("chat-toggle-btn");
-const chatCloseBtn = document.getElementById("chat-close-btn");
+const openBtn = document.getElementById("open-chat-btn");
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-chat-btn");
 const chatMessages = document.getElementById("chat-messages");
 
-chatToggleBtn.onclick = () => chatPopup.classList.toggle("hidden");
-chatCloseBtn.onclick = () => chatPopup.classList.add("hidden");
+openBtn.addEventListener("click", () => {
+  chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
+});
 
-// Connect WebSocket
-const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-socket.onmessage = (e) => {
-  const data = JSON.parse(e.data);
-  if (data.type === "users") {
-    document.getElementById("online-count").textContent = `Users Online: ${data.count}`;
-  } else if (data.type === "message") {
-    const div = document.createElement("div");
-    div.textContent = data.text;
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+sendBtn.addEventListener("click", () => {
+  const message = chatInput.value;
+  if (message.trim() !== "") {
+    ws.send(message);
+    chatInput.value = "";
   }
+});
+
+ws.onmessage = (event) => {
+  const msg = document.createElement("div");
+  msg.textContent = event.data;
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
-function sendChatMessage() {
-  const input = document.getElementById("chat-input");
-  if (input.value.trim()) {
-    socket.send(input.value);
-    input.value = "";
-  }
-}
-</script>
-<script>
-  let ws;
-  const chatLog = document.getElementById("chat-log");
-  const input = document.getElementById("chat-input");
-  const sendBtn = document.getElementById("send-button");
-
-  function appendMessage(message, type = "in") {
-    const msg = document.createElement("div");
-    msg.textContent = message;
-    msg.style.color = type === "in" ? "black" : "cyan";
-    chatLog.appendChild(msg);
-    chatLog.scrollTop = chatLog.scrollHeight;
-  }
-
-  function connectWebSocket() {
-    ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-    ws.onopen = () => {
-      appendMessage("Connected to NetShield Chatroom");
-    };
-
-    ws.onmessage = (event) => {
-      appendMessage(event.data);
-    };
-
-    ws.onerror = (err) => {
-      appendMessage("WebSocket Error", "out");
-      console.error(err);
-    };
-
-    ws.onclose = () => {
-      appendMessage("Disconnected from Chatroom", "out");
-    };
-  }
-
-  sendBtn.addEventListener("click", () => {
-    if (ws && ws.readyState === WebSocket.OPEN) {
-      const msg = input.value;
-      if (msg.trim() !== "") {
-        ws.send(msg);
-        appendMessage("You: " + msg, "out");
-        input.value = "";
-      }
-    }
-  });
-
-  // Optional: press enter to send
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendBtn.click();
-  });
-
-  connectWebSocket();
+ws.onopen = () => console.log("Connected to chat server");
+ws.onerror = (e) => console.error("WebSocket error:", e);
 </script>
