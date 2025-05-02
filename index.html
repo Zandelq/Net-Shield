@@ -131,7 +131,37 @@
     document.getElementById("secret-admin-box").addEventListener("click", goToAdmin);
     document.getElementById("visible-admin-box").addEventListener("click", goToAdmin);
 </script>
+<script>
+const ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
+const chatPopup = document.getElementById("chat-popup");
+const openBtn = document.getElementById("open-chat-btn");
+const chatInput = document.getElementById("chat-input");
+const sendBtn = document.getElementById("send-chat-btn");
+const chatMessages = document.getElementById("chat-messages");
+
+openBtn.addEventListener("click", () => {
+  chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
+});
+
+sendBtn.addEventListener("click", () => {
+  const message = chatInput.value;
+  if (message.trim() !== "") {
+    ws.send(message);
+    chatInput.value = "";
+  }
+});
+
+ws.onmessage = (event) => {
+  const msg = document.createElement("div");
+  msg.textContent = event.data;
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+ws.onopen = () => console.log("Connected to chat server");
+ws.onerror = (e) => console.error("WebSocket error:", e);
+</script>
     <!-- Tab Bar -->
     <div id="tab-bar">
         <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
