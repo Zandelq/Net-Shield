@@ -457,9 +457,10 @@ a {
 
 .chat-popup {
   position: fixed;
-  bottom: 70px;
-  right: 30px;
-  width: 300px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
   background-color: #111;
   color: white;
   border: 1px solid #444;
@@ -468,6 +469,7 @@ a {
   display: flex;
   flex-direction: column;
   font-family: Arial, sans-serif;
+  padding-bottom: 10px;
 }
 
 .chat-header {
