@@ -1,4 +1,4 @@
-particlesJS('particles-js',
+.particlesJS('particles-js',
   
   {
     "particles": {
@@ -257,30 +257,6 @@ function closeModal() {
 
 
 
-let ws;
-
-function toggleChat() {
-  const chatPopup = document.getElementById("chat-popup");
-  chatPopup.style.display = chatPopup.style.display === "none" ? "block" : "none";
-
-  if (!ws) {
-    ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-    ws.onmessage = (event) => {
-      const msgDiv = document.createElement("div");
-      msgDiv.textContent = event.data;
-      document.getElementById("chat-messages").appendChild(msgDiv);
-    };
-  }
-}
-
-function sendMessage() {
-  const input = document.getElementById("chat-input");
-  if (ws && input.value.trim()) {
-    ws.send(input.value);
-    input.value = "";
-  }
-}
 let lastScrollY = window.scrollY;
 const tabBar = document.getElementById("tab-bar");
 
