@@ -143,8 +143,53 @@
         <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
         <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
         <button onclick="window.location.href='Information.html'">Info</button>
-        <button id="chat-toggle-btn">NetShield Chat (testing)</button>
+    <button onclick="openChatroom()">Netshield Chatroom</button>
+</div>
+
+<!-- Chatroom Modal -->
+<div id="chatroom-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:400px; height:300px; background-color:white; border:1px solid #ccc; z-index:1000;">
+    <div id="chatroom-header" style="background-color:#f1f1f1; padding:10px;">
+        <span>Netshield Chatroom</span>
+        <span style="float:right; cursor:pointer;" onclick="closeChatroom()">X</span>
     </div>
+    <div id="chatroom-body" style="padding:10px; height:200px; overflow-y:auto;">
+        <!-- Chat messages will appear here -->
+    </div>
+    <div id="chatroom-footer" style="padding:10px;">
+        <input type="text" id="chat-input" placeholder="Type a message..." style="width:80%;">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function openChatroom() {
+        document.getElementById('chatroom-modal').style.display = 'block';
+    }
+
+    function closeChatroom() {
+        document.getElementById('chatroom-modal').style.display = 'none';
+    }
+
+    function sendMessage() {
+        var input = document.getElementById('chat-input');
+        var message = input.value;
+        if (message.trim() !== '') {
+            // Send the message through WebSocket
+            // Example: socket.send(message);
+            input.value = '';
+        }
+    }
+
+    // Initialize WebSocket connection here
+    // Example:
+    // var socket = new WebSocket('wss://your-websocket-server.com');
+    // socket.onmessage = function(event) {
+    //     var chatBody = document.getElementById('chatroom-body');
+    //     var messageElement = document.createElement('div');
+    //     messageElement.textContent = event.data;
+    //     chatBody.appendChild(messageElement);
+    // };
+</script>
     <script src="demo/js/app.js"></script>
 </div>
     <script>
