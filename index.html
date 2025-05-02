@@ -150,15 +150,7 @@
 </div>
 
 <script>
-<!-- Chat Popup Trigger in Tab Bar -->
-<button onclick="toggleChat()">Netshield Chat</button>
 
-<!-- Chat Popup -->
-<div id="chat-popup" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background-color:rgba(0,0,0,0.85); color:white; padding:20px; border-radius:10px; z-index:9999;">
-  <div id="chat-messages" style="height:200px; overflow-y:auto; margin-bottom:10px;"></div>
-  <input type="text" id="chat-input" placeholder="Type a message..." style="width:80%; padding:5px;">
-  <button onclick="sendMessage()" style="padding:6px 12px;">Send</button>
-</div>
     function openChatroom() {
         document.getElementById('chatroom-modal').style.display = 'block';
     }
