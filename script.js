@@ -278,7 +278,7 @@ chatToggleBtn.onclick = () => chatPopup.classList.toggle("hidden");
 chatCloseBtn.onclick = () => chatPopup.classList.add("hidden");
 
 // Connect WebSocket
-const socket = new WebSocket("wss://your-ws-url");
+const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
 socket.onmessage = (e) => {
   const data = JSON.parse(e.data);
@@ -309,13 +309,13 @@ function sendChatMessage() {
   function appendMessage(message, type = "in") {
     const msg = document.createElement("div");
     msg.textContent = message;
-    msg.style.color = type === "in" ? "white" : "cyan";
+    msg.style.color = type === "in" ? "black" : "cyan";
     chatLog.appendChild(msg);
     chatLog.scrollTop = chatLog.scrollHeight;
   }
 
   function connectWebSocket() {
-    ws = new WebSocket("wss://ws.postman-echo.com/raw");
+    ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
     ws.onopen = () => {
       appendMessage("Connected to NetShield Chatroom");
