@@ -440,6 +440,16 @@ a {
     z-index: 10; /* ensures it's above particles */
     width: 80%; /* keep it centered nicely */
 }
+#chat-popup {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+#chat-messages {
+  font-size: 14px;
+  line-height: 1.5;
+}
 #chatroom-modal {
   display: none;
   position: fixed;
