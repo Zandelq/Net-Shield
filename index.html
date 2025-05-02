@@ -139,6 +139,29 @@
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
     </div>
+    
+    
+    <!-- Trigger from tab bar -->
+<button onclick="openNicknamePrompt()">Chatroom</button>
+
+<!-- Nickname Prompt -->
+<div id="nicknameModal" class="modal">
+  <div class="modal-content">
+    <h2>Enter Nickname</h2>
+    <input type="text" id="nicknameInput" placeholder="Nickname" />
+    <button onclick="submitNickname()">Enter</button>
+  </div>
+</div>
+
+<!-- Chat Popup -->
+<div id="chatPopup" class="chat-box">
+  <div class="chat-header">
+    NetShield Chatroom — <span id="onlineCount">0</span> online
+    <button onclick="closeChat()">X</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <input type="text" id="chatInput" placeholder="Type your message..." />
+</div>
     <!-- Chat Toggle Button -->
 <button id="open-chat-btn">Chatroom</button>
 
