@@ -268,3 +268,35 @@ window.addEventListener("scroll", () => {
     }
     lastScrollY = window.scrollY;
 });
+<script>
+const chatPopup = document.getElementById("chat-popup");
+const chatToggleBtn = document.getElementById("chat-toggle-btn");
+const chatCloseBtn = document.getElementById("chat-close-btn");
+const chatMessages = document.getElementById("chat-messages");
+
+chatToggleBtn.onclick = () => chatPopup.classList.toggle("hidden");
+chatCloseBtn.onclick = () => chatPopup.classList.add("hidden");
+
+// Connect WebSocket
+const socket = new WebSocket("wss://your-ws-url");
+
+socket.onmessage = (e) => {
+  const data = JSON.parse(e.data);
+  if (data.type === "users") {
+    document.getElementById("online-count").textContent = `Users Online: ${data.count}`;
+  } else if (data.type === "message") {
+    const div = document.createElement("div");
+    div.textContent = data.text;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+};
+
+function sendChatMessage() {
+  const input = document.getElementById("chat-input");
+  if (input.value.trim()) {
+    socket.send(input.value);
+    input.value = "";
+  }
+}
+</script>
