@@ -196,37 +196,74 @@
     </div>
 
         
-    <!-- Trigger from tab bar -->
-<button onclick="openNicknamePrompt()">Chatroom</button>
+<!-- Chatroom Button (in tab-bar or wherever) -->
+<button id="open-chat-btn">Chatroom</button>
 
-<!-- Nickname Prompt -->
-<div id="nicknameModal" class="modal">
-  <div class="modal-content">
-    <h2>Enter Nickname</h2>
-    <input type="text" id="nicknameInput" placeholder="Nickname" />
-    <button onclick="submitNickname()">Enter</button>
-  </div>
-</div>
-
-<!-- Chat Popup -->
+<!-- Chat Box -->
 <div id="chatPopup" class="chat-box">
   <div class="chat-header">
-    NetShield Chatroom — <span id="onlineCount">0</span> online
-    <button onclick="closeChat()">X</button>
+    NetShield Chatroom — <span id="user-count">0</span> online
+    <button onclick="document.getElementById('chatPopup').style.display='none'">X</button>
   </div>
   <div class="chat-messages" id="chatMessages"></div>
   <input type="text" id="chatInput" placeholder="Type your message..." />
 </div>
-<!-- 🔒 Secret Admin Access Points -->
-  <div id="secret-admin-box"></div>
-  <div id="visible-admin-box"></div>
+
+<script>
+const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
+let nickname = "";
+let usersOnline = new Set();
+
+const ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
+
+document.getElementById("open-chat-btn").addEventListener("click", () => {
+  if (!nickname) {
+    nickname = prompt("Enter your nickname:");
+    if (!nickname || bannedWords.some(w => nickname.toLowerCase().includes(w))) {
+      alert("Invalid nickname.");
+      nickname = "";
+      return;
+    }
+    ws.send(JSON.stringify({ type: "join", nickname }));
+  }
+  document.getElementById("chatPopup").style.display = "block";
+});
+
+document.getElementById("chatInput").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    const text = e.target.value.trim();
+    if (text && nickname) {
+      ws.send(JSON.stringify({ type: "msg", nickname, text }));
+      e.target.value = "";
+    }
+  }
+});
+
+ws.onmessage = (e) => {
+  const data = JSON.parse(e.data);
+  const msgBox = document.getElementById("chatMessages");
+
+  if (data.type === "msg") {
+    const div = document.createElement("div");
+    div.innerHTML = `<strong>${data.nickname}</strong>: ${data.text}`;
+    msgBox.appendChild(div);
+  } else if (data.type === "join") {
+    usersOnline.add(data.nickname);
+  } else if (data.type === "leave") {
+    usersOnline.delete(data.nickname);
+  }
+
+  document.getElementById("user-count").textContent = usersOnline.size;
+  msgBox.scrollTop = msgBox.scrollHeight;
+};
+</script>
+
 
 <!-- scripts -->
 <script src="../particles.js"></script>
 <script src="js/app.js"></script>
 
 <script>
-const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 let nickname = "";
 let userCount = 0;
 
@@ -470,16 +507,6 @@ ws.onerror = (e) => {
         }
     }
 
-    // Initialize WebSocket connection here
-    // Example:
-    // var socket = new WebSocket('wss://your-websocket-server.com');
-    // socket.onmessage = function(event) {
-    //     var chatBody = document.getElementById('chatroom-body');
-    //     var messageElement = document.createElement('div');
-    //     messageElement.textContent = event.data;
-    //     chatBody.appendChild(messageElement);
-    // };
-</script>
     <script src="demo/js/app.js"></script>
 </div>
     <script>
