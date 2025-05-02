@@ -7,6 +7,61 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
     <style>
+    #chat-popup {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 300px;
+  height: 350px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 10px;
+  color: white;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+  z-index: 9999;
+}
+
+.chat-header {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #444;
+  margin-bottom: 10px;
+  padding: 5px;
+  max-height: 220px;
+}
+
+#chat-input {
+  width: calc(100% - 60px);
+  padding: 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+#send-chat-btn {
+  width: 50px;
+  background: cyan;
+  color: black;
+  border: none;
+  border-radius: 5px;
+}
+
+#open-chat-btn {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.chat-hidden {
+  display: none;
+}
         /* Center the home text on the screen */
         .home-text {
             display: flex;
@@ -83,6 +138,7 @@
       <!-- Centered Text -->
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
+    </div>
     <!-- Chat Toggle Button -->
 <button id="open-chat-btn">Chatroom</button>
 
@@ -93,7 +149,6 @@
   <input id="chat-input" type="text" placeholder="Type your message...">
   <button id="send-chat-btn">Send</button>
 </div>
-    </div>
 <!-- 🔒 Secret Admin Access Points -->
   <div id="secret-admin-box"></div>
   <div id="visible-admin-box"></div>
