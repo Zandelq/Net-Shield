@@ -156,274 +156,54 @@
             background-color: #333;
             color: cyan;
             
-    #secret-admin-box,
-    #visible-admin-box {
-      position: fixed;
-      width: 30px;
-      height: 30px;
-      z-index: 9999;
-      cursor: pointer;
-    }
-
-    #secret-admin-box {
-      bottom: 10px;
-      right: 10px;
-      background-color: rgba(0, 0, 0, 0.01); /* invisible black */
-    }
-
-    #visible-admin-box {
-      bottom: 10px;
-      left: 10px;
-      background-color: #111;
-      border-radius: 6px;
-    }
-
-    #visible-admin-box:hover {
-      box-shadow: 0 0 10px cyan;
-    }
     </style>
-     <meta name="description" content="particles.js is a lightweight JavaScript library for creating particles.">
-  <meta name="author" content="Vincent Garreau" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" media="screen" href="css/style.css">
 </head>
 <body>
-<!-- particles.js container -->
-<div id="particles-js"></div>
-      <!-- Centered Text -->
-    <div class="center-text">
-      <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
+  <div id="particles-js"></div>
+  <div class="center-text">
+    <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
+  </div>
+
+  <!-- Chat Trigger -->
+  <button id="open-chat-btn">Chatroom</button>
+
+  <!-- Chat UI -->
+  <div id="chatPopup" class="chat-box" style="display:none;">
+    <div class="chat-header">
+      NetShield Chatroom — <span id="user-count">0</span> online
+      <button onclick="closeChat()">X</button>
     </div>
-<!-- Chat Trigger -->
-<button id="open-chat-btn">Chatroom</button>
-
-<!-- Chat UI -->
-<div id="chatPopup" class="chat-box" style="display:none;">
-  <div class="chat-header">
-    NetShield Chatroom — <span id="user-count">0</span> online
-    <button onclick="closeChat()">X</button>
+    <div class="chat-messages" id="chatMessages"></div>
+    <input type="text" id="chatInput" placeholder="Type your message..." />
   </div>
-  <div class="chat-messages" id="chatMessages"></div>
-  <input type="text" id="chatInput" placeholder="Type your message..." />
-</div>
 
-<!-- Nickname Modal -->
-<div id="nicknameModal" class="modal">
-  <div class="modal-content">
-    <h2>Enter Nickname</h2>
-    <input type="text" id="nicknameInput" placeholder="Nickname" /><br>
-    <label>Pick a color:</label>
-    <input type="color" id="colorInput" value="#00ffff" /><br>
-    <label>Duration (min):</label>
-    <input type="number" id="durationInput" min="1" value="10" /><br><br>
-    <button onclick="submitNickname()">Enter</button>
+  <!-- Nickname Modal -->
+  <div id="nicknameModal" class="modal">
+    <div class="modal-content">
+      <h2>Enter Nickname</h2>
+      <input type="text" id="nicknameInput" placeholder="Nickname" /><br />
+      <label>Pick a color:</label>
+      <input type="color" id="colorInput" value="#00ffff" /><br />
+      <label>Duration (min):</label>
+      <input type="number" id="durationInput" min="1" value="10" /><br /><br />
+      <button onclick="submitNickname()">Enter</button>
+    </div>
   </div>
-</div>
 
-<!-- scripts -->
-<script src="../particles.js"></script>
-<script src="js/app.js"></script>
+  <!-- Tab Bar -->
+  <div id="tab-bar">
+    <img src="assets/logo.png" alt="Tab Icon" id="tab-icon" />
+    <button>Home</button>
+    <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
+    <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
+    <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
+    <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
+    <button onclick="window.location.href='Information.html'">Info</button>
+  </div>
 
-
-<!-- stats.js -->
-<script src="js/lib/stats.js"></script>
-<script>
-  var count_particles, stats, update;
-  stats = new Stats;
-  stats.setMode(0);
-  stats.domElement.style.position = 'absolute';
-  stats.domElement.style.left = '0px';
-  stats.domElement.style.top = '0px';
-  document.body.appendChild(stats.domElement);
-  count_particles = document.querySelector('.js-count-particles');
-  update = function() {
-    stats.begin();
-    stats.end();
-    if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-      count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-    }
-    requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
-</script>
-    <!-- Tab Bar -->
-    <div id="tab-bar">
-        <img src="assets/logo.png" alt="Tab Icon" id="tab-icon">
-        <button>Home</button>
-        <button onclick="window.location.href='doge-unblocker.html'">Doge-Unblocker</button>
-        <button onclick="window.location.href='holy-unblocker.html'">Holy-Unblocker</button>
-        <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
-        <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
-        <button onclick="window.location.href='Information.html'">Info</button>
-</div>
-
-<script>
-let nickname = "";
-let userCount = 0;
-
-function openNicknamePrompt() {
-  document.getElementById("nicknameModal").style.display = "flex";
-}
-
-function closeChat() {
-  document.getElementById("chatPopup").style.display = "none";
-}
-
-function submitNickname() {
-  const input = document.getElementById("nicknameInput").value.trim();
-  const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
-  if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
-    alert("Invalid nickname.");
-    return;
-  }
-  nickname = input;
-  document.getElementById("nicknameModal").style.display = "none";
-  document.getElementById("chatPopup").style.display = "block";
-  sendSystemMessage(`${nickname} joined the chat.`);
-}
-
-socket.onmessage = (e) => {
-  const msgBox = document.getElementById("chatMessages");
-  const msg = JSON.parse(e.data);
-  if (msg.type === "chat") {
-    msgBox.innerHTML += `<div><strong>${msg.name}:</strong> ${msg.text}</div>`;
-  } else if (msg.type === "system") {
-    msgBox.innerHTML += `<div style="color:gray;">${msg.text}</div>`;
-  } else if (msg.type === "count") {
-    document.getElementById("onlineCount").innerText = msg.count;
-  }
-  msgBox.scrollTop = msgBox.scrollHeight;
-};
-
-socket.onopen = () => {
-  setInterval(() => {
-    socket.send(JSON.stringify({ type: "ping" }));
-  }, 10000);
-};
-
-document.getElementById("chatInput").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    const text = e.target.value.trim();
-    if (text) {
-      socket.send(JSON.stringify({ type: "chat", name: nickname, text }));
-      e.target.value = "";
-    }
-  }
-});
-
-function sendSystemMessage(text) {
-  socket.send(JSON.stringify({ type: "system", text }));
-}
-</script>
-
-    
-<script>
-let nickname = "";
-let usersOnline = new Set();
-const bannedWords = ["badword", "slur", "nword", "racist"]; // add more
-
-const ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-const nicknameModal = document.getElementById("nickname-modal");
-const nicknameInput = document.getElementById("nickname-input");
-const nicknameSubmit = document.getElementById("nickname-submit");
-const nicknameError = document.getElementById("nickname-error");
-
-const chatPopup = document.getElementById("chat-popup");
-const openBtn = document.getElementById("open-chat-btn");
-const chatInput = document.getElementById("chat-input");
-const sendBtn = document.getElementById("send-chat-btn");
-const chatMessages = document.getElementById("chat-messages");
-const userCountSpan = document.getElementById("user-count");
-
-// Validate nickname
-function isNicknameValid(name) {
-  const lower = name.toLowerCase();
-  return name.trim() !== "" && !bannedWords.some(w => lower.includes(w));
-}
-
-nicknameSubmit.addEventListener("click", () => {
-  const value = nicknameInput.value.trim();
-  if (!isNicknameValid(value)) {
-    nicknameError.textContent = "Invalid nickname.";
-    return;
-  }
-  nickname = value;
-  nicknameModal.style.display = "none";
-  ws.send(JSON.stringify({ type: "join", nickname }));
-});
-
-// Toggle chat box
-openBtn.addEventListener("click", () => {
-  chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
-});
-
-// Send message
-sendBtn.addEventListener("click", () => {
-  const msg = chatInput.value.trim();
-  if (msg !== "") {
-    ws.send(JSON.stringify({ type: "msg", nickname, text: msg }));
-    chatInput.value = "";
-  }
-});
-
-// WebSocket handling
-ws.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-
-  if (data.type === "join") {
-    usersOnline.add(data.nickname);
-  } else if (data.type === "leave") {
-    usersOnline.delete(data.nickname);
-  } else if (data.type === "msg") {
-    const div = document.createElement("div");
-    div.innerHTML = `<strong>${data.nickname}</strong>: ${data.text}`;
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  userCountSpan.textContent = usersOnline.size;
-};
-
-ws.onopen = () => {
-  console.log("Connected to chat");
-};
-
-ws.onclose = () => {
-  console.log("Disconnected from chat");
-};
-
-ws.onerror = (e) => {
-  console.error("Chat error:", e);
-};
-</script>
-<script>
-
-    function openChatroom() {
-        document.getElementById('chatroom-modal').style.display = 'block';
-    }
-
-    function closeChatroom() {
-        document.getElementById('chatroom-modal').style.display = 'none';
-    }
-
-    function sendMessage() {
-        var input = document.getElementById('chat-input');
-        var message = input.value;
-        if (message.trim() !== '') {
-            // Send the message through WebSocket
-            // Example: socket.send(message);
-            input.value = '';
-        }
-    }
-
-    <script src="demo/js/app.js"></script>
-</div>
-    <script>
-    document.getElementById("secret-admin-box")?.addEventListener("click", () => {
-        window.location.href = "admin-login.html";
-    });
-</script>
-    <div id="secret-admin-box" onclick="window.location.href='NS.html'"></div>
+  <!-- Scripts -->
+  <script src="../particles.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/chat.js"></script> <!-- Your custom chat logic will go here -->
 </body>
-</html
+</html>
