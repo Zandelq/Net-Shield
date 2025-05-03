@@ -44,11 +44,18 @@ chatInput.addEventListener("keypress", (e) => {
     }
   }
 });
+let onlineUsers = new Set();
 
 socket.onmessage = (event) => {
   const msg = JSON.parse(event.data);
 
-  if (msg.type === "chat") {
+  if (msg.type === "join") {
+    onlineUsers.add(msg.nickname);
+    sendSystemMessage(`${msg.nickname} joined the chat.`);
+  } else if (msg.type === "leave") {
+    onlineUsers.delete(msg.nickname);
+    sendSystemMessage(`${msg.nickname} left the chat.`);
+  } else if (msg.type === "chat") {
     const div = document.createElement("div");
     div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
     chatMessages.appendChild(div);
@@ -57,10 +64,9 @@ socket.onmessage = (event) => {
     div.style.color = "gray";
     div.textContent = msg.text;
     chatMessages.appendChild(div);
-  } else if (msg.type === "count") {
-    userCount.textContent = msg.count;
   }
 
+  userCount.textContent = onlineUsers.size;
   chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
