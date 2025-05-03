@@ -1,6 +1,5 @@
 let nickname = "";
 let color = "#00ffff";
-let duration = 10;
 
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
@@ -21,7 +20,6 @@ function closeChat() {
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
-  duration = parseInt(document.getElementById("durationInput").value, 10);
 
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
