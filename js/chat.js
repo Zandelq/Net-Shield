@@ -30,7 +30,6 @@ function submitNickname() {
   document.getElementById("nicknameModal").style.display = "none";
   chatBox.style.display = "block";
   socket.send(JSON.stringify({ type: "join", nickname }));
-  sendSystemMessage(`${nickname} joined the chat.`);
 }
 
 chatInput.addEventListener("keypress", (e) => {
