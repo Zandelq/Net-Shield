@@ -1,11 +1,7 @@
 let nickname = "";
 let color = "#00ffff";
-
-else if (msg.type === "count") {
-  userCount.textContent = msg.count;
-}
-
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
+
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
 const chatBox = document.getElementById("chatPopup");
