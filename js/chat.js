@@ -21,7 +21,6 @@ function closeChat() {
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
-  duration = parseInt(document.getElementById("durationInput").value, 10);
 
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
