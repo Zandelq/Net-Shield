@@ -194,73 +194,36 @@
     <div class="center-text">
       <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
     </div>
-
-        
-<!-- Chatroom Button (in tab-bar or wherever) -->
+<!-- Chat Trigger -->
 <button id="open-chat-btn">Chatroom</button>
 
-<!-- Chat Box -->
-<div id="chatPopup" class="chat-box">
+<!-- Chat UI -->
+<div id="chatPopup" class="chat-box" style="display:none;">
   <div class="chat-header">
     NetShield Chatroom — <span id="user-count">0</span> online
-    <button onclick="document.getElementById('chatPopup').style.display='none'">X</button>
+    <button onclick="closeChat()">X</button>
   </div>
   <div class="chat-messages" id="chatMessages"></div>
   <input type="text" id="chatInput" placeholder="Type your message..." />
+</div>
+
+<!-- Nickname Modal -->
+<div id="nicknameModal" class="modal">
+  <div class="modal-content">
+    <h2>Enter Nickname</h2>
+    <input type="text" id="nicknameInput" placeholder="Nickname" /><br>
+    <label>Pick a color:</label>
+    <input type="color" id="colorInput" value="#00ffff" /><br>
+    <label>Duration (min):</label>
+    <input type="number" id="durationInput" min="1" value="10" /><br><br>
+    <button onclick="submitNickname()">Enter</button>
+  </div>
 </div>
 
 <!-- scripts -->
 <script src="../particles.js"></script>
 <script src="js/app.js"></script>
 
-<script>
-const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
-let nickname = "";
-let usersOnline = new Set();
-
-const ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-document.getElementById("open-chat-btn").addEventListener("click", () => {
-  if (!nickname) {
-    nickname = prompt("Enter your nickname:");
-    if (!nickname || bannedWords.some(w => nickname.toLowerCase().includes(w))) {
-      alert("Invalid nickname.");
-      nickname = "";
-      return;
-    }
-    ws.send(JSON.stringify({ type: "join", nickname }));
-  }
-  document.getElementById("chatPopup").style.display = "block";
-});
-
-document.getElementById("chatInput").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    const text = e.target.value.trim();
-    if (text && nickname) {
-      ws.send(JSON.stringify({ type: "msg", nickname, text }));
-      e.target.value = "";
-    }
-  }
-});
-
-ws.onmessage = (e) => {
-  const data = JSON.parse(e.data);
-  const msgBox = document.getElementById("chatMessages");
-
-  if (data.type === "msg") {
-    const div = document.createElement("div");
-    div.innerHTML = `<strong>${data.nickname}</strong>: ${data.text}`;
-    msgBox.appendChild(div);
-  } else if (data.type === "join") {
-    usersOnline.add(data.nickname);
-  } else if (data.type === "leave") {
-    usersOnline.delete(data.nickname);
-  }
-
-  document.getElementById("user-count").textContent = usersOnline.size;
-  msgBox.scrollTop = msgBox.scrollHeight;
-};
-</script>
 
 <!-- stats.js -->
 <script src="js/lib/stats.js"></script>
@@ -282,43 +245,6 @@ ws.onmessage = (e) => {
     requestAnimationFrame(update);
   };
   requestAnimationFrame(update);
-        const goToAdmin = () => {
-      window.location.href = "NS-login.html";
-    };
-
-    document.getElementById("secret-admin-box").addEventListener("click", goToAdmin);
-    document.getElementById("visible-admin-box").addEventListener("click", goToAdmin);
-</script>
-<script>
-const ws = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-const chatPopup = document.getElementById("chat-popup");
-const openBtn = document.getElementById("open-chat-btn");
-const chatInput = document.getElementById("chat-input");
-const sendBtn = document.getElementById("send-chat-btn");
-const chatMessages = document.getElementById("chat-messages");
-
-openBtn.addEventListener("click", () => {
-  chatPopup.style.display = chatPopup.style.display === "flex" ? "none" : "flex";
-});
-
-sendBtn.addEventListener("click", () => {
-  const message = chatInput.value;
-  if (message.trim() !== "") {
-    ws.send(message);
-    chatInput.value = "";
-  }
-});
-
-ws.onmessage = (event) => {
-  const msg = document.createElement("div");
-  msg.textContent = event.data;
-  chatMessages.appendChild(msg);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-};
-
-ws.onopen = () => console.log("Connected to chat server");
-ws.onerror = (e) => console.error("WebSocket error:", e);
 </script>
     <!-- Tab Bar -->
     <div id="tab-bar">
@@ -329,21 +255,6 @@ ws.onerror = (e) => console.error("WebSocket error:", e);
         <button onclick="window.location.href='Interstellar.html'">Interstellar</button>
         <button onclick="window.location.href='Ultraviolet.html'">Ultraviolet</button>
         <button onclick="window.location.href='Information.html'">Info</button>
-</div>
-
-<!-- Chatroom Modal -->
-<div id="chatroom-modal" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); width:400px; height:300px; background-color:white; border:1px solid #ccc; z-index:1000;">
-    <div id="chatroom-header" style="background-color:#f1f1f1; padding:10px;">
-        <span>Netshield Chatroom</span>
-        <span style="float:right; cursor:pointer;" onclick="closeChatroom()">X</span>
-    </div>
-    <div id="chatroom-body" style="padding:10px; height:200px; overflow-y:auto;">
-        <!-- Chat messages will appear here -->
-    </div>
-    <div id="chatroom-footer" style="padding:10px;">
-        <input type="text" id="chat-input" placeholder="Type a message..." style="width:80%;">
-        <button onclick="sendMessage()">Send</button>
-    </div>
 </div>
 
 <script>
