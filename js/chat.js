@@ -1,93 +1,97 @@
-let nickname = "";
-let color = "#00ffff";
+document.addEventListener("DOMContentLoaded", () => {
+  let nickname = "";
+  let color = "#00ffff";
+  const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
+  const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
-const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
-const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
+  const chatBox = document.getElementById("chatPopup");
+  const chatMessages = document.getElementById("chatMessages");
+  const chatInput = document.getElementById("chatInput");
+  const userCount = document.getElementById("user-count");
+  const gifPanel = document.getElementById("gifPanel");
 
-const chatBox = document.getElementById("chatPopup");
-const chatMessages = document.getElementById("chatMessages");
-const chatInput = document.getElementById("chatInput");
-const userCount = document.getElementById("user-count");
-const gifPanel = document.getElementById("gifPanel");
+  document.getElementById("open-chat-btn").addEventListener("click", () => {
+    document.getElementById("nicknameModal").style.display = "flex";
+  });
 
-document.getElementById("open-chat-btn").addEventListener("click", () => {
-  document.getElementById("nicknameModal").style.display = "flex";
-});
+  document.getElementById("submitNicknameBtn").addEventListener("click", submitNickname);
 
-function closeChat() {
-  chatBox.style.display = "none";
-}
-
-function submitNickname() {
-  const input = document.getElementById("nicknameInput").value.trim();
-  color = document.getElementById("colorInput").value;
-
-  if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
-    alert("Invalid nickname.");
-    return;
+  function closeChat() {
+    chatBox.style.display = "none";
   }
 
-  nickname = input;
-  document.getElementById("nicknameModal").style.display = "none";
-  chatBox.style.display = "block";
+  function submitNickname() {
+    const input = document.getElementById("nicknameInput").value.trim();
+    color = document.getElementById("colorInput").value;
 
-  socket.send(JSON.stringify({ type: "join", nickname }));
-}
-
-// Remove user on tab close
-window.addEventListener("beforeunload", () => {
-  socket.send(JSON.stringify({ type: "leave", nickname }));
-});
-
-// Send chat message
-chatInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    const text = chatInput.value.trim();
-    if (text) {
-      socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
-      chatInput.value = "";
+    if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
+      alert("Invalid nickname.");
+      return;
     }
+
+    nickname = input;
+    document.getElementById("nicknameModal").style.display = "none";
+    chatBox.style.display = "block";
+    socket.send(JSON.stringify({ type: "join", nickname }));
   }
-});
 
-// Handle GIF click
-gifPanel.addEventListener("click", (e) => {
-  if (e.target.tagName === "IMG") {
-    const gifUrl = e.target.src;
-    socket.send(JSON.stringify({ type: "chat", name: nickname, color, gif: gifUrl }));
-  }
-});
+  window.addEventListener("beforeunload", () => {
+    socket.send(JSON.stringify({ type: "leave", nickname }));
+  });
 
-let onlineUsers = new Set();
-
-socket.onmessage = (event) => {
-  const msg = JSON.parse(event.data);
-
-  if (msg.type === "join") {
-    onlineUsers.add(msg.nickname);
-    sendSystemMessage(`${msg.nickname} joined the chat.`);
-  } else if (msg.type === "leave") {
-    onlineUsers.delete(msg.nickname);
-    sendSystemMessage(`${msg.nickname} left the chat.`);
-  } else if (msg.type === "chat") {
-    const div = document.createElement("div");
-    if (msg.gif) {
-      div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: <img src="${msg.gif}" width="100">`;
-    } else {
-      div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
+  chatInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      const text = chatInput.value.trim();
+      if (text) {
+        const isGif = text.endsWith(".gif") || text.includes("giphy.com/media");
+        if (isGif) {
+          socket.send(JSON.stringify({ type: "chat", name: nickname, color, gif: text }));
+        } else {
+          socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
+        }
+        chatInput.value = "";
+      }
     }
-    chatMessages.appendChild(div);
-  } else if (msg.type === "system") {
-    const div = document.createElement("div");
-    div.style.color = "gray";
-    div.textContent = msg.text;
-    chatMessages.appendChild(div);
+  });
+
+  gifPanel.addEventListener("click", (e) => {
+    if (e.target.tagName === "IMG") {
+      const gifUrl = e.target.src;
+      socket.send(JSON.stringify({ type: "chat", name: nickname, color, gif: gifUrl }));
+    }
+  });
+
+  let onlineUsers = new Set();
+
+  socket.onmessage = (event) => {
+    const msg = JSON.parse(event.data);
+
+    if (msg.type === "join") {
+      onlineUsers.add(msg.nickname);
+      sendSystemMessage(`${msg.nickname} joined the chat.`);
+    } else if (msg.type === "leave") {
+      onlineUsers.delete(msg.nickname);
+      sendSystemMessage(`${msg.nickname} left the chat.`);
+    } else if (msg.type === "chat") {
+      const div = document.createElement("div");
+      if (msg.gif) {
+        div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: <br><img src="${msg.gif}" width="120">`;
+      } else {
+        div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
+      }
+      chatMessages.appendChild(div);
+    } else if (msg.type === "system") {
+      const div = document.createElement("div");
+      div.style.color = "gray";
+      div.textContent = msg.text;
+      chatMessages.appendChild(div);
+    }
+
+    userCount.textContent = onlineUsers.size;
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  };
+
+  function sendSystemMessage(text) {
+    socket.send(JSON.stringify({ type: "system", text }));
   }
-
-  userCount.textContent = onlineUsers.size;
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-};
-
-function sendSystemMessage(text) {
-  socket.send(JSON.stringify({ type: "system", text }));
-}
+});
