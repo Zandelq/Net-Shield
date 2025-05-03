@@ -1,6 +1,5 @@
 let nickname = "";
 let color = "#00ffff";
-let duration = 10;
 
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
