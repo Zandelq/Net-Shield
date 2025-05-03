@@ -8,6 +8,7 @@ const chatBox = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const userCount = document.getElementById("user-count");
+const gifPanel = document.getElementById("gifPanel");
 
 document.getElementById("open-chat-btn").addEventListener("click", () => {
   document.getElementById("nicknameModal").style.display = "flex";
@@ -29,9 +30,16 @@ function submitNickname() {
   nickname = input;
   document.getElementById("nicknameModal").style.display = "none";
   chatBox.style.display = "block";
+
   socket.send(JSON.stringify({ type: "join", nickname }));
 }
 
+// Remove user on tab close
+window.addEventListener("beforeunload", () => {
+  socket.send(JSON.stringify({ type: "leave", nickname }));
+});
+
+// Send chat message
 chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     const text = chatInput.value.trim();
@@ -41,6 +49,15 @@ chatInput.addEventListener("keypress", (e) => {
     }
   }
 });
+
+// Handle GIF click
+gifPanel.addEventListener("click", (e) => {
+  if (e.target.tagName === "IMG") {
+    const gifUrl = e.target.src;
+    socket.send(JSON.stringify({ type: "chat", name: nickname, color, gif: gifUrl }));
+  }
+});
+
 let onlineUsers = new Set();
 
 socket.onmessage = (event) => {
@@ -54,7 +71,11 @@ socket.onmessage = (event) => {
     sendSystemMessage(`${msg.nickname} left the chat.`);
   } else if (msg.type === "chat") {
     const div = document.createElement("div");
-    div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
+    if (msg.gif) {
+      div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: <img src="${msg.gif}" width="100">`;
+    } else {
+      div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
+    }
     chatMessages.appendChild(div);
   } else if (msg.type === "system") {
     const div = document.createElement("div");
