@@ -10,15 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const userCount = document.getElementById("user-count");
   const gifPanel = document.getElementById("gifPanel");
 
+  let onlineUsers = new Set();
+  let hasJoined = false;
+
   document.getElementById("open-chat-btn").addEventListener("click", () => {
     document.getElementById("nicknameModal").style.display = "flex";
   });
 
   document.getElementById("submitNicknameBtn").addEventListener("click", submitNickname);
-
-  function closeChat() {
-    chatBox.style.display = "none";
-  }
 
   function submitNickname() {
     const input = document.getElementById("nicknameInput").value.trim();
@@ -32,23 +31,25 @@ document.addEventListener("DOMContentLoaded", () => {
     nickname = input;
     document.getElementById("nicknameModal").style.display = "none";
     chatBox.style.display = "block";
-    socket.send(JSON.stringify({ type: "join", nickname }));
-  }
 
-  window.addEventListener("beforeunload", () => {
-    socket.send(JSON.stringify({ type: "leave", nickname }));
-  });
+    // Only send join once
+    if (!hasJoined) {
+      socket.send(JSON.stringify({ type: "join", nickname }));
+      hasJoined = true;
+    }
+  }
 
   chatInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       const text = chatInput.value.trim();
       if (text) {
         const isGif = text.endsWith(".gif") || text.includes("giphy.com/media");
-        if (isGif) {
-          socket.send(JSON.stringify({ type: "chat", name: nickname, color, gif: text }));
-        } else {
-          socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
-        }
+        socket.send(JSON.stringify({
+          type: "chat",
+          name: nickname,
+          color,
+          ...(isGif ? { gif: text } : { text })
+        }));
         chatInput.value = "";
       }
     }
@@ -61,37 +62,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  let onlineUsers = new Set();
-
   socket.onmessage = (event) => {
     const msg = JSON.parse(event.data);
 
     if (msg.type === "join") {
-      onlineUsers.add(msg.nickname);
-      sendSystemMessage(`${msg.nickname} joined the chat.`);
-    } else if (msg.type === "leave") {
-      onlineUsers.delete(msg.nickname);
-      sendSystemMessage(`${msg.nickname} left the chat.`);
-    } else if (msg.type === "chat") {
+      if (!onlineUsers.has(msg.nickname)) {
+        onlineUsers.add(msg.nickname);
+        if (msg.nickname !== nickname) {
+          addSystemMessage(`${msg.nickname} joined the chat.`);
+        }
+      }
+    }
+
+    if (msg.type === "leave") {
+      if (onlineUsers.has(msg.nickname)) {
+        onlineUsers.delete(msg.nickname);
+        addSystemMessage(`${msg.nickname} left the chat.`);
+      }
+    }
+
+    if (msg.type === "chat") {
       const div = document.createElement("div");
       if (msg.gif) {
-        div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: <br><img src="${msg.gif}" width="120">`;
+        div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>:<br><img src="${msg.gif}" width="120">`;
       } else {
         div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
       }
       chatMessages.appendChild(div);
-    } else if (msg.type === "system") {
-      const div = document.createElement("div");
-      div.style.color = "gray";
-      div.textContent = msg.text;
-      chatMessages.appendChild(div);
+    }
+
+    if (msg.type === "system") {
+      addSystemMessage(msg.text);
     }
 
     userCount.textContent = onlineUsers.size;
     chatMessages.scrollTop = chatMessages.scrollHeight;
   };
 
-  function sendSystemMessage(text) {
-    socket.send(JSON.stringify({ type: "system", text }));
+  function addSystemMessage(text) {
+    const div = document.createElement("div");
+    div.style.color = "gray";
+    div.textContent = text;
+    chatMessages.appendChild(div);
   }
+
+  window.addEventListener("beforeunload", () => {
+    if (hasJoined) {
+      socket.send(JSON.stringify({ type: "leave", nickname }));
+    }
+  });
 });
