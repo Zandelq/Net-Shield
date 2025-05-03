@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
-  <link rel="icon" type="image/png" href="assets/logo.png" />
-  <link rel="stylesheet" href="styles.css" />
-  <style>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="icon" type="image/png" href="assets/logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <style>
     .modal {
   display: none;
   position: fixed;
@@ -118,47 +118,53 @@
 .chat-hidden {
   display: none;
 }
-    .chat-controls {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 5px 10px;
+        /* Center the home text on the screen */
+        .home-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+            margin: 0;
+            font-size: 3rem; /* Larger font size for visibility */
+            font-weight: bold;
+            text-align: center;
+        }
+        .center-small-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1rem; /* small text */
+            font-weight: normal;
+            text-align: center;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10; /* ensures it's above particles */
+            width: 80%; /* keep it centered nicely */
     }
-    .chat-controls button {
-      padding: 5px;
-      border: none;
-      background: #333;
-      color: white;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .chat-controls button:hover {
-      background: #555;
-    }
-    #gifPanel {
-      display: none;
-      position: absolute;
-      bottom: 110px;
-      right: 20px;
-      background: black;
-      border: 1px solid #444;
-      padding: 10px;
-      border-radius: 5px;
-      z-index: 10000;
-    }
-    #gifPanel img {
-      width: 50px;
-      height: auto;
-      margin: 5px;
-      cursor: pointer;
-    }
-  </style>
+        #tab-bar button {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #tab-bar button:hover {
+            background-color: #333;
+            color: cyan;
+            
+    </style>
 </head>
 <body>
   <div id="particles-js"></div>
   <div class="center-text">
     <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
   </div>
+
 
   <!-- Chat Trigger -->
   <button id="open-chat-btn">Chatroom</button>
@@ -170,19 +176,13 @@
       <button onclick="closeChat()">X</button>
     </div>
     <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-controls">
-      <input type="text" id="chatInput" placeholder="Type your message..." />
-      <button id="send-chat-btn">Send</button>
-      <button id="emoji-button">Emoji</button>
-      <button id="gif-button">GIFs</button>
-      <button id="voice-button">Voice</button>
-    </div>
-    <div id="gifPanel">
-      <img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" alt="GIF1" />
-      <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" alt="GIF2" />
-    </div>
+    <input type="text" id="chatInput" placeholder="Type your message..." />
   </div>
-
+<div id="gifPanel" style="margin-top: 10px;">
+  <img src="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif" width="60">
+  <img src="https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif" width="60">
+  <img src="https://media.giphy.com/media/3orieUe6ejxSFxYCXe/giphy.gif" width="60">
+</div>
   <!-- Nickname Modal -->
   <div id="nicknameModal" class="modal">
     <div class="modal-content">
@@ -190,7 +190,6 @@
       <input type="text" id="nicknameInput" placeholder="Nickname" /><br />
       <label>Pick a color:</label>
       <input type="color" id="colorInput" value="#00ffff" /><br />
-      <p>By clicking Enter, you agree to refrain from slurs or inappropriate content.</p>
       <button onclick="submitNickname()">Enter</button>
     </div>
   </div>
@@ -208,8 +207,7 @@
 
   <!-- Scripts -->
   <script src="../particles.js"></script>
-  <script src="app.js"></script>
-  <script src="js/chat.js"></script>
-  <script src="script.js"></script>
+  <script src="demo/app.js"></script>
+  <script src="js/chat.js"></script> <!-- Your custom chat logic will go here -->
 </body>
 </html>
