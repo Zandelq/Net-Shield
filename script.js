@@ -299,3 +299,49 @@ ws.onmessage = (event) => {
 ws.onopen = () => console.log("Connected to chat server");
 ws.onerror = (e) => console.error("WebSocket error:", e);
 </script>
+
+// script.js — For general page interactions (non-chat)
+document.addEventListener("DOMContentLoaded", () => {
+  const gifButton = document.getElementById("gif-button");
+  const emojiButton = document.getElementById("emoji-button");
+  const voiceButton = document.getElementById("voice-button");
+  const gifPanel = document.getElementById("gifPanel");
+  const chatInput = document.getElementById("chatInput");
+
+  if (gifButton) {
+    gifButton.addEventListener("click", () => {
+      gifPanel.style.display = gifPanel.style.display === "block" ? "none" : "block";
+    });
+
+    document.querySelectorAll("#gifPanel img").forEach(img => {
+      img.addEventListener("click", () => {
+        chatInput.value += " " + img.src;
+        gifPanel.style.display = "none";
+      });
+    });
+  }
+
+  if (emojiButton) {
+    emojiButton.addEventListener("click", () => {
+      const emoji = prompt("Enter Emoji:");
+      if (emoji) {
+        chatInput.value += " " + emoji;
+      }
+    });
+  }
+
+  if (voiceButton) {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      chatInput.value += " " + transcript;
+    };
+
+    voiceButton.addEventListener("click", () => {
+      recognition.start();
+    });
+  }
+});
