@@ -548,6 +548,11 @@ body {
   padding: 20px;
   border-radius: 5px;
 }
+
+  background: #e0f0ff;
+  color: #003366;
+  border-color: #3399ff;
+}
 body {
   font-family: Arial, sans-serif;
 }
