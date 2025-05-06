@@ -196,26 +196,16 @@
 
 <button id="open-chat-btn">Chatroom</button>
 
-<!-- Chatroom -->
 <div class="chat-box" id="chatPopup" style="display:none;">
   <div class="chat-header">
     NetShield Chatroom — <span id="user-count">0</span> online
     <button onclick="closeChat()">X</button>
   </div>
-
-  <div id="chatWrapper">
-    <div class="chat-messages" id="chatMessages"></div>
-
-    <div style="display: flex; gap: 5px; margin-top: 5px;">
-      <input type="text" id="chatInput" placeholder="Type your message..." />
-      <button id="send-chat-btn">Send</button>
-      <button id="gif-btn">GIF</button>
-      <button id="emoji-btn">Emoji</button>
-      <button id="voice-btn">Voice</button>
-      <input type="file" id="imageUpload" accept="image/*" />
-    </div>
-
-    <audio id="voice-player" controls style="display:none; width: 100%; margin-top: 5px;"></audio>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div style="display: flex;">
+    <input type="text" id="chatInput" placeholder="Type your message..." />
+    <button id="send-chat-btn">Send</button>
+    <button id="gif-btn">GIF</button>
   </div>
 </div>
 
@@ -224,21 +214,13 @@
   <div class="modal-content">
     <h2>Enter Nickname</h2>
     <input type="text" id="nicknameInput" placeholder="Nickname" /><br />
-
     <label>Pick a color:</label>
     <input type="color" id="colorInput" value="#00ffff" /><br />
-
-    <label>Chatroom Theme:</label>
-    <select id="themeSelect">
-      <option value="theme-light">Light</option>
-      <option value="theme-dark">Dark</option>
-      <option value="theme-blue">Blue</option>
-      <option value="theme-green">Green</option>
-    </select><br />
-
     <button onclick="submitNickname()">Enter</button>
   </div>
-</div>  
+</div>
+
+<script src="chat.js"></script>
   <!-- Tab Bar -->
   <div id="tab-bar">
     <img src="assets/logo.png" alt="Tab Icon" id="tab-icon" />
