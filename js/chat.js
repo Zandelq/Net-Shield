@@ -1,6 +1,7 @@
 let nickname = "";
 let color = "#00ffff";
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
+const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
@@ -36,12 +37,22 @@ function submitNickname() {
   sendSystemMessage(`${nickname} joined the chat.`);
 }
 
-chatInput.addEventListener("keypress", (e) => {
+chatInput.addEventListener("keypress", async (e) => {
   if (e.key === "Enter") {
     const text = chatInput.value.trim();
-    if (text) {
+    if (!text) return;
+    chatInput.value = "";
+
+    if (text.startsWith("/gif ")) {
+      const query = text.replace("/gif ", "");
+      const gifUrl = await fetchGif(query);
+      if (gifUrl) {
+        socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" style="max-width:200px;">`, color }));
+      } else {
+        alert("GIF not found.");
+      }
+    } else {
       socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
-      chatInput.value = "";
     }
   }
 });
@@ -49,22 +60,28 @@ chatInput.addEventListener("keypress", (e) => {
 socket.onmessage = (event) => {
   const msg = JSON.parse(event.data);
 
+  const div = document.createElement("div");
+
   if (msg.type === "chat") {
-    const div = document.createElement("div");
     div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
-    chatMessages.appendChild(div);
   } else if (msg.type === "system") {
-    const div = document.createElement("div");
     div.style.color = "gray";
     div.textContent = msg.text;
-    chatMessages.appendChild(div);
   } else if (msg.type === "count") {
     userCount.textContent = msg.count;
+    return;
   }
 
+  chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
 function sendSystemMessage(text) {
   socket.send(JSON.stringify({ type: "system", text }));
+}
+
+async function fetchGif(query) {
+  const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(query)}&api_key=${GIPHY_API_KEY}&limit=1`);
+  const data = await res.json();
+  return data.data[0]?.images.fixed_height.url || null;
 }
