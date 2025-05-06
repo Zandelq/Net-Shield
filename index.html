@@ -194,39 +194,31 @@
     <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
   </div>
 
-<button id="open-chat-btn">Chatroom</button>
+  <button id="open-chat-btn">Open Chat</button>
 
-<div class="chat-box" id="chatPopup" style="display: none;">
-  <div class="chat-header">
-    NetShield Chatroom — <span id="user-count">0</span> online
-    <button onclick="closeChat()">X</button>
-  </div>
-  <div class="chat-messages" id="chatMessages"></div>
-  <div style="display: flex;">
-    <input type="text" id="chatInput" placeholder="Type your message..." />
-    <button id="send-chat-btn">Send</button>
-    <button id="gif-btn">GIF</button>
-  </div>
-</div>
-
-  <div id="nicknameModal" class="modal">
-    <div class="modal-content">
-<h2>Enter Nickname</h2>
-<input type="text" id="nicknameInput" placeholder="Nickname"><br>
-<label>Pick your name color:</label>
-<input type="color" id="colorInput" value="#00ffff"><br>
-<label>Pick chat theme color:</label>
-<select id="themeSelect">
-  <option value="#00ffff">Cyan</option>
-  <option value="#ff00ff">Magenta</option>
-  <option value="#00ff00">Lime</option>
-  <option value="#ff0000">Red</option>
-  <option value="#ffffff">White</option>
-</select><br>
-<button onclick="submitNickname()">Enter</button>
+  <div id="nicknameModal">
+    <div>
+      <input id="nicknameInput" placeholder="Enter nickname" />
+      <input id="colorInput" type="color" />
+      <select id="themeSelect">
+        <option value="theme-light">Light</option>
+        <option value="theme-dark">Dark</option>
+        <option value="theme-blue">Blue</option>
+      </select>
+      <button onclick="submitNickname()">Join</button>
     </div>
   </div>
 
+  <div id="chatPopup" style="display:none;">
+    <div id="chatWrapper" class="theme-light">
+      <div id="chatMessages"></div>
+      <input id="chatInput" type="text" placeholder="Type message..." />
+      <button id="send-chat-btn">Send</button>
+      <button id="gif-btn">GIF</button>
+      <button onclick="closeChat()">Close</button>
+    </div>
+  </div>
+  
   <!-- Tab Bar -->
   <div id="tab-bar">
     <img src="assets/logo.png" alt="Tab Icon" id="tab-icon" />
