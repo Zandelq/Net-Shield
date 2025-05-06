@@ -83,3 +83,6 @@ gifBtn.addEventListener("click", () => {
   const query = prompt("Enter a GIF search term:");
   if (query) fetchGif(query);
 });
+chatInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") sendBtn.click();
+});
