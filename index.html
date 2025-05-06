@@ -198,15 +198,18 @@
   <!-- Chat Trigger -->
   <button id="open-chat-btn">Chatroom</button>
 
-  <!-- Chat UI -->
-  <div id="chatPopup" class="chat-box" style="display:none;">
-    <div class="chat-header">
-      NetShield Chatroom — <span id="user-count">0</span> online
-      <button onclick="closeChat()">X</button>
-    </div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <input type="text" id="chatInput" placeholder="Type your message..." />
+<div class="chat-box" id="chatPopup" style="display:none;">
+  <div class="chat-header">
+    NetShield Chatroom — <span id="user-count">0</span> online
+    <button onclick="closeChat()">X</button>
   </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div style="display: flex;">
+    <input type="text" id="chatInput" placeholder="Type your message..." />
+    <button id="send-chat-btn">Send</button>
+    <button id="gif-btn">GIF</button>
+  </div>
+</div>
   <!-- Nickname Modal -->
   <div id="nicknameModal" class="modal">
     <div class="modal-content">
