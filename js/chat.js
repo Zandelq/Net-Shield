@@ -1,87 +1,85 @@
+// js/chat.js
+
 let nickname = "";
-let color = "#00ffff";
-const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
-const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
+let userColor = "#00ffff";
 
-const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-const chatBox = document.getElementById("chatPopup");
+// Elements
+const nicknameModal = document.getElementById("nicknameModal");
+const nicknameInput = document.getElementById("nicknameInput");
+const colorInput = document.getElementById("colorInput");
+const chatPopup = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
-const userCount = document.getElementById("user-count");
+const sendBtn = document.getElementById("send-chat-btn");
+const gifBtn = document.getElementById("gif-btn");
 
-document.getElementById("open-chat-btn").addEventListener("click", () => {
-  const confirmTerms = confirm("By clicking OK, you agree not to say slurs or inappropriate words in the chatroom.");
-  if (confirmTerms) {
-    document.getElementById("nicknameModal").style.display = "flex";
-  }
-});
-
-function closeChat() {
-  chatBox.style.display = "none";
-}
-
-function submitNickname() {
-  const input = document.getElementById("nicknameInput").value.trim();
-  color = document.getElementById("colorInput").value;
-
-  if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
-    alert("Invalid nickname.");
-    return;
-  }
-
-  nickname = input;
-  document.getElementById("nicknameModal").style.display = "none";
-  chatBox.style.display = "block";
-  socket.send(JSON.stringify({ type: "join", nickname }));
-  sendSystemMessage(`${nickname} joined the chat.`);
-}
-
-chatInput.addEventListener("keypress", async (e) => {
-  if (e.key === "Enter") {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    chatInput.value = "";
-
-    if (text.startsWith("/gif ")) {
-      const query = text.replace("/gif ", "");
-      const gifUrl = await fetchGif(query);
-      if (gifUrl) {
-        socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" style="max-width:200px;">`, color }));
-      } else {
-        alert("GIF not found.");
-      }
-    } else {
-      socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
-    }
-  }
-});
-
-socket.onmessage = (event) => {
-  const msg = JSON.parse(event.data);
-
-  const div = document.createElement("div");
-
-  if (msg.type === "chat") {
-    div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
-  } else if (msg.type === "system") {
-    div.style.color = "gray";
-    div.textContent = msg.text;
-  } else if (msg.type === "count") {
-    userCount.textContent = msg.count;
-    return;
-  }
-
-  chatMessages.appendChild(div);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+// Display nickname modal on load
+window.onload = () => {
+  nicknameModal.style.display = "flex";
 };
 
-function sendSystemMessage(text) {
-  socket.send(JSON.stringify({ type: "system", text }));
+// Set nickname and color
+window.submitNickname = () => {
+  nickname = nicknameInput.value || "Anonymous";
+  userColor = colorInput.value || "#00ffff";
+  nicknameModal.style.display = "none";
+  chatPopup.style.display = "block";
+};
+
+// Send text message
+sendBtn.addEventListener("click", () => {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  if (text.startsWith("/gif ")) {
+    const query = text.slice(5);
+    fetchGif(query);
+  } else {
+    addChatMessage(nickname, text, userColor);
+  }
+  chatInput.value = "";
+});
+
+// Add message to chat box
+function addChatMessage(name, message, color) {
+  const msg = document.createElement("div");
+  msg.innerHTML = `<strong style="color: ${color};">${name}:</strong> ${message}`;
+  chatMessages.appendChild(msg);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-async function fetchGif(query) {
-  const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(query)}&api_key=${GIPHY_API_KEY}&limit=1`);
-  const data = await res.json();
-  return data.data[0]?.images.fixed_height.url || null;
+// Fetch GIF from GIPHY API
+function fetchGif(query) {
+  const apiKey = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
+  const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${encodeURIComponent(query)}&limit=1&offset=0`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      const gifUrl = data.data[0]?.images?.downsized_medium?.url;
+      if (gifUrl) {
+        addChatMessage(nickname, `<img src="${gifUrl}" style="max-width:100%;">`, userColor);
+      } else {
+        addChatMessage("System", "No GIF found for query: " + query, "gray");
+      }
+    })
+    .catch(err => {
+      addChatMessage("System", "Error fetching GIF.", "red");
+      console.error(err);
+    });
 }
+
+// Open chat
+document.getElementById("open-chat-btn").onclick = () => {
+  chatPopup.style.display = "block";
+};
+
+// Close chat
+window.closeChat = () => {
+  chatPopup.style.display = "none";
+};
+
+// Open gif input
+gifBtn.addEventListener("click", () => {
+  const query = prompt("Enter a GIF search term:");
+  if (query) fetchGif(query);
+});
