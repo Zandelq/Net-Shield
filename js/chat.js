@@ -15,6 +15,7 @@ let color = "#00ffff";
 function loadUserData() {
   const storedName = localStorage.getItem("nickname");
   const storedColor = localStorage.getItem("color");
+
   if (storedName && storedColor) {
     nickname = storedName;
     color = storedColor;
@@ -22,6 +23,23 @@ function loadUserData() {
   } else {
     nicknameModal.style.display = "flex";
   }
+}
+
+function saveToHistory(html) {
+  const history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
+  history.push(html);
+  if (history.length > 5) history.shift();
+  localStorage.setItem("chatHistory", JSON.stringify(history));
+}
+
+function showHistory() {
+  const history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
+  history.forEach(html => {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    chatMessages.appendChild(div);
+  });
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 function submitNickname() {
@@ -39,6 +57,7 @@ function closeChat() {
 function openChat() {
   const chatPopup = document.getElementById("chatPopup");
   chatPopup.style.display = "block";
+  showHistory();
   chatInput.focus();
 }
 
@@ -46,11 +65,14 @@ function sendMessage() {
   const msg = chatInput.value.trim();
   if (!msg) return;
 
-  const msgEl = document.createElement("div");
-  msgEl.innerHTML = `<strong style="color: ${color}">${nickname}:</strong> ${msg}`;
-  chatMessages.appendChild(msgEl);
+  const html = `<strong style="color: ${color}">${nickname}:</strong> ${msg}`;
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
   chatInput.value = "";
+
+  saveToHistory(html);
 }
 
 function sendGIF() {
@@ -59,10 +81,12 @@ function sendGIF() {
     .then(data => {
       const gifUrl = data.data[0]?.images?.downsized_medium?.url;
       if (gifUrl) {
-        const msgEl = document.createElement("div");
-        msgEl.innerHTML = `<strong style="color: ${color}">${nickname}:</strong><br><img src="${gifUrl}" width="100%">`;
-        chatMessages.appendChild(msgEl);
+        const html = `<strong style="color: ${color}">${nickname}:</strong><br><img src="${gifUrl}" width="100%">`;
+        const div = document.createElement("div");
+        div.innerHTML = html;
+        chatMessages.appendChild(div);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+        saveToHistory(html);
       }
     });
 }
@@ -75,4 +99,4 @@ chatInput.addEventListener("keydown", e => {
 document.addEventListener("DOMContentLoaded", loadUserData);
 window.submitNickname = submitNickname;
 window.closeChat = closeChat;
-window.sendGIF = sendGIF;;
+window.sendGIF = sendGIF;
