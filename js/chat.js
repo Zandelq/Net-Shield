@@ -1,28 +1,36 @@
 let nickname = localStorage.getItem("nickname") || "";
 let userColor = localStorage.getItem("userColor") || "#00ffff";
+let theme = localStorage.getItem("theme") || "theme-light";
 
+// Elements
 const nicknameModal = document.getElementById("nicknameModal");
 const nicknameInput = document.getElementById("nicknameInput");
 const colorInput = document.getElementById("colorInput");
+const themeSelect = document.getElementById("themeSelect");
 const chatPopup = document.getElementById("chatPopup");
+const chatWrapper = document.getElementById("chatWrapper");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("send-chat-btn");
 const gifBtn = document.getElementById("gif-btn");
-const themeSelect = document.getElementById("themeSelect");
-const chatWrapper = document.getElementById("chatWrapper");
+const emojiBtn = document.getElementById("emoji-btn");
 
-window.onload = () => {
-  if (!nickname) {
-    nicknameModal.style.display = "flex";
-  } else {
-    nicknameModal.style.display = "none";
-    chatPopup.style.display = "block";
-    nicknameInput.value = nickname;
-    colorInput.value = userColor;
-  }
+// Set theme on load
+chatWrapper.className = theme;
+themeSelect.value = theme;
+
+// Save theme change
+themeSelect.addEventListener("change", () => {
+  chatWrapper.className = themeSelect.value;
+  localStorage.setItem("theme", themeSelect.value);
+});
+
+// Open chat
+document.getElementById("open-chat-btn").onclick = () => {
+  nicknameModal.style.display = "flex";
 };
 
+// Set nickname
 window.submitNickname = () => {
   nickname = nicknameInput.value || "Anonymous";
   userColor = colorInput.value || "#00ffff";
@@ -32,10 +40,7 @@ window.submitNickname = () => {
   chatPopup.style.display = "block";
 };
 
-themeSelect.addEventListener("change", () => {
-  chatWrapper.className = themeSelect.value;
-});
-
+// Send message
 sendBtn.addEventListener("click", () => {
   const text = chatInput.value.trim();
   if (!text) return;
@@ -48,6 +53,21 @@ sendBtn.addEventListener("click", () => {
   chatInput.value = "";
 });
 
+// Enter key sends message
+chatInput.addEventListener("keydown", e => {
+  if (e.key === "Enter") sendBtn.click();
+});
+
+// Emoji picker
+emojiBtn.addEventListener("click", () => {
+  const emoji = prompt("Enter Emoji:");
+  if (emoji) {
+    chatInput.value += emoji;
+    chatInput.focus();
+  }
+});
+
+// Add message to chat
 function addChatMessage(name, message, color) {
   const msg = document.createElement("div");
   msg.innerHTML = `<strong style="color: ${color};">${name}:</strong> ${message}`;
@@ -55,6 +75,7 @@ function addChatMessage(name, message, color) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
+// Fetch GIF
 function fetchGif(query) {
   const apiKey = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
   const url = `https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${encodeURIComponent(query)}&limit=1&offset=0`;
@@ -75,19 +96,7 @@ function fetchGif(query) {
     });
 }
 
-document.getElementById("open-chat-btn").onclick = () => {
-  chatPopup.style.display = "block";
-};
-
+// Close chat
 window.closeChat = () => {
   chatPopup.style.display = "none";
 };
-
-gifBtn.addEventListener("click", () => {
-  const query = prompt("Enter a GIF search term:");
-  if (query) fetchGif(query);
-});
-
-chatInput.addEventListener("keydown", e => {
-  if (e.key === "Enter") sendBtn.click();
-});
