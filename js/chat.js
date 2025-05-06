@@ -1,40 +1,40 @@
 let nickname = localStorage.getItem("nickname") || "";
 let userColor = localStorage.getItem("userColor") || "#00ffff";
-let themeColor = localStorage.getItem("themeColor") || "#00ffff";
 
 const nicknameModal = document.getElementById("nicknameModal");
 const nicknameInput = document.getElementById("nicknameInput");
 const colorInput = document.getElementById("colorInput");
-const themeSelect = document.getElementById("themeSelect");
 const chatPopup = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const sendBtn = document.getElementById("send-chat-btn");
 const gifBtn = document.getElementById("gif-btn");
+const themeSelect = document.getElementById("themeSelect");
+const chatWrapper = document.getElementById("chatWrapper");
 
 window.onload = () => {
   if (!nickname) {
     nicknameModal.style.display = "flex";
   } else {
-    applyTheme(themeColor);
+    nicknameModal.style.display = "none";
     chatPopup.style.display = "block";
+    nicknameInput.value = nickname;
+    colorInput.value = userColor;
   }
 };
 
 window.submitNickname = () => {
   nickname = nicknameInput.value || "Anonymous";
   userColor = colorInput.value || "#00ffff";
-  themeColor = themeSelect.value || "#00ffff";
-
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("userColor", userColor);
-  localStorage.setItem("themeColor", themeColor);
-
   nicknameModal.style.display = "none";
   chatPopup.style.display = "block";
-
-  applyTheme(themeColor);
 };
+
+themeSelect.addEventListener("change", () => {
+  chatWrapper.className = themeSelect.value;
+});
 
 sendBtn.addEventListener("click", () => {
   const text = chatInput.value.trim();
@@ -66,11 +66,12 @@ function fetchGif(query) {
       if (gifUrl) {
         addChatMessage(nickname, `<img src="${gifUrl}" style="max-width:100%;">`, userColor);
       } else {
-        addChatMessage("System", "No GIF found for: " + query, "gray");
+        addChatMessage("System", "No GIF found for query: " + query, "gray");
       }
     })
-    .catch(() => {
+    .catch(err => {
       addChatMessage("System", "Error fetching GIF.", "red");
+      console.error(err);
     });
 }
 
@@ -90,8 +91,3 @@ gifBtn.addEventListener("click", () => {
 chatInput.addEventListener("keydown", e => {
   if (e.key === "Enter") sendBtn.click();
 });
-
-function applyTheme(color) {
-  chatPopup.style.border = `2px solid ${color}`;
-  chatPopup.style.boxShadow = `0 0 10px ${color}`;
-}
