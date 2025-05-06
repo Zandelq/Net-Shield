@@ -23,12 +23,10 @@ function closeChat() {
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
-
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
     return;
   }
-
   nickname = input;
   document.getElementById("nicknameModal").style.display = "none";
   chatBox.style.display = "block";
@@ -39,7 +37,6 @@ function submitNickname() {
 function sendMessage() {
   const text = chatInput.value.trim();
   if (!text) return;
-
   socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
   chatInput.value = "";
 }
@@ -51,13 +48,12 @@ chatInput.addEventListener("keypress", (e) => {
 
 socket.onmessage = (event) => {
   const msg = JSON.parse(event.data);
+  const div = document.createElement("div");
 
   if (msg.type === "chat") {
-    const div = document.createElement("div");
     div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
     chatMessages.appendChild(div);
   } else if (msg.type === "system") {
-    const div = document.createElement("div");
     div.style.color = "gray";
     div.textContent = msg.text;
     chatMessages.appendChild(div);
@@ -72,18 +68,26 @@ function sendSystemMessage(text) {
   socket.send(JSON.stringify({ type: "system", text }));
 }
 
-// GIF logic
 document.getElementById("gif-btn").addEventListener("click", async () => {
   const query = prompt("Enter a GIF topic:");
   if (!query) return;
 
-  const apiKey = "0Uw0pKxAGcGdfCL4Iaq9deHTJToZh1YH"; // your Giphy API key
+  const apiKey = "0Uw0pKxAGcGdfCL4Iaq9deHTJToZh1YH";
   const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(query)}&limit=1&api_key=${apiKey}`);
-  const data = await res.json();
+  if (!res.ok) {
+    alert("Failed to fetch GIFs. Try again later.");
+    return;
+  }
 
-  if (data.data.length > 0) {
+  const data = await res.json();
+  if (data.data && data.data.length > 0) {
     const gifUrl = data.data[0].images.fixed_height.url;
-    socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" height="100">`, color }));
+    socket.send(JSON.stringify({
+      type: "chat",
+      name: nickname,
+      text: `<img src="${gifUrl}" height="100">`,
+      color
+    }));
   } else {
     alert("No GIF found.");
   }
