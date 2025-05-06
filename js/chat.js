@@ -1,104 +1,90 @@
-const chatInput = document.getElementById("chatInput");
-const chatMessages = document.getElementById("chatMessages");
-const nicknameModal = document.getElementById("nicknameModal");
-const nicknameInput = document.getElementById("nicknameInput");
-const colorInput = document.getElementById("colorInput");
-const sendBtn = document.getElementById("send-chat-btn");
-const gifBtn = document.getElementById("gif-btn");
-
 let nickname = "";
 let color = "#00ffff";
+const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
 
-function loadUserData() {
-  const storedName = localStorage.getItem("nickname");
-  const storedColor = localStorage.getItem("color");
-  if (storedName && storedColor) {
-    nickname = storedName;
-    color = storedColor;
-    nicknameModal.style.display = "none";
-  } else {
-    nicknameModal.style.display = "flex";
+const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
+
+const chatBox = document.getElementById("chatPopup");
+const chatMessages = document.getElementById("chatMessages");
+const chatInput = document.getElementById("chatInput");
+const userCount = document.getElementById("user-count");
+
+document.getElementById("open-chat-btn").addEventListener("click", () => {
+  const confirmTerms = confirm("By clicking OK, you agree not to say slurs or inappropriate words in the chatroom.");
+  if (confirmTerms) {
+    document.getElementById("nicknameModal").style.display = "flex";
   }
-}
+});
 
-function saveToHistory(html) {
-  const history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
-  history.push(html);
-  if (history.length > 20) history.shift();
-  localStorage.setItem("chatHistory", JSON.stringify(history));
-}
-
-function showHistory() {
-  const history = JSON.parse(localStorage.getItem("chatHistory") || "[]");
-  history.forEach(html => {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    div.style.opacity = 0;
-    chatMessages.appendChild(div);
-    setTimeout(() => div.style.opacity = 1, 100);
-  });
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+function closeChat() {
+  chatBox.style.display = "none";
 }
 
 function submitNickname() {
-  nickname = nicknameInput.value.trim() || "Anonymous";
-  color = colorInput.value;
-  localStorage.setItem("nickname", nickname);
-  localStorage.setItem("color", color);
-  nicknameModal.style.display = "none";
-}
+  const input = document.getElementById("nicknameInput").value.trim();
+  color = document.getElementById("colorInput").value;
 
-function closeChat() {
-  document.getElementById("chatPopup").style.display = "none";
-}
+  if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
+    alert("Invalid nickname.");
+    return;
+  }
 
-function openChat() {
-  const chatPopup = document.getElementById("chatPopup");
-  chatPopup.style.display = "block";
-  chatInput.focus();
-  chatMessages.innerHTML = "";
-  showHistory();
+  nickname = input;
+  document.getElementById("nicknameModal").style.display = "none";
+  chatBox.style.display = "block";
+  socket.send(JSON.stringify({ type: "join", nickname }));
+  sendSystemMessage(`${nickname} joined the chat.`);
 }
 
 function sendMessage() {
-  const msg = chatInput.value.trim();
-  if (!msg) return;
+  const text = chatInput.value.trim();
+  if (!text) return;
 
-  const html = `<strong style="color: ${color}">${nickname}:</strong> ${msg}`;
-  const div = document.createElement("div");
-  div.innerHTML = html;
-  div.style.opacity = 0;
-  chatMessages.appendChild(div);
-  setTimeout(() => div.style.opacity = 1, 100);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
   chatInput.value = "";
-
-  saveToHistory(html);
 }
 
-function sendGIF() {
-  fetch(`https://api.giphy.com/v1/gifs/random?api_key=mXzkENvCtDRjUVUZBxa4RZGNlb1GOyr8&tag=&rating=pg`)
-    .then(res => res.json())
-    .then(data => {
-      const gifUrl = data.data?.images?.downsized_medium?.url;
-      if (!gifUrl) return;
-      const html = `<strong style="color: ${color}">${nickname}:</strong><br><img src="${gifUrl}" width="100%">`;
-      const div = document.createElement("div");
-      div.innerHTML = html;
-      div.style.opacity = 0;
-      chatMessages.appendChild(div);
-      setTimeout(() => div.style.opacity = 1, 100);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      saveToHistory(html);
-    });
-}
-
-document.getElementById("open-chat-btn").onclick = openChat;
-sendBtn.onclick = sendMessage;
-gifBtn.onclick = sendGIF;
-chatInput.addEventListener("keydown", e => {
+document.getElementById("send-chat-btn").addEventListener("click", sendMessage);
+chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") sendMessage();
 });
-document.addEventListener("DOMContentLoaded", loadUserData);
-window.submitNickname = submitNickname;
-window.closeChat = closeChat;
+
+socket.onmessage = (event) => {
+  const msg = JSON.parse(event.data);
+
+  if (msg.type === "chat") {
+    const div = document.createElement("div");
+    div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
+    chatMessages.appendChild(div);
+  } else if (msg.type === "system") {
+    const div = document.createElement("div");
+    div.style.color = "gray";
+    div.textContent = msg.text;
+    chatMessages.appendChild(div);
+  } else if (msg.type === "count") {
+    userCount.textContent = msg.count;
+  }
+
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+};
+
+function sendSystemMessage(text) {
+  socket.send(JSON.stringify({ type: "system", text }));
+}
+
+// GIF logic
+document.getElementById("gif-btn").addEventListener("click", async () => {
+  const query = prompt("Enter a GIF topic:");
+  if (!query) return;
+
+  const apiKey = "0Uw0pKxAGcGdfCL4Iaq9deHTJToZh1YH"; // your Giphy API key
+  const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(query)}&limit=1&api_key=${apiKey}`);
+  const data = await res.json();
+
+  if (data.data.length > 0) {
+    const gifUrl = data.data[0].images.fixed_height.url;
+    socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" height="100">`, color }));
+  } else {
+    alert("No GIF found.");
+  }
+});
