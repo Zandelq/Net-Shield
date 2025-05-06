@@ -548,3 +548,60 @@ body {
   padding: 20px;
   border-radius: 5px;
 }
+body {
+  font-family: Arial, sans-serif;
+}
+
+#nicknameModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+#nicknameModal input,
+#nicknameModal select {
+  margin: 5px;
+}
+
+#chatWrapper {
+  border: 2px solid;
+  padding: 10px;
+  width: 300px;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+/* Themes */
+.theme-light {
+  background: #fff;
+  color: #000;
+  border-color: #ccc;
+}
+
+.theme-dark {
+  background: #222;
+  color: #fff;
+  border-color: #555;
+}
+
+.theme-blue {
+  background: #e0f0ff;
+  color: #003366;
+  border-color: #3399ff;
+}
