@@ -1,9 +1,13 @@
+
+
+
+async function fetchGif(query) {
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
-const theme = localStorage.getItem("theme") || "default";
+let theme = localStorage.getItem("theme") || "default";
 
-const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
+const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
@@ -11,34 +15,18 @@ const chatBox = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const userCount = document.getElementById("user-count");
-
+const sendBtn = document.getElementById("send-chat-btn");
+const gifBtn = document.getElementById("gif-btn");
 const themeSelect = document.getElementById("themeSelect");
 
-function applyTheme(themeName) {
-  chatBox.classList.remove("theme-dark", "theme-light", "theme-blue", "theme-green");
-  if (themeName !== "default") {
-    chatBox.classList.add(`theme-${themeName}`);
-  }
-  localStorage.setItem("theme", themeName);
-}
-
-applyTheme(theme);
-if (themeSelect) themeSelect.value = theme;
-
-if (themeSelect) {
-  themeSelect.addEventListener("change", () => {
-    applyTheme(themeSelect.value);
-  });
-}
+document.body.classList.add(`theme-${theme}`);
 
 document.getElementById("open-chat-btn").addEventListener("click", () => {
-  const confirmTerms = confirm("By clicking OK, you agree not to say slurs or inappropriate words in the chatroom.");
-  if (confirmTerms) {
-    if (nickname) {
-      chatBox.style.display = "block";
-    } else {
-      document.getElementById("nicknameModal").style.display = "flex";
-    }
+  document.getElementById("nicknameModal").style.display = nickname ? "none" : "flex";
+  chatBox.style.display = "block";
+  if (nickname) {
+    socket.send(JSON.stringify({ type: "join", nickname }));
+    sendSystemMessage(`${nickname} joined the chat.`);
   }
 });
 
@@ -49,6 +37,7 @@ function closeChat() {
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
+  theme = document.getElementById("themeSelect").value;
 
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
@@ -58,30 +47,53 @@ function submitNickname() {
   nickname = input;
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("color", color);
+  localStorage.setItem("theme", theme);
+
+  document.body.className = "";
+  document.body.classList.add(`theme-${theme}`);
+
   document.getElementById("nicknameModal").style.display = "none";
   chatBox.style.display = "block";
   socket.send(JSON.stringify({ type: "join", nickname }));
   sendSystemMessage(`${nickname} joined the chat.`);
 }
 
-chatInput.addEventListener("keypress", async (e) => {
-  if (e.key === "Enter") {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    chatInput.value = "";
+function sendSystemMessage(text) {
+  socket.send(JSON.stringify({ type: "system", text }));
+}
 
-    if (text.startsWith("/gif ")) {
-      const query = text.replace("/gif ", "");
-      const gifUrl = await fetchGif(query);
-      if (gifUrl) {
-        socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src=\"${gifUrl}\" style=\"max-width:200px;\">`, color }));
-      } else {
-        alert("GIF not found.");
-      }
+sendBtn.addEventListener("click", async () => {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  chatInput.value = "";
+
+  if (text.startsWith("/gif ")) {
+    const query = text.replace("/gif ", "");
+    const gifUrl = await fetchGif(query);
+    if (gifUrl) {
+      socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" style="max-width:200px;">`, color }));
     } else {
-      socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
+      alert("GIF not found.");
+    }
+  } else {
+    socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
+  }
+});
+
+gifBtn.addEventListener("click", async () => {
+  const query = prompt("Enter GIF search:");
+  if (query) {
+    const gifUrl = await fetchGif(query);
+    if (gifUrl) {
+      socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" style="max-width:200px;">`, color }));
+    } else {
+      alert("GIF not found.");
     }
   }
+});
+
+chatInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendBtn.click();
 });
 
 socket.onmessage = (event) => {
@@ -89,7 +101,7 @@ socket.onmessage = (event) => {
   const div = document.createElement("div");
 
   if (msg.type === "chat") {
-    div.innerHTML = `<strong style=\"color:${msg.color}\">${msg.name}</strong>: ${msg.text}`;
+    div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
   } else if (msg.type === "system") {
     div.style.color = "gray";
     div.textContent = msg.text;
@@ -102,12 +114,8 @@ socket.onmessage = (event) => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
-function sendSystemMessage(text) {
-  socket.send(JSON.stringify({ type: "system", text }));
-}
-
 async function fetchGif(query) {
-  const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(query)}&api_key=${GIPHY_API_KEY}&limit=1`);
+  const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=1`);
   const data = await res.json();
   return data.data[0]?.images.fixed_height.url || null;
 }
