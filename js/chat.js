@@ -1,6 +1,7 @@
-// chat.js
-let nickname = "";
-let color = "#00ffff";
+let nickname = localStorage.getItem("nickname") || "";
+let color = localStorage.getItem("color") || "#00ffff";
+const theme = localStorage.getItem("theme") || "default";
+
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
 
@@ -11,20 +12,40 @@ const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
 const userCount = document.getElementById("user-count");
 
-// Open chat with TOS confirm
+const themeSelect = document.getElementById("themeSelect");
+
+function applyTheme(themeName) {
+  chatBox.classList.remove("theme-dark", "theme-light", "theme-blue", "theme-green");
+  if (themeName !== "default") {
+    chatBox.classList.add(`theme-${themeName}`);
+  }
+  localStorage.setItem("theme", themeName);
+}
+
+applyTheme(theme);
+if (themeSelect) themeSelect.value = theme;
+
+if (themeSelect) {
+  themeSelect.addEventListener("change", () => {
+    applyTheme(themeSelect.value);
+  });
+}
+
 document.getElementById("open-chat-btn").addEventListener("click", () => {
   const confirmTerms = confirm("By clicking OK, you agree not to say slurs or inappropriate words in the chatroom.");
   if (confirmTerms) {
-    document.getElementById("nicknameModal").style.display = "flex";
+    if (nickname) {
+      chatBox.style.display = "block";
+    } else {
+      document.getElementById("nicknameModal").style.display = "flex";
+    }
   }
 });
 
-// Close chat
 function closeChat() {
   chatBox.style.display = "none";
 }
 
-// Submit nickname and color
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
@@ -35,13 +56,14 @@ function submitNickname() {
   }
 
   nickname = input;
+  localStorage.setItem("nickname", nickname);
+  localStorage.setItem("color", color);
   document.getElementById("nicknameModal").style.display = "none";
   chatBox.style.display = "block";
   socket.send(JSON.stringify({ type: "join", nickname }));
   sendSystemMessage(`${nickname} joined the chat.`);
 }
 
-// Chat input handler
 chatInput.addEventListener("keypress", async (e) => {
   if (e.key === "Enter") {
     const text = chatInput.value.trim();
@@ -62,7 +84,6 @@ chatInput.addEventListener("keypress", async (e) => {
   }
 });
 
-// Message receive handler
 socket.onmessage = (event) => {
   const msg = JSON.parse(event.data);
   const div = document.createElement("div");
@@ -81,12 +102,10 @@ socket.onmessage = (event) => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
-// System message sender
 function sendSystemMessage(text) {
   socket.send(JSON.stringify({ type: "system", text }));
 }
 
-// GIF fetcher
 async function fetchGif(query) {
   const res = await fetch(`https://api.giphy.com/v1/gifs/search?q=${encodeURIComponent(query)}&api_key=${GIPHY_API_KEY}&limit=1`);
   const data = await res.json();
