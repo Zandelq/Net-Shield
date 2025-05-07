@@ -18,9 +18,10 @@ const themeSelect = document.getElementById("themeSelect");
 document.body.classList.add(`theme-${theme}`);
 
 document.getElementById("open-chat-btn").addEventListener("click", () => {
-  document.getElementById("nicknameModal").style.display = nickname ? "none" : "flex";
-  chatBox.style.display = "block";
-  if (nickname) {
+  if (!nickname) {
+    document.getElementById("nicknameModal").style.display = "flex";
+  } else {
+    chatBox.style.display = "block";
     socket.send(JSON.stringify({ type: "join", nickname }));
     sendSystemMessage(`${nickname} joined the chat.`);
   }
