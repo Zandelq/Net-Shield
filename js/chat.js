@@ -1,7 +1,3 @@
-
-
-
-async function fetchGif(query) {
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
