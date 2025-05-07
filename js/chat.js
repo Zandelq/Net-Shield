@@ -14,14 +14,35 @@ const userCount = document.getElementById("user-count");
 const sendBtn = document.getElementById("send-chat-btn");
 const gifBtn = document.getElementById("gif-btn");
 const themeSelect = document.getElementById("themeSelect");
+const openChatBtn = document.getElementById("open-chat-btn");
+const nicknameModal = document.getElementById("nicknameModal");
+const nicknameInput = document.getElementById("nicknameInput");
+const colorInput = document.getElementById("colorInput");
+
+const openSound = new Audio("/sounds/chat-open.mp3"); // Make sure this file exists
 
 document.body.classList.add(`theme-${theme}`);
 
-document.getElementById("open-chat-btn").addEventListener("click", () => {
+// Fade-in effect
+function fadeIn(el) {
+  el.style.opacity = 0;
+  el.style.display = "flex";
+  let op = 0;
+  const tick = () => {
+    op += 0.05;
+    el.style.opacity = op;
+    if (op < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// Chat open
+openChatBtn.addEventListener("click", () => {
   if (!nickname) {
-    document.getElementById("nicknameModal").style.display = "flex";
+    nicknameModal.style.display = "flex";
   } else {
-    chatBox.style.display = "block";
+    fadeIn(chatBox);
+    openSound.play();
     socket.send(JSON.stringify({ type: "join", nickname }));
     sendSystemMessage(`${nickname} joined the chat.`);
   }
@@ -32,9 +53,9 @@ function closeChat() {
 }
 
 function submitNickname() {
-  const input = document.getElementById("nicknameInput").value.trim();
-  color = document.getElementById("colorInput").value;
-  theme = document.getElementById("themeSelect").value;
+  const input = nicknameInput.value.trim();
+  color = colorInput.value;
+  theme = themeSelect.value;
 
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
@@ -49,11 +70,22 @@ function submitNickname() {
   document.body.className = "";
   document.body.classList.add(`theme-${theme}`);
 
-  document.getElementById("nicknameModal").style.display = "none";
-  chatBox.style.display = "block";
+  nicknameModal.style.display = "none";
+  fadeIn(chatBox);
+  openSound.play();
   socket.send(JSON.stringify({ type: "join", nickname }));
   sendSystemMessage(`${nickname} joined the chat.`);
 }
+
+// Theme change
+themeSelect.addEventListener("change", () => {
+  const selectedTheme = themeSelect.value;
+  chatBox.classList.remove("theme-light", "theme-dark", "theme-blue", "theme-green");
+  if (selectedTheme !== "default") {
+    chatBox.classList.add(`theme-${selectedTheme}`);
+  }
+  localStorage.setItem("theme", selectedTheme);
+});
 
 function sendSystemMessage(text) {
   socket.send(JSON.stringify({ type: "system", text }));
