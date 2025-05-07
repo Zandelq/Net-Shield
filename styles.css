@@ -733,7 +733,8 @@ body {
       margin-left: 5px;
       padding: 3px;
     }
-				.chat-box {
+
+.chat-box {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 }
