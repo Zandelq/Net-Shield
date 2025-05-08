@@ -1,15 +1,16 @@
+// js/chat.js
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
 let hasJoined = false;
 
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
-const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
+const bannedWords = [
+  "nigger", "nigga", "faggot", "bitch", "cunt", 
+  "balls", "dick", "dildo", "butt", "ass"
+];
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
-
-document.body.className = "";
-document.body.classList.add(`theme-${theme}`);
 
 const chatBox = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
@@ -18,6 +19,10 @@ const userCount = document.getElementById("user-count");
 const sendBtn = document.getElementById("send-chat-btn");
 const gifBtn = document.getElementById("gif-btn");
 const themeSelect = document.getElementById("themeSelect");
+
+document.body.classList.add(`theme-${theme}`);
+applyTheme(theme);
+themeSelect.value = theme;
 
 function applyTheme(name) {
   const themes = {
@@ -30,20 +35,17 @@ function applyTheme(name) {
     red:     { background: "#330000", textColor: "#ffcccc", borderColor: "#ff0000" }
   };
 
-  const theme = themes[name] || themes.default;
-  chatBox.style.backgroundColor = theme.background;
-  chatBox.style.color = theme.textColor;
-  chatBox.style.border = `2px solid ${theme.borderColor}`;
-  chatBox.style.boxShadow = `0 0 10px ${theme.borderColor}`;
+  const th = themes[name] || themes.default;
+  chatBox.style.backgroundColor = th.background;
+  chatBox.style.color = th.textColor;
+  chatBox.style.border = `2px solid ${th.borderColor}`;
+  chatBox.style.boxShadow = `0 0 10px ${th.borderColor}`;
   const header = chatBox.querySelector(".chat-header");
   if (header) {
-    header.style.backgroundColor = theme.borderColor;
-    header.style.color = theme.textColor;
+    header.style.backgroundColor = th.borderColor;
+    header.style.color = th.textColor;
   }
 }
-
-applyTheme(theme);
-themeSelect.value = theme;
 
 document.getElementById("open-chat-btn").addEventListener("click", () => {
   if (!nickname) {
@@ -79,7 +81,6 @@ function submitNickname() {
   localStorage.setItem("theme", theme);
 
   applyTheme(theme);
-
   document.getElementById("nicknameModal").style.display = "none";
   chatBox.style.display = "flex";
   chatBox.classList.add("fade-in");
@@ -155,51 +156,4 @@ async function fetchGif(query) {
   const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=1`);
   const data = await res.json();
   return data.data[0]?.images.fixed_height.url || null;
-}
-// Drag-to-move logic
-const dragHeader = document.getElementById("chatHeader");
-let offsetX = 0, offsetY = 0, isDragging = false;
-
-dragHeader.addEventListener("mousedown", e => {
-  isDragging = true;
-  offsetX = e.clientX - chatBox.offsetLeft;
-  offsetY = e.clientY - chatBox.offsetTop;
-});
-
-document.addEventListener("mouseup", () => isDragging = false);
-
-document.addEventListener("mousemove", e => {
-  if (isDragging) {
-    chatBox.style.left = `${e.clientX - offsetX}px`;
-    chatBox.style.top = `${e.clientY - offsetY}px`;
-  }
-});
-
-// Ensure chat visibility toggle works post-close
-const openBtn = document.getElementById("open-chat-btn");
-openBtn.addEventListener("click", () => {
-  if (chatBox.style.display === "none" || chatBox.style.display === "") {
-    if (!nickname) {
-      document.getElementById("nicknameModal").style.display = "flex";
-    } else {
-      if (!hasJoined) {
-        socket.send(JSON.stringify({ type: "join", nickname }));
-        sendSystemMessage(`${nickname} joined the chat.`);
-        hasJoined = true;
-      }
-      chatBox.style.display = "flex";
-      chatBox.classList.add("fade-in");
-    }
-  } else {
-    chatBox.style.display = "none";
-  }
-});
-
-// Fix theme dropdown dynamic updates
-if (themeSelect) {
-  themeSelect.addEventListener("change", () => {
-    theme = themeSelect.value;
-    localStorage.setItem("theme", theme);
-    applyTheme(theme);
-  });
 }
