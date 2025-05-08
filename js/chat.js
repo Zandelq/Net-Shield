@@ -156,3 +156,50 @@ async function fetchGif(query) {
   const data = await res.json();
   return data.data[0]?.images.fixed_height.url || null;
 }
+// Drag-to-move logic
+const dragHeader = document.getElementById("chatHeader");
+let offsetX = 0, offsetY = 0, isDragging = false;
+
+dragHeader.addEventListener("mousedown", e => {
+  isDragging = true;
+  offsetX = e.clientX - chatBox.offsetLeft;
+  offsetY = e.clientY - chatBox.offsetTop;
+});
+
+document.addEventListener("mouseup", () => isDragging = false);
+
+document.addEventListener("mousemove", e => {
+  if (isDragging) {
+    chatBox.style.left = `${e.clientX - offsetX}px`;
+    chatBox.style.top = `${e.clientY - offsetY}px`;
+  }
+});
+
+// Ensure chat visibility toggle works post-close
+const openBtn = document.getElementById("open-chat-btn");
+openBtn.addEventListener("click", () => {
+  if (chatBox.style.display === "none" || chatBox.style.display === "") {
+    if (!nickname) {
+      document.getElementById("nicknameModal").style.display = "flex";
+    } else {
+      if (!hasJoined) {
+        socket.send(JSON.stringify({ type: "join", nickname }));
+        sendSystemMessage(`${nickname} joined the chat.`);
+        hasJoined = true;
+      }
+      chatBox.style.display = "flex";
+      chatBox.classList.add("fade-in");
+    }
+  } else {
+    chatBox.style.display = "none";
+  }
+});
+
+// Fix theme dropdown dynamic updates
+if (themeSelect) {
+  themeSelect.addEventListener("change", () => {
+    theme = themeSelect.value;
+    localStorage.setItem("theme", theme);
+    applyTheme(theme);
+  });
+}
