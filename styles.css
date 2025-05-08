@@ -22,6 +22,16 @@ li{list-style:none}
 
 /* ---- base ---- */
 
+.chat-box {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.chat-box.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 html,body{ 
 	width:100%;
 	height:100%;
