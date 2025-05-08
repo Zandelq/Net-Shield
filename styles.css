@@ -496,6 +496,26 @@ a {
   display: none;
 }
 /* styles.css */
+#chatPopup,
+.chat-box {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 320px;
+  max-height: 400px;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 9999;
+
+  background-color: var(--bg, #111);
+  color: var(--text, white);
+  border: 2px solid var(--border, #00ffff);
+  box-shadow: 0 0 10px var(--border, #00ffff);
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
 body {
   font-family: Arial, sans-serif;
   margin: 0;
