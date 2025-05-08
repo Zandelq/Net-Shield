@@ -6,7 +6,10 @@ let theme = localStorage.getItem("theme") || "default";
 let hasJoined = false;
 
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
-const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
+const bannedWords = [
+  "nigger", "nigga", "faggot", "bitch", "cunt",
+  "balls", "dick", "dildo", "butt", "ass"
+];
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
@@ -21,33 +24,13 @@ const nicknameModal = document.getElementById("nicknameModal");
 const openBtn = document.getElementById("open-chat-btn");
 
 function applyTheme(name) {
-  const themes = {
-    default: { background: "#111", textColor: "white", borderColor: "#00ffff" },
-    light:   { background: "#ffffff", textColor: "#000000", borderColor: "#dddddd" },
-    dark:    { background: "#000000", textColor: "#ffffff", borderColor: "#222222" },
-    blue:    { background: "#003366", textColor: "white", borderColor: "#0055aa" },
-    green:   { background: "#002d00", textColor: "#afffaf", borderColor: "#00ff00" },
-    purple:  { background: "#2c003e", textColor: "#e0ccff", borderColor: "#8a2be2" },
-    red:     { background: "#330000", textColor: "#ffcccc", borderColor: "#ff0000" }
-  };
-
-  const theme = themes[name] || themes.default;
-  chatBox.style.backgroundColor = theme.background;
-  chatBox.style.color = theme.textColor;
-  chatBox.style.border = `2px solid ${theme.borderColor}`;
-  chatBox.style.boxShadow = `0 0 10px ${theme.borderColor}`;
-
-  const header = chatBox.querySelector(".chat-header");
-  if (header) {
-    header.style.backgroundColor = theme.borderColor;
-    header.style.color = theme.textColor;
-  }
+  document.body.className = "";
+  document.body.classList.add(`theme-${name}`);
+  chatBox.className = `chat-box theme-${name}`;
 }
 
 applyTheme(theme);
 themeSelect.value = theme;
-document.body.className = "";
-document.body.classList.add(`theme-${theme}`);
 
 openBtn.addEventListener("click", () => {
   if (!nickname) {
@@ -61,14 +44,15 @@ openBtn.addEventListener("click", () => {
     hasJoined = true;
   }
 
-  chatBox.style.display = "flex";
-  chatBox.classList.remove("fade-in");
-  void chatBox.offsetWidth; // trigger reflow for animation restart
-  chatBox.classList.add("fade-in");
+  chatBox.classList.add("visible", "fade-in");
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeChat();
 });
 
 function closeChat() {
-  chatBox.style.display = "none";
+  chatBox.classList.remove("visible", "fade-in");
 }
 
 function submitNickname() {
@@ -87,12 +71,8 @@ function submitNickname() {
   localStorage.setItem("theme", theme);
 
   applyTheme(theme);
-  document.body.className = "";
-  document.body.classList.add(`theme-${theme}`);
-
   nicknameModal.style.display = "none";
-  chatBox.style.display = "flex";
-  chatBox.classList.add("fade-in");
+  chatBox.classList.add("visible", "fade-in");
 
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
