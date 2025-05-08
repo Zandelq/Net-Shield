@@ -591,40 +591,6 @@ body {
   margin-bottom: 5px;
   padding: 5px;
 }
-
-/* Themes */
-.theme-light {
-  background: #fff;
-  color: #000;
-  border-color: #ccc;
-}
-
-.theme-dark {
-  background: #222;
-  color: #fff;
-  border-color: #555;
-}
-
-.theme-blue {
-  background: #e0f0ff;
-  color: #003366;
-  border-color: #3399ff;
-}
-.theme-dark {
-  background: #111 !important;
-  color: white !important;
-  border-color: #444 !important;
-}
-.theme-blue {
-  background: #003366 !important;
-  color: white !important;
-  border-color: #0055aa !important;
-}
-.theme-green {
-  background: #002d00 !important;
-  color: #afffaf !important;
-  border-color: #00ff00 !important;
-}
 .chat-box.theme-dark .chat-header,
 .chat-box.theme-blue .chat-header,
 .chat-box.theme-green .chat-header {
