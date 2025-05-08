@@ -704,55 +704,70 @@ body {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
 } 
-.chat-header {
-  cursor: move;
-  padding: 10px;
-  background-color: #333;
-  color: #fff;
-  font-weight: bold;
-  user-select: none;
-}
+/* Add these at the end of styles.css */
+
+/* Fade-in animation */
 .fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-{
-  .default": {
-    "background": "#111",
-    "textColor": "white",
-    "borderColor": "#00ffff"
-  },
-  .light": {
-    "background": "#ffffff",
-    "textColor": "#000000",
-    "borderColor": "#dddddd"
-  },
-  .dark": {
-    "background": "#000000",
-    "textColor": "#ffffff",
-    "borderColor": "#222222"
-  },
-  .blue": {
-    "background": "#003366",
-    "textColor": "white",
-    "borderColor": "#0055aa"
-  },
-  .green": {
-    "background": "#002d00",
-    "textColor": "#afffaf",
-    "borderColor": "#00ff00"
-  },
-  .purple": {
-    "background": "#2c003e",
-    "textColor": "#e0ccff",
-    "borderColor": "#8a2be2"
-  },
-  .red": {
-    "background": "#330000",
-    "textColor": "#ffcccc",
-    "borderColor": "#ff0000"
-  }
+
+/* Dynamic theme system (fallback default) */
+#chatPopup, .chat-box {
+  background-color: var(--bg, #111);
+  color: var(--text, white);
+  border: 2px solid var(--border, #00ffff);
+  box-shadow: 0 0 10px var(--border, #00ffff);
+}
+
+.chat-header {
+  background-color: var(--border, #00ffff);
+  color: var(--text, white);
+}
+
+/* These are classes that will be toggled from JS */
+.theme-default {
+  --bg: #111;
+  --text: white;
+  --border: #00ffff;
+}
+
+.theme-light {
+  --bg: #ffffff;
+  --text: #000000;
+  --border: #dddddd;
+}
+
+.theme-dark {
+  --bg: #000000;
+  --text: #ffffff;
+  --border: #222222;
+}
+
+.theme-blue {
+  --bg: #003366;
+  --text: white;
+  --border: #0055aa;
+}
+
+.theme-green {
+  --bg: #002d00;
+  --text: #afffaf;
+  --border: #00ff00;
+}
+
+.theme-purple {
+  --bg: #2c003e;
+  --text: #e0ccff;
+  --border: #8a2be2;
+}
+
+.theme-red {
+  --bg: #330000;
+  --text: #ffcccc;
+  --border: #ff0000;
 }
