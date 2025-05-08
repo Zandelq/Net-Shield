@@ -8,6 +8,9 @@ const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dic
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
+document.body.className = "";
+document.body.classList.add(`theme-${theme}`);
+
 const chatBox = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
