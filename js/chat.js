@@ -1,14 +1,12 @@
 // js/chat.js
+
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
 let hasJoined = false;
 
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
-const bannedWords = [
-  "nigger", "nigga", "faggot", "bitch", "cunt", 
-  "balls", "dick", "dildo", "butt", "ass"
-];
+const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
@@ -19,10 +17,8 @@ const userCount = document.getElementById("user-count");
 const sendBtn = document.getElementById("send-chat-btn");
 const gifBtn = document.getElementById("gif-btn");
 const themeSelect = document.getElementById("themeSelect");
-
-document.body.classList.add(`theme-${theme}`);
-applyTheme(theme);
-themeSelect.value = theme;
+const nicknameModal = document.getElementById("nicknameModal");
+const openBtn = document.getElementById("open-chat-btn");
 
 function applyTheme(name) {
   const themes = {
@@ -35,30 +31,40 @@ function applyTheme(name) {
     red:     { background: "#330000", textColor: "#ffcccc", borderColor: "#ff0000" }
   };
 
-  const th = themes[name] || themes.default;
-  chatBox.style.backgroundColor = th.background;
-  chatBox.style.color = th.textColor;
-  chatBox.style.border = `2px solid ${th.borderColor}`;
-  chatBox.style.boxShadow = `0 0 10px ${th.borderColor}`;
+  const theme = themes[name] || themes.default;
+  chatBox.style.backgroundColor = theme.background;
+  chatBox.style.color = theme.textColor;
+  chatBox.style.border = `2px solid ${theme.borderColor}`;
+  chatBox.style.boxShadow = `0 0 10px ${theme.borderColor}`;
+
   const header = chatBox.querySelector(".chat-header");
   if (header) {
-    header.style.backgroundColor = th.borderColor;
-    header.style.color = th.textColor;
+    header.style.backgroundColor = theme.borderColor;
+    header.style.color = theme.textColor;
   }
 }
 
-document.getElementById("open-chat-btn").addEventListener("click", () => {
+applyTheme(theme);
+themeSelect.value = theme;
+document.body.className = "";
+document.body.classList.add(`theme-${theme}`);
+
+openBtn.addEventListener("click", () => {
   if (!nickname) {
-    document.getElementById("nicknameModal").style.display = "flex";
-  } else {
-    if (!hasJoined) {
-      socket.send(JSON.stringify({ type: "join", nickname }));
-      sendSystemMessage(`${nickname} joined the chat.`);
-      hasJoined = true;
-    }
-    chatBox.style.display = "flex";
-    chatBox.classList.add("fade-in");
+    nicknameModal.style.display = "flex";
+    return;
   }
+
+  if (!hasJoined) {
+    socket.send(JSON.stringify({ type: "join", nickname }));
+    sendSystemMessage(`${nickname} joined the chat.`);
+    hasJoined = true;
+  }
+
+  chatBox.style.display = "flex";
+  chatBox.classList.remove("fade-in");
+  void chatBox.offsetWidth; // trigger reflow for animation restart
+  chatBox.classList.add("fade-in");
 });
 
 function closeChat() {
@@ -68,7 +74,7 @@ function closeChat() {
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
-  theme = document.getElementById("themeSelect").value;
+  theme = themeSelect.value;
 
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
@@ -81,7 +87,10 @@ function submitNickname() {
   localStorage.setItem("theme", theme);
 
   applyTheme(theme);
-  document.getElementById("nicknameModal").style.display = "none";
+  document.body.className = "";
+  document.body.classList.add(`theme-${theme}`);
+
+  nicknameModal.style.display = "none";
   chatBox.style.display = "flex";
   chatBox.classList.add("fade-in");
 
@@ -100,6 +109,7 @@ sendBtn.addEventListener("click", handleSend);
 chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") handleSend();
 });
+
 gifBtn.addEventListener("click", async () => {
   const query = prompt("Enter GIF search:");
   if (query && !bannedWords.some(w => query.toLowerCase().includes(w))) {
