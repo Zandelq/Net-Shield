@@ -583,189 +583,153 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-#chatMessages {
-  flex: 1;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  margin-bottom: 5px;
-  padding: 5px;
-}
-.chat-box.theme-dark .chat-header,
-.chat-box.theme-blue .chat-header,
-.chat-box.theme-green .chat-header {
-  border-bottom: 1px solid currentColor;
-}
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      background: #000;
-      color: white;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      z-index: 9999;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: #111;
-      padding: 30px;
-      border-radius: 10px;
-      color: white;
-      text-align: center;
-    }
-
-    .modal-content input {
-      padding: 10px;
-      border: none;
-      margin: 10px 0;
-      width: 200px;
-    }
-
-    .chat-box {
-      display: none;
-      position: fixed;
-      bottom: 60px;
-      right: 20px;
-      width: 320px;
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      border-radius: 8px;
-      z-index: 9999;
-      flex-direction: column;
-    }
-
-    .chat-header {
-      background-color: #000;
-      color: cyan;
-      padding: 10px;
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .chat-messages {
-      flex: 1;
-      max-height: 220px;
-      overflow-y: auto;
-      padding: 10px;
-      font-size: 14px;
-      background: #222;
-      border-top: 1px solid #444;
-      border-bottom: 1px solid #444;
-    }
-
-    #chatInput {
-      background-color: #000;
-      color: cyan;
-      border: 1px solid #00ffff;
-      padding: 10px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    #send-chat-btn, #gif-btn {
-      background-color: cyan;
-      color: black;
-      border: none;
-      border-radius: 5px;
-      padding: 10px;
-      margin-left: 5px;
-      cursor: pointer;
-    }
-
-    #open-chat-btn {
-      position: fixed;
-      bottom: 10px;
-      right: 20px;
-      background-color: cyan;
-      color: black;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      z-index: 9999;
-      cursor: pointer;
-    }
-
-    select {
-      margin-left: 5px;
-      padding: 3px;
-    }
-
+/* === Chat Box Styling === */
+#chatPopup,
 .chat-box {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  width: 320px;
+  max-height: 400px;
+  display: none;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  z-index: 9999;
+
+  background-color: var(--bg, #111);
+  color: var(--text, white);
+  border: 2px solid var(--border, #00ffff);
+  box-shadow: 0 0 10px var(--border, #00ffff);
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
-} 
-/* Add these at the end of styles.css */
+}
 
-/* Fade-in animation */
+/* === Header === */
+.chat-header {
+  background-color: var(--border, #00ffff);
+  color: var(--text, white);
+  padding: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+}
+
+/* === Message Container === */
+.chat-messages {
+  flex: 1;
+  max-height: 250px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 14px;
+  background: #222;
+  border: 1px solid #444;
+  font-family: monospace;
+}
+
+/* === Input Section === */
+#chatInput {
+  background-color: #000;
+  color: cyan;
+  border: 1px solid #00ffff;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#send-chat-btn,
+#gif-btn {
+  background-color: cyan;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* === Modal === */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #111;
+  padding: 30px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+.modal-content input {
+  padding: 10px;
+  border: none;
+  margin: 10px 0;
+  width: 200px;
+}
+
+/* === Open Chat Button === */
+#open-chat-btn {
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  background-color: cyan;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+/* === Fade In Animation === */
 .fade-in {
   animation: fadeIn 0.4s ease-out;
 }
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Dynamic theme system (fallback default) */
-#chatPopup, .chat-box {
-  background-color: var(--bg, #111);
-  color: var(--text, white);
-  border: 2px solid var(--border, #00ffff);
-  box-shadow: 0 0 10px var(--border, #00ffff);
-}
-
-.chat-header {
-  background-color: var(--border, #00ffff);
-  color: var(--text, white);
-}
-
-/* These are classes that will be toggled from JS */
+/* === Theme Variables === */
 .theme-default {
   --bg: #111;
   --text: white;
   --border: #00ffff;
 }
-
 .theme-light {
   --bg: #ffffff;
   --text: #000000;
-  --border: #dddddd;
+  --border: #cccccc;
 }
-
 .theme-dark {
   --bg: #000000;
   --text: #ffffff;
   --border: #222222;
 }
-
 .theme-blue {
   --bg: #003366;
   --text: white;
   --border: #0055aa;
 }
-
 .theme-green {
   --bg: #002d00;
   --text: #afffaf;
   --border: #00ff00;
 }
-
 .theme-purple {
   --bg: #2c003e;
   --text: #e0ccff;
   --border: #8a2be2;
 }
-
 .theme-red {
   --bg: #330000;
   --text: #ffcccc;
