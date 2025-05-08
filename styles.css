@@ -712,3 +712,47 @@ body {
   font-weight: bold;
   user-select: none;
 }
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+{
+  .default": {
+    "background": "#111",
+    "textColor": "white",
+    "borderColor": "#00ffff"
+  },
+  .light": {
+    "background": "#ffffff",
+    "textColor": "#000000",
+    "borderColor": "#dddddd"
+  },
+  .dark": {
+    "background": "#000000",
+    "textColor": "#ffffff",
+    "borderColor": "#222222"
+  },
+  .blue": {
+    "background": "#003366",
+    "textColor": "white",
+    "borderColor": "#0055aa"
+  },
+  .green": {
+    "background": "#002d00",
+    "textColor": "#afffaf",
+    "borderColor": "#00ff00"
+  },
+  .purple": {
+    "background": "#2c003e",
+    "textColor": "#e0ccff",
+    "borderColor": "#8a2be2"
+  },
+  .red": {
+    "background": "#330000",
+    "textColor": "#ffcccc",
+    "borderColor": "#ff0000"
+  }
+}
