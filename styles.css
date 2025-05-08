@@ -737,4 +737,12 @@ body {
 .chat-box {
   opacity: 0;
   transition: opacity 0.4s ease-in-out;
+} 
+.chat-header {
+  cursor: move;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+  user-select: none;
 }
