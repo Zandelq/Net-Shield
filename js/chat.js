@@ -1,11 +1,13 @@
+// js/chat.js
+
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
-let hasJoined = false;
+let joinedOnce = false;
 
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt"];
-const forbiddenGifWords = ["balls", "dick", "dildo", "butt", "ass"];
+const bannedGifWords = ["balls", "dick", "dildo", "butt", "ass"];
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
@@ -16,27 +18,35 @@ const userCount = document.getElementById("user-count");
 const sendBtn = document.getElementById("send-chat-btn");
 const gifBtn = document.getElementById("gif-btn");
 const themeSelect = document.getElementById("themeSelect");
-const chatHeader = document.getElementById("chatHeader");
+const openChatBtn = document.getElementById("open-chat-btn");
+const nicknameModal = document.getElementById("nicknameModal");
 
-document.body.classList.add(`theme-${theme}`);
+applyTheme(theme);
 
-document.getElementById("open-chat-btn").addEventListener("click", () => {
+openChatBtn.addEventListener("click", () => {
+  if (chatBox.style.display === "block") return;
   if (!nickname) {
-    document.getElementById("nicknameModal").style.display = "flex";
+    nicknameModal.style.display = "flex";
   } else {
-    openChat();
-    if (!hasJoined) {
+    chatBox.style.display = "block";
+    chatBox.classList.add("fade-in");
+    if (!joinedOnce) {
       socket.send(JSON.stringify({ type: "join", nickname }));
       sendSystemMessage(`${nickname} joined the chat.`);
-      hasJoined = true;
+      joinedOnce = true;
     }
   }
 });
 
-function openChat() {
-  chatBox.style.display = "flex";
-  chatBox.classList.add("fade-in");
-  new Audio("assets/chat-open.mp3").play().catch(() => {});
+themeSelect.addEventListener("change", () => {
+  theme = themeSelect.value;
+  localStorage.setItem("theme", theme);
+  applyTheme(theme);
+});
+
+function applyTheme(themeName) {
+  document.body.className = "";
+  document.body.classList.add(`theme-${themeName}`);
 }
 
 function closeChat() {
@@ -46,7 +56,7 @@ function closeChat() {
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
-  theme = document.getElementById("themeSelect").value;
+  theme = themeSelect.value;
 
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
@@ -57,16 +67,15 @@ function submitNickname() {
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("color", color);
   localStorage.setItem("theme", theme);
+  applyTheme(theme);
+  nicknameModal.style.display = "none";
+  chatBox.style.display = "block";
+  chatBox.classList.add("fade-in");
 
-  document.body.className = "";
-  document.body.classList.add(`theme-${theme}`);
-
-  document.getElementById("nicknameModal").style.display = "none";
-  openChat();
-  if (!hasJoined) {
+  if (!joinedOnce) {
     socket.send(JSON.stringify({ type: "join", nickname }));
     sendSystemMessage(`${nickname} joined the chat.`);
-    hasJoined = true;
+    joinedOnce = true;
   }
 }
 
@@ -81,9 +90,10 @@ sendBtn.addEventListener("click", async () => {
 
   if (text.startsWith("/gif ")) {
     const query = text.replace("/gif ", "");
+    if (bannedGifWords.some(w => query.toLowerCase().includes(w))) return alert("GIF query blocked.");
     const gifUrl = await fetchGif(query);
     if (gifUrl) {
-      socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" style="max-width:200px;">`, color }));
+      socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src=\"${gifUrl}\" style=\"max-width:200px;\">`, color }));
     } else {
       alert("GIF not found.");
     }
@@ -94,15 +104,12 @@ sendBtn.addEventListener("click", async () => {
 
 gifBtn.addEventListener("click", async () => {
   const query = prompt("Enter GIF search:");
-  if (query && !forbiddenGifWords.some(w => query.toLowerCase().includes(w))) {
-    const gifUrl = await fetchGif(query);
-    if (gifUrl) {
-      socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src="${gifUrl}" style="max-width:200px;">`, color }));
-    } else {
-      alert("GIF not found.");
-    }
-  } else if (query) {
-    alert("Inappropriate GIF search term.");
+  if (bannedGifWords.some(w => query.toLowerCase().includes(w))) return alert("GIF query blocked.");
+  const gifUrl = await fetchGif(query);
+  if (gifUrl) {
+    socket.send(JSON.stringify({ type: "chat", name: nickname, text: `<img src=\"${gifUrl}\" style=\"max-width:200px;\">`, color }));
+  } else {
+    alert("GIF not found.");
   }
 });
 
@@ -115,7 +122,7 @@ socket.onmessage = (event) => {
   const div = document.createElement("div");
 
   if (msg.type === "chat") {
-    div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
+    div.innerHTML = `<strong style=\"color:${msg.color}\">${msg.name}</strong>: ${msg.text}`;
   } else if (msg.type === "system") {
     div.style.color = "gray";
     div.textContent = msg.text;
@@ -129,32 +136,7 @@ socket.onmessage = (event) => {
 };
 
 async function fetchGif(query) {
-  if (forbiddenGifWords.some(w => query.toLowerCase().includes(w))) return null;
   const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=1`);
   const data = await res.json();
   return data.data[0]?.images.fixed_height.url || null;
 }
-
-// Drag chat box
-let isDragging = false;
-let offsetX = 0;
-let offsetY = 0;
-
-chatHeader.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  offsetX = e.clientX - chatBox.offsetLeft;
-  offsetY = e.clientY - chatBox.offsetTop;
-  chatBox.style.position = "absolute";
-  chatBox.style.zIndex = 10000;
-});
-
-document.addEventListener("mouseup", () => {
-  isDragging = false;
-});
-
-document.addEventListener("mousemove", (e) => {
-  if (isDragging) {
-    chatBox.style.left = e.clientX - offsetX + "px";
-    chatBox.style.top = e.clientY - offsetY + "px";
-  }
-});
