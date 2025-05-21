@@ -1,26 +1,4 @@
 {
-  "name": "netshield",
-  "version": "1.0.0",
-  "description": "Custom UI like NetShield",
-  "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "build": "electron-builder"
-  },
-  "build": {
-    "appId": "com.netshield.app",
-    "productName": "NetShield",
-    "win": {
-      "target": "nsis",
-      "icon": "icon.ico"
-    }
-  },
-  "devDependencies": {
-    "electron": "^29.0.0",
-    "electron-builder": "^24.0.0"
-  }
-}
-{
   "name": "particles.js",
   "version": "2.0.0",
   "description": "A lightweight JavaScript library for creating particles",
