@@ -1,5 +1,3 @@
-// js/chat.js
-
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
@@ -26,7 +24,7 @@ const openBtn = document.getElementById("open-chat-btn");
 function applyTheme(name) {
   document.body.className = "";
   document.body.classList.add(`theme-${name}`);
-  chatBox.className = `chat-box theme-${name}`;
+  chatBox.className = `chat-box visible fade-in theme-${name}`;
 }
 
 applyTheme(theme);
@@ -44,7 +42,9 @@ openBtn.addEventListener("click", () => {
     hasJoined = true;
   }
 
+  chatBox.style.display = "flex";
   chatBox.classList.add("visible", "fade-in");
+  chatInput.focus();
 });
 
 document.addEventListener("keydown", (e) => {
@@ -52,6 +52,7 @@ document.addEventListener("keydown", (e) => {
 });
 
 function closeChat() {
+  chatBox.style.display = "none";
   chatBox.classList.remove("visible", "fade-in");
 }
 
@@ -72,6 +73,7 @@ function submitNickname() {
 
   applyTheme(theme);
   nicknameModal.style.display = "none";
+  chatBox.style.display = "flex";
   chatBox.classList.add("visible", "fade-in");
 
   if (!hasJoined) {
@@ -79,6 +81,8 @@ function submitNickname() {
     sendSystemMessage(`${nickname} joined the chat.`);
     hasJoined = true;
   }
+
+  chatInput.focus();
 }
 
 function sendSystemMessage(text) {
@@ -147,3 +151,28 @@ async function fetchGif(query) {
   const data = await res.json();
   return data.data[0]?.images.fixed_height.url || null;
 }
+
+// === Make chat box draggable ===
+(function makeChatDraggable() {
+  let offsetX, offsetY;
+  const header = document.getElementById("chatHeader");
+
+  header.style.cursor = "move";
+
+  header.onmousedown = function (e) {
+    e.preventDefault();
+    const rect = chatBox.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+
+    document.onmousemove = function (e) {
+      chatBox.style.top = `${e.clientY - offsetY}px`;
+      chatBox.style.left = `${e.clientX - offsetX}px`;
+    };
+
+    document.onmouseup = function () {
+      document.onmousemove = null;
+      document.onmouseup = null;
+    };
+  };
+})();
