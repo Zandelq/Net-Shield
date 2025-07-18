@@ -45,7 +45,7 @@ openBtn.addEventListener("click", () => {
     hasJoined = true;
   }
 
-  chatBox.style.display = "flex";
+  chatBox.style.display = "block";
   chatBox.classList.add("visible", "fade-in");
   chatInput.focus();
 });
@@ -76,7 +76,7 @@ function submitNickname() {
 
   applyTheme(theme);
   nicknameModal.style.display = "none";
-  chatBox.style.display = "flex";
+  chatBox.style.display = "block";
   chatBox.classList.add("visible", "fade-in");
 
   if (!hasJoined) {
@@ -155,7 +155,7 @@ async function fetchGif(query) {
   return data.data[0]?.images.fixed_height.url || null;
 }
 
-// === Draggable with bounds ===
+// === Draggable bounded ===
 (function makeChatDraggable() {
   let isDragging = false, offsetX = 0, offsetY = 0;
 
@@ -166,6 +166,7 @@ async function fetchGif(query) {
     const rect = chatBox.getBoundingClientRect();
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
+    e.preventDefault();
   });
 
   document.addEventListener("mousemove", function (e) {
