@@ -24,7 +24,6 @@ const chatHeader = document.getElementById("chatHeader");
 
 function applyTheme(name) {
   document.body.className = "";
-  document.body.classList.add(`theme-${name}`);
   chatBox.classList.remove(
     "theme-default",
     "theme-light",
@@ -35,23 +34,28 @@ function applyTheme(name) {
     "theme-red"
   );
   chatBox.classList.add(`theme-${name}`);
+  document.body.classList.add(`theme-${name}`);
 }
 
 applyTheme(theme);
 themeSelect.value = theme;
+
+themeSelect.addEventListener("change", () => {
+  theme = themeSelect.value;
+  localStorage.setItem("theme", theme);
+  applyTheme(theme);
+});
 
 openBtn.addEventListener("click", () => {
   if (!nickname) {
     nicknameModal.style.display = "flex";
     return;
   }
-
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
     sendSystemMessage(`${nickname} joined the chat.`);
     hasJoined = true;
   }
-
   chatBox.style.display = "block";
   chatBox.classList.add("visible", "fade-in");
   chatInput.focus();
