@@ -1,3 +1,5 @@
+// === NetShield Chatroom ===
+
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
@@ -20,6 +22,7 @@ const gifBtn = document.getElementById("gif-btn");
 const themeSelect = document.getElementById("themeSelect");
 const nicknameModal = document.getElementById("nicknameModal");
 const openBtn = document.getElementById("open-chat-btn");
+const chatHeader = document.getElementById("chatHeader");
 
 function applyTheme(name) {
   document.body.className = "";
@@ -152,27 +155,36 @@ async function fetchGif(query) {
   return data.data[0]?.images.fixed_height.url || null;
 }
 
-// === Make chat box draggable ===
+// === Draggable with bounds ===
 (function makeChatDraggable() {
-  let offsetX, offsetY;
-  const header = document.getElementById("chatHeader");
+  let isDragging = false, offsetX = 0, offsetY = 0;
 
-  header.style.cursor = "move";
+  chatHeader.style.cursor = "move";
 
-  header.onmousedown = function (e) {
-    e.preventDefault();
+  chatHeader.addEventListener("mousedown", function (e) {
+    isDragging = true;
     const rect = chatBox.getBoundingClientRect();
     offsetX = e.clientX - rect.left;
     offsetY = e.clientY - rect.top;
+  });
 
-    document.onmousemove = function (e) {
-      chatBox.style.top = `${e.clientY - offsetY}px`;
-      chatBox.style.left = `${e.clientX - offsetX}px`;
-    };
+  document.addEventListener("mousemove", function (e) {
+    if (isDragging) {
+      let left = e.clientX - offsetX;
+      let top = e.clientY - offsetY;
 
-    document.onmouseup = function () {
-      document.onmousemove = null;
-      document.onmouseup = null;
-    };
-  };
+      const maxLeft = window.innerWidth - chatBox.offsetWidth;
+      const maxTop = window.innerHeight - chatBox.offsetHeight;
+
+      left = Math.max(0, Math.min(left, maxLeft));
+      top = Math.max(0, Math.min(top, maxTop));
+
+      chatBox.style.left = `${left}px`;
+      chatBox.style.top = `${top}px`;
+    }
+  });
+
+  document.addEventListener("mouseup", function () {
+    isDragging = false;
+  });
 })();
