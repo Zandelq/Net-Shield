@@ -1,15 +1,10 @@
-// === NetShield Chatroom ===
-
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
 let hasJoined = false;
 
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
-const bannedWords = [
-  "nigger", "nigga", "faggot", "bitch", "cunt",
-  "balls", "dick", "dildo", "butt", "ass"
-];
+const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
 
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
@@ -38,13 +33,11 @@ openBtn.addEventListener("click", () => {
     nicknameModal.style.display = "flex";
     return;
   }
-
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
     sendSystemMessage(`${nickname} joined the chat.`);
     hasJoined = true;
   }
-
   chatBox.style.display = "block";
   chatBox.classList.add("visible", "fade-in");
   chatInput.focus();
@@ -63,28 +56,23 @@ function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
   color = document.getElementById("colorInput").value;
   theme = themeSelect.value;
-
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
     return;
   }
-
   nickname = input;
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("color", color);
   localStorage.setItem("theme", theme);
-
   applyTheme(theme);
   nicknameModal.style.display = "none";
   chatBox.style.display = "block";
   chatBox.classList.add("visible", "fade-in");
-
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
     sendSystemMessage(`${nickname} joined the chat.`);
     hasJoined = true;
   }
-
   chatInput.focus();
 }
 
@@ -113,7 +101,6 @@ async function handleSend() {
   const text = chatInput.value.trim();
   if (!text) return;
   chatInput.value = "";
-
   if (text.startsWith("/gif ")) {
     const query = text.slice(5).toLowerCase();
     if (bannedWords.some(word => query.includes(word))) {
@@ -134,7 +121,6 @@ async function handleSend() {
 socket.onmessage = (event) => {
   const msg = JSON.parse(event.data);
   const div = document.createElement("div");
-
   if (msg.type === "chat") {
     div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
   } else if (msg.type === "system") {
@@ -144,7 +130,6 @@ socket.onmessage = (event) => {
     userCount.textContent = msg.count;
     return;
   }
-
   chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 };
@@ -155,12 +140,12 @@ async function fetchGif(query) {
   return data.data[0]?.images.fixed_height.url || null;
 }
 
-// === Draggable bounded ===
 (function makeChatDraggable() {
   let isDragging = false, offsetX = 0, offsetY = 0;
-
+  chatBox.style.resize = "both";
+  chatBox.style.overflow = "auto";
+  chatBox.style.boxSizing = "border-box";
   chatHeader.style.cursor = "move";
-
   chatHeader.addEventListener("mousedown", function (e) {
     isDragging = true;
     const rect = chatBox.getBoundingClientRect();
@@ -168,23 +153,18 @@ async function fetchGif(query) {
     offsetY = e.clientY - rect.top;
     e.preventDefault();
   });
-
   document.addEventListener("mousemove", function (e) {
     if (isDragging) {
       let left = e.clientX - offsetX;
       let top = e.clientY - offsetY;
-
       const maxLeft = window.innerWidth - chatBox.offsetWidth;
       const maxTop = window.innerHeight - chatBox.offsetHeight;
-
       left = Math.max(0, Math.min(left, maxLeft));
       top = Math.max(0, Math.min(top, maxTop));
-
       chatBox.style.left = `${left}px`;
       chatBox.style.top = `${top}px`;
     }
   });
-
   document.addEventListener("mouseup", function () {
     isDragging = false;
   });
