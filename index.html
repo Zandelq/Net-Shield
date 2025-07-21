@@ -7,8 +7,8 @@
     <title>Home</title>
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
-    <style>
-    .modal {
+<style>
+.modal {
   display: none;
   position: fixed;
   top: 0; left: 0;
@@ -31,155 +31,39 @@
   margin: 10px 0;
   width: 200px;
 }
+
 .chat-box {
-  display: none;
   position: fixed;
   bottom: 60px;
   right: 20px;
   width: 320px;
-  background: rgba(0, 0, 0, 0.85);
+  background: #111;
   color: white;
   border-radius: 8px;
   z-index: 9999;
+  display: flex;
+  flex-direction: column;
 }
+
 .chat-header {
-  background: black;
+  background-color: #000;
+  color: cyan;
   padding: 10px;
   font-weight: bold;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-#chatInput {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  box-sizing: border-box;
-}
-    #chat-popup {
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  width: 300px;
-  height: 350px;
-  background-color: rgba(0, 0, 0, 0.85);
-  border-radius: 10px;
-  color: white;
-  display: none;
-  flex-direction: column;
-  padding: 10px;
-  z-index: 9999;
-}
-
-.chat-header {
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-}
 
 .chat-messages {
-  flex: 1;
+  flex: 1 1 auto;
   overflow-y: auto;
   border: 1px solid #444;
-  margin-bottom: 10px;
   padding: 5px;
-  max-height: 220px;
-}
-
-#chat-input {
-  width: calc(100% - 60px);
-  padding: 5px;
-  margin-right: 5px;
-  border-radius: 5px;
-}
-
-#send-chat-btn {
-  width: 50px;
-  background: cyan;
-  color: black;
-  border: none;
-  border-radius: 5px;
-}
-
-#open-chat-btn {
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-  z-index: 9999;
-}
-
-.chat-hidden {
-  display: none;
-}
-.chat-box {
-  background: #111;
-  color: #fff;
-  border: 2px solid cyan;
-  box-shadow: 0 0 10px cyan;
-}
-
-.chat-header {
-  background-color: #000;
-  color: cyan;
-  border-bottom: 1px solid cyan;
-}
-
-.chat-messages {
-  background-color: #222;
-  border: 1px solid #444;
+  background: #222;
   font-family: monospace;
 }
-
-#chatInput {
-  background-color: #000;
-  color: cyan;
-  border: 1px solid #00ffff;
-}
-
-#send-chat-btn {
-  background-color: cyan;
-  color: black;
-  border-radius: 5px;
-}
-        .home-text {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-            margin: 0;
-            font-size: 3rem; /* Larger font size for visibility */
-            font-weight: bold;
-            text-align: center;
-        }
-        .center-small-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1rem; /* small text */
-            font-weight: normal;
-            text-align: center;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-            z-index: 10; /* ensures it's above particles */
-            width: 80%; /* keep it centered nicely */
-    }
-        #tab-bar button {
-            background-color: black;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 0 10px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        #tab-bar button:hover {
-            background-color: #333;
-            color: cyan;
-            
-    </style>
+</style>
 </head>
 <body>
   <div id="particles-js"></div>
