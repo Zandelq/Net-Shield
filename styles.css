@@ -21,30 +21,20 @@ li{list-style:none}
    ========================================================================== */
 
 /* ---- base ---- */
+.chat-box {
+  display: flex;
+  flex-direction: column;
+}
+
 .chat-messages {
-  flex: 1;
+  flex: 1 1 auto;
   overflow-y: auto;
   border: 1px solid #444;
-  margin-bottom: 10px;
   padding: 5px;
-  max-height: 220px;
-}
-.chat-messages {
-  background-color: #222;
-  border: 1px solid #444;
+  background: #222;
   font-family: monospace;
 }
 
-
-.chat-box {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.chat-box.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
 
 html,body{ 
 	width:100%;
