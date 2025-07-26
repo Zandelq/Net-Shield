@@ -8,6 +8,61 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
 <style>
+    #chatPopup, .chat-box {
+  position: fixed;
+  resize: both;
+  overflow: auto;
+  box-sizing: border-box;
+  cursor: default;
+  border-radius: 10px;
+  border: 2px solid var(--border, #00ffff);
+  background: var(--bg, #111);
+  color: var(--text, white);
+  box-shadow: 0 0 10px var(--border, #00ffff);
+}
+
+.chat-header {
+  cursor: move;
+  user-select: none;
+  background-color: var(--border, #00ffff);
+  color: var(--text, white);
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#send-chat-btn, #gif-btn {
+  background-color: #00ffff;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#send-chat-btn:hover, #gif-btn:hover {
+  background-color: #00ccff;
+}
+
+#secret-admin-box {
+  display: none !important;
+}
+
+
+.chat-box {
+  resize: both;
+}
+
+.theme-default { --bg: #111; --text: white; --border: #00ffff; }
+.theme-light { --bg: #ffffff; --text: #000000; --border: #cccccc; }
+.theme-dark { --bg: #000000; --text: #ffffff; --border: #222222; }
+.theme-blue { --bg: #003366; --text: white; --border: #00ffff; }
+.theme-green { --bg: #002d00; --text: #afffaf; --border: #00ff00; }
+.theme-purple { --bg: #2c003e; --text: #e0ccff; --border: #8a2be2; }
+.theme-red { --bg: #330000; --text: #ffcccc; --border: #ff0000; }
+
     .chat-box {
   position: fixed;
   bottom: 60px;
