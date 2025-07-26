@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
 <style>
-    .chat-box {
+.chat-box {
   position: fixed;
   bottom: 60px;
   right: 20px;
@@ -79,149 +79,6 @@
 #send-chat-btn:hover, #gif-btn:hover {
   background: #00ccff;
 }
-
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-.modal-content {
-  background: #111;
-  padding: 30px;
-  border-radius: 10px;
-  color: white;
-  text-align: center;
-}
-.modal-content input {
-  padding: 10px;
-  border: none;
-  margin: 10px 0;
-  width: 200px;
-}
-.chat-box {
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  width: 320px;
-  min-width: 200px;
-  min-height: 200px;
-  background: #111;
-  color: #fff;
-  border: 2px solid cyan;
-  border-radius: 8px;
-  box-shadow: 0 0 10px cyan;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  resize: both;
-  overflow: hidden;
-}
-.chat-header {
-  background-color: #000;
-  color: cyan;
-  padding: 10px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: move;
-  user-select: none;
-}
-.chat-messages {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  border: 1px solid #444;
-  padding: 5px;
-  background: #222;
-  font-family: monospace;
-}
-#chatInput {
-  width: 100%;
-  background-color: #000;
-  color: cyan;
-  border: 1px solid #00ffff;
-  padding: 10px;
-  box-sizing: border-box;
-}
-#send-chat-btn,
-#gif-btn {
-  background-color: cyan;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-#send-chat-btn:hover,
-#gif-btn:hover {
-  background-color: #00ccff;
-}
-.chat-header button {
-  background: none;
-  border: none;
-  color: cyan;
-  font-size: 16px;
-  cursor: pointer;
-}
-.chat-header button:hover {
-  color: #00ccff;
-}
-#open-chat-btn {
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-  background-color: cyan;
-  color: black;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  z-index: 9999;
-  cursor: pointer;
-}
-.home-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-}
-.center-small-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 1rem;
-  font-weight: normal;
-  text-align: center;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  width: 80%;
-}
-#tab-bar button {
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-#tab-bar button:hover {
-  background-color: #333;
-  color: cyan;
-}
 </style>
 </head>
 <body>
@@ -231,6 +88,13 @@
   </div>
 
   <button id="open-chat-btn">Chatroom</button>
+
+    <div class="chat-input-container">
+  <input type="text" id="chatInput" placeholder="Type your message...">
+  <button id="send-chat-btn">Send</button>
+  <button id="gif-btn">GIF</button>
+</div>
+
 
   <div id="chatPopup" class="chat-box" style="display: none;">
     <div id="chatHeader" class="chat-header">
