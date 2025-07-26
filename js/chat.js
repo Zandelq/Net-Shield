@@ -73,15 +73,15 @@ function closeChat() {
 
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
-  color = document.getElementById("colorInput").value;
-  theme = themeSelect.value;
-
   if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
     alert("Invalid nickname.");
     return;
   }
 
   nickname = input;
+  color = document.getElementById("colorInput").value;
+  theme = themeSelect.value;
+
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("color", color);
   localStorage.setItem("theme", theme);
