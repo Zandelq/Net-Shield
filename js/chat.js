@@ -210,3 +210,13 @@ async function fetchGif(query) {
     isDragging = false;
   });
 })();
+document.addEventListener("DOMContentLoaded", () => {
+  const chatBox = document.getElementById("chatPopup");
+  const chatMessages = document.getElementById("chatMessages");
+
+  chatBox.style.display = "flex";
+  chatBox.style.flexDirection = "column";
+  chatBox.style.overflow = "hidden";
+  chatMessages.style.overflowY = "auto";
+  chatMessages.style.flex = "1";
+});
