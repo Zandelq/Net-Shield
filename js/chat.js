@@ -26,8 +26,13 @@ const chatHeader = document.getElementById("chatHeader");
 function applyTheme(name) {
   document.body.className = "";
   chatBox.classList.remove(
-    "theme-default", "theme-light", "theme-dark",
-    "theme-blue", "theme-green", "theme-purple", "theme-red"
+    "theme-default",
+    "theme-light",
+    "theme-dark",
+    "theme-blue",
+    "theme-green",
+    "theme-purple",
+    "theme-red"
   );
   chatBox.classList.add(`theme-${name}`);
   document.body.classList.add(`theme-${name}`);
@@ -52,7 +57,7 @@ openBtn.addEventListener("click", () => {
     sendSystemMessage(`${nickname} joined the chat.`);
     hasJoined = true;
   }
-  chatBox.style.display = "block";
+  chatBox.style.display = "flex";
   chatBox.classList.add("visible", "fade-in");
   chatInput.focus();
 });
@@ -83,7 +88,7 @@ function submitNickname() {
 
   applyTheme(theme);
   nicknameModal.style.display = "none";
-  chatBox.style.display = "block";
+  chatBox.style.display = "flex";
   chatBox.classList.add("visible", "fade-in");
 
   if (!hasJoined) {
@@ -172,11 +177,9 @@ async function fetchGif(query) {
   return data.data[0]?.images.fixed_height.url || null;
 }
 
-// === Draggable bounded ===
 (function makeChatDraggable() {
   let isDragging = false, offsetX = 0, offsetY = 0;
   chatHeader.style.cursor = "move";
-
   chatHeader.addEventListener("mousedown", function (e) {
     isDragging = true;
     const rect = chatBox.getBoundingClientRect();
@@ -202,3 +205,9 @@ async function fetchGif(query) {
     isDragging = false;
   });
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  const chatMessages = document.getElementById("chatMessages");
+  chatMessages.style.overflowY = "auto";
+  chatMessages.style.maxHeight = "300px";
+});
