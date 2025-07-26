@@ -662,3 +662,41 @@ a {
   background-color: #333;
   color: cyan;
 }
+.chat-box {
+  position: fixed;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 2px solid var(--border, #00ffff);
+  background: var(--bg, #111);
+  color: var(--text, white);
+  box-shadow: 0 0 10px var(--border, #00ffff);
+}
+
+.chat-resizer {
+  position: absolute;
+  background: transparent;
+  z-index: 10;
+}
+
+.chat-resizer.left,
+.chat-resizer.right {
+  top: 0;
+  width: 6px;
+  height: 100%;
+  cursor: ew-resize;
+}
+
+.chat-resizer.top,
+.chat-resizer.bottom {
+  left: 0;
+  height: 6px;
+  width: 100%;
+  cursor: ns-resize;
+}
+
+.chat-resizer.left { left: 0; }
+.chat-resizer.right { right: 0; }
+.chat-resizer.top { top: 0; }
+.chat-resizer.bottom { bottom: 0; }
