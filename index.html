@@ -8,76 +8,19 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
 <style>
-.chat-box {
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  width: 320px;
-  min-width: 200px;
-  min-height: 200px;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  background: #111;
-  color: #fff;
-  border: 2px solid cyan;
-  border-radius: 8px;
-  box-shadow: 0 0 10px cyan;
-  resize: both;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-.chat-header {
-  background-color: #000;
-  color: cyan;
-  padding: 10px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: move;
-  user-select: none;
-}
-
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-  background: #222;
-  border-top: 1px solid #444;
-  border-bottom: 1px solid #444;
-  font-family: monospace;
-}
-
-.chat-input-container {
-  display: flex;
-  padding: 10px;
-  background: #111;
-  border-top: 1px solid cyan;
-}
-
-#chatInput {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid cyan;
-  background: #000;
-  color: cyan;
-}
-
-#send-chat-btn, #gif-btn {
-  background: cyan;
-  color: black;
+#tab-bar button {
+  background-color: black;
+  color: white;
   border: none;
-  border-radius: 5px;
-  margin-left: 5px;
-  padding: 8px 10px;
+  padding: 10px 20px;
+  margin: 0 10px;
   cursor: pointer;
-  transition: background 0.3s;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
-#send-chat-btn:hover, #gif-btn:hover {
-  background: #00ccff;
+#tab-bar button:hover {
+  background-color: #333;
+  color: cyan;
 }
 </style>
 </head>
@@ -88,13 +31,29 @@
   </div>
 
   <button id="open-chat-btn">Chatroom</button>
-    
-<div class="chat-input-container">
-  <input type="text" id="chatInput" placeholder="Type your message...">
-  <button id="send-chat-btn">Send</button>
-  <button id="gif-btn">GIF</button>
-</div>
 
+  <div id="chatPopup" class="chat-box" style="display: none;">
+    <div id="chatHeader" class="chat-header">
+      NetShield Chatroom — <span id="user-count">0</span> online<br />
+      <label>Theme:</label>
+      <select id="themeSelect">
+        <option value="default">Default</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="purple">Purple</option>
+        <option value="red">Red</option>
+      </select>
+      <button onclick="closeChat()">X</button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div style="display: flex;">
+      <input type="text" id="chatInput" placeholder="Type your message..." />
+      <button id="send-chat-btn">Send</button>
+      <button id="gif-btn">GIF</button>
+    </div>
+  </div>
 
   <div id="nicknameModal" class="modal">
     <div class="modal-content">
