@@ -8,6 +8,65 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
 <style>
+        .chat-messages::-webkit-scrollbar {
+      width: 8px;
+    }
+    .chat-messages::-webkit-scrollbar-track {
+      background: black;
+    }
+    .chat-messages::-webkit-scrollbar-thumb {
+      background-color: cyan;
+      border-radius: 10px;
+    }
+    .chat-box {
+      position: fixed;
+      bottom: 60px; right: 20px;
+      width: 320px; min-height: 200px; max-height: 80vh;
+      display: flex; flex-direction: column;
+      background: #111; color: white;
+      border: 2px solid cyan; border-radius: 8px;
+      box-shadow: 0 0 10px cyan;
+      resize: both; overflow: hidden;
+      font-size: 1.1rem;
+      z-index: 9999;
+    }
+    .chat-header {
+      background: #000; color: cyan;
+      padding: 10px; font-weight: bold;
+      display: flex; justify-content: space-between;
+      align-items: center; cursor: move;
+      user-select: none;
+    }
+    .chat-messages {
+      flex: 1 1 auto;
+      overflow-y: auto;
+      padding: 10px; background: #222;
+      border-top: 1px solid #444;
+      border-bottom: 1px solid #444;
+      font-family: monospace;
+      scroll-behavior: smooth;
+    }
+    .chat-input-container {
+      display: flex; padding: 10px; background: #111;
+      border-top: 1px solid cyan;
+    }
+    #chatInput {
+      flex: 1; padding: 8px;
+      background: #000; color: cyan;
+      border: 1px solid cyan;
+    }
+    #send-chat-btn, #gif-btn {
+      background: cyan; color: black;
+      border: none; border-radius: 5px;
+      margin-left: 5px; padding: 8px 10px;
+      cursor: pointer; transition: background .3s;
+    }
+    #send-chat-btn:hover, #gif-btn:hover {
+      background: #00ccff;
+    }
+    .mention {
+      background: yellow; color: black; padding: 0 4px;
+    }
     .chat-messages::-webkit-scrollbar {
   width: 8px;
 }
