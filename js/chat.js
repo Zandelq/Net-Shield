@@ -1,11 +1,7 @@
-// File: js/chat.js
-
 let nickname = localStorage.getItem("nickname") || "";
 let color = localStorage.getItem("color") || "#00ffff";
 let theme = localStorage.getItem("theme") || "default";
 let hasJoined = false;
-let activeUsers = [];
-let autocompleteIndex = 0;
 
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
@@ -15,7 +11,6 @@ const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrg
 const chatBox = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
-const userCount = document.getElementById("user-count");
 const sendBtn = document.getElementById("send-chat-btn");
 const gifBtn = document.getElementById("gif-btn");
 const themeSelect = document.getElementById("themeSelect");
@@ -25,7 +20,7 @@ const chatHeader = document.getElementById("chatHeader");
 
 function applyTheme(name) {
   document.body.className = "";
-  chatBox.classList.remove(...Array.from(chatBox.classList).filter(c => c.startsWith("theme-")));
+  chatBox.classList.remove("theme-default", "theme-light", "theme-dark", "theme-blue", "theme-green", "theme-purple", "theme-red");
   chatBox.classList.add(`theme-${name}`);
   document.body.classList.add(`theme-${name}`);
 }
@@ -46,9 +41,11 @@ openBtn.addEventListener("click", () => {
   }
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
+    sendSystemMessage(`${nickname} joined the chat. Type /help for commands`);
     hasJoined = true;
   }
   chatBox.style.display = "flex";
+  chatBox.classList.add("visible", "fade-in");
   chatInput.focus();
 });
 
@@ -58,6 +55,7 @@ document.addEventListener("keydown", (e) => {
 
 function closeChat() {
   chatBox.style.display = "none";
+  chatBox.classList.remove("visible", "fade-in");
 }
 
 function submitNickname() {
@@ -78,13 +76,15 @@ function submitNickname() {
   applyTheme(theme);
   nicknameModal.style.display = "none";
   chatBox.style.display = "flex";
-  chatInput.focus();
+  chatBox.classList.add("visible", "fade-in");
 
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
-    sendSystemMessage(`Welcome ${nickname}! Type /help for commands.`);
+    sendSystemMessage(`${nickname} joined the chat. Type /help for commands`);
     hasJoined = true;
   }
+
+  chatInput.focus();
 }
 
 function sendSystemMessage(text) {
@@ -94,23 +94,53 @@ function sendSystemMessage(text) {
 sendBtn.addEventListener("click", handleSend);
 chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") handleSend();
-  if (chatInput.value.startsWith("/msg ")) autocompleteUsernames(e);
 });
 
-async function fetchGif(query) {
-  const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=1`);
-  const data = await res.json();
-  return data.data[0]?.images.fixed_height.url || null;
-}
+gifBtn.addEventListener("click", async () => {
+  const query = prompt("Enter GIF search:");
+  if (query && !bannedWords.some(w => query.toLowerCase().includes(w))) {
+    const gifUrl = await fetchGif(query);
+    if (gifUrl) {
+      socket.send(JSON.stringify({
+        type: "chat",
+        name: nickname,
+        text: `<img src="${gifUrl}" style="max-width:200px;">`,
+        color
+      }));
+    } else {
+      alert("GIF not found.");
+    }
+  }
+});
 
 async function handleSend() {
   const text = chatInput.value.trim();
   if (!text) return;
   chatInput.value = "";
 
+  if (text === "/help") {
+    const helpText = "Commands:\n/gif [term] - search gifs\n/msg [user] [msg] - private message";
+    const div = document.createElement("div");
+    div.style.color = "cyan";
+    div.style.fontSize = "14px";
+    div.textContent = helpText;
+    chatMessages.appendChild(div);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+    return;
+  }
+
+  if (text.startsWith("/msg ")) {
+    const parts = text.split(" ");
+    const to = parts[1];
+    const privateMsg = parts.slice(2).join(" ");
+    if (!to || !privateMsg) return;
+    socket.send(JSON.stringify({ type: "private", from: nickname, to, text: privateMsg, color }));
+    return;
+  }
+
   if (text.startsWith("/gif ")) {
     const query = text.slice(5).toLowerCase();
-    if (bannedWords.some(w => query.includes(w))) {
+    if (bannedWords.some(word => query.includes(word))) {
       alert("Inappropriate GIF request.");
       return;
     }
@@ -122,49 +152,18 @@ async function handleSend() {
         text: `<img src="${gifUrl}" style="max-width:200px;">`,
         color
       }));
+    } else {
+      alert("GIF not found.");
     }
-    return;
-  }
-
-  if (text.startsWith("/msg ")) {
-    const parts = text.split(" ");
-    const toUser = parts[1];
-    const msg = parts.slice(2).join(" ");
-    socket.send(JSON.stringify({
-      type: "private",
-      name: nickname,
-      to: toUser,
-      text: msg,
-      color
-    }));
-    return;
-  }
-
-  if (text === "/help") {
-    sendSystemMessage("/gif <term>, /msg <user> <message>");
-    return;
-  }
-
-  socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
-}
-
-function autocompleteUsernames(e) {
-  const parts = chatInput.value.split(" ");
-  const typed = parts[1] || "";
-  const matches = activeUsers.filter(name => name.toLowerCase().startsWith(typed.toLowerCase()));
-
-  if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-    if (matches.length === 0) return;
-    autocompleteIndex = (e.key === "ArrowDown")
-      ? (autocompleteIndex + 1) % matches.length
-      : (autocompleteIndex - 1 + matches.length) % matches.length;
-    chatInput.value = `/msg ${matches[autocompleteIndex]} `;
+  } else {
+    socket.send(JSON.stringify({ type: "chat", name: nickname, text, color }));
   }
 }
 
 socket.onmessage = (event) => {
   const msg = JSON.parse(event.data);
   const div = document.createElement("div");
+  div.style.fontSize = "14px";
 
   if (msg.type === "chat") {
     div.innerHTML = `<strong style="color:${msg.color}">${msg.name}</strong>: ${msg.text}`;
@@ -172,16 +171,10 @@ socket.onmessage = (event) => {
     div.style.color = "gray";
     div.textContent = msg.text;
   } else if (msg.type === "private") {
-    if (msg.to === nickname || msg.name === nickname) {
-      div.innerHTML = `<em style="color:${msg.color}">${msg.name} → ${msg.to}</em>: ${msg.text}`;
+    if (msg.to === nickname || msg.from === nickname) {
+      div.innerHTML = `<em style="color:yellow;">(Private) <strong style="color:${msg.color}">${msg.from}</strong>: ${msg.text}</em>`;
     } else {
       return;
-    }
-  } else if (msg.type === "join") {
-    if (!activeUsers.includes(msg.name)) activeUsers.push(msg.name);
-    if (msg.name !== nickname) {
-      div.textContent = `${msg.name} joined`;
-      div.style.color = "gray";
     }
   }
 
@@ -189,7 +182,37 @@ socket.onmessage = (event) => {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  chatMessages.style.overflowY = "auto";
-  chatMessages.style.maxHeight = "300px";
-});
+async function fetchGif(query) {
+  const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=1`);
+  const data = await res.json();
+  return data.data[0]?.images.fixed_height.url || null;
+}
+
+(function makeChatDraggable() {
+  let isDragging = false, offsetX = 0, offsetY = 0;
+  chatHeader.style.cursor = "move";
+  chatHeader.addEventListener("mousedown", function (e) {
+    isDragging = true;
+    const rect = chatBox.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    e.preventDefault();
+  });
+
+  document.addEventListener("mousemove", function (e) {
+    if (isDragging) {
+      let left = e.clientX - offsetX;
+      let top = e.clientY - offsetY;
+      const maxLeft = window.innerWidth - chatBox.offsetWidth;
+      const maxTop = window.innerHeight - chatBox.offsetHeight;
+      left = Math.max(0, Math.min(left, maxLeft));
+      top = Math.max(0, Math.min(top, maxTop));
+      chatBox.style.left = `${left}px`;
+      chatBox.style.top = `${top}px`;
+    }
+  });
+
+  document.addEventListener("mouseup", function () {
+    isDragging = false;
+  });
+})();
