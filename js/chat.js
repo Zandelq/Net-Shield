@@ -5,7 +5,6 @@ let hasJoined = false;
 
 const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
-
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
 const chatBox = document.getElementById("chatPopup");
@@ -24,13 +23,9 @@ function applyTheme(name) {
   chatBox.classList.add(`theme-${name}`);
   document.body.classList.add(`theme-${name}`);
 
-  const rootStyle = getComputedStyle(document.body);
-  const themeColor = rootStyle.getPropertyValue('--border').trim();
-
-  sendBtn.style.backgroundColor = themeColor;
-  gifBtn.style.backgroundColor = themeColor;
-  sendBtn.style.color = "black";
-  gifBtn.style.color = "black";
+  const themedColor = getComputedStyle(document.body).getPropertyValue("--border").trim();
+  sendBtn.style.backgroundColor = themedColor;
+  gifBtn.style.backgroundColor = themedColor;
 }
 
 applyTheme(theme);
@@ -49,7 +44,8 @@ openBtn.addEventListener("click", () => {
   }
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
-    sendSystemMessage(`${nickname} joined the chat. Type /help for commands`);
+    socket.send(JSON.stringify({ type: "system", text: `${nickname} joined the chat.` }));
+    socket.send(JSON.stringify({ type: "private", from: nickname, to: nickname, text: `${nickname} joined the chat. Type /help for commands`, color }));
     hasJoined = true;
   }
   chatBox.style.display = "flex";
@@ -72,7 +68,6 @@ function submitNickname() {
     alert("Invalid nickname.");
     return;
   }
-
   nickname = input;
   color = document.getElementById("colorInput").value;
   theme = themeSelect.value;
@@ -88,7 +83,8 @@ function submitNickname() {
 
   if (!hasJoined) {
     socket.send(JSON.stringify({ type: "join", nickname }));
-    sendSystemMessage(`${nickname} joined the chat. Type /help for commands`);
+    socket.send(JSON.stringify({ type: "system", text: `${nickname} joined the chat.` }));
+    socket.send(JSON.stringify({ type: "private", from: nickname, to: nickname, text: `${nickname} joined the chat. Type /help for commands`, color }));
     hasJoined = true;
   }
 
@@ -127,9 +123,10 @@ async function handleSend() {
   chatInput.value = "";
 
   if (text === "/help") {
+    const helpText = "Commands: /gif [term] | /msg [user] [message]";
     const div = document.createElement("div");
     div.style.color = "cyan";
-    div.textContent = "Commands: /gif [term] | /msg [user] [msg]";
+    div.textContent = helpText;
     chatMessages.appendChild(div);
     chatMessages.scrollTop = chatMessages.scrollHeight;
     return;
