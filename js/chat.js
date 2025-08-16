@@ -17,25 +17,32 @@ const nicknameModal = document.getElementById("nicknameModal");
 const openBtn = document.getElementById("open-chat-btn");
 const chatHeader = document.getElementById("chatHeader");
 
+// --- THEME HANDLER ---
 function applyTheme(name) {
-  document.body.className = "";
-  chatBox.classList.remove("theme-default", "theme-light", "theme-dark", "theme-blue", "theme-green", "theme-purple", "theme-red");
-  chatBox.classList.add(`theme-${name}`);
+  const themes = ["default", "light", "dark", "blue", "green", "purple", "red"];
+  document.body.classList.remove(...themes.map(t => `theme-${t}`));
+  chatBox.classList.remove(...themes.map(t => `theme-${t}`));
+
   document.body.classList.add(`theme-${name}`);
+  chatBox.classList.add(`theme-${name}`);
 
   const themedColor = getComputedStyle(document.body).getPropertyValue("--border").trim();
   sendBtn.style.backgroundColor = themedColor;
   gifBtn.style.backgroundColor = themedColor;
 }
 
+// Initialize theme
 applyTheme(theme);
-themeSelect.value = theme;
+if (themeSelect) themeSelect.value = theme;
 
-themeSelect.addEventListener("change", () => {
-  theme = themeSelect.value;
-  localStorage.setItem("theme", theme);
-  applyTheme(theme);
-});
+// Dropdown change listener
+if (themeSelect) {
+  themeSelect.addEventListener("change", () => {
+    theme = themeSelect.value;
+    localStorage.setItem("theme", theme);
+    applyTheme(theme);
+  });
+}
 
 openBtn.addEventListener("click", () => {
   if (!nickname) {
