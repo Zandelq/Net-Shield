@@ -7,6 +7,12 @@ const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
+document.getElementById("themeSelect").addEventListener("change", function() {
+  const theme = this.value;
+  document.body.setAttribute("data-theme", theme);
+});
+
+
 const chatBox = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
