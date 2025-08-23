@@ -8,25 +8,18 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
 <style>
-    #themeSelect {
-  position: relative;
-  z-index: 1000;
-  pointer-events: auto;
-}
+   #themeSelect{position:relative;z-index:1000;pointer-events:auto}
 
-        :root {
-      --cyan: #00ffff;
-      --black: #000;
-      --gray: #444;
-    }
+    :root{--cyan:#00ffff;--black:#000;--gray:#444}
+    .theme-default{--bg:#111;--text:#fff;--border:var(--cyan)}
+    .theme-light{--bg:#f0f0f0;--text:#111;--border:#ccc}
+    .theme-dark{--bg:#000;--text:#fff;--border:#333}
+    .theme-blue{--bg:#001F3F;--text:#fff;--border:#39CCCC}
+    .theme-green{--bg:#001f00;--text:#bfffcf;--border:#00ff00}
+    .theme-purple{--bg:#1f003f;--text:#eee0ff;--border:#a64aff}
+    .theme-red{--bg:#330000;--text:#ffcccc;--border:red}
 
-    .theme-default { --bg: #111; --text: white; --border: var(--cyan); }
-    .theme-light { --bg: #f0f0f0; --text: #111; --border: #ccc; }
-    .theme-dark { --bg: #000; --text: #fff; --border: #333; }
-    .theme-blue { --bg: #001F3F; --text: #fff; --border: #39CCCC; }
-    .theme-green { --bg: #001f00; --text: #bfffcf; --border: #00ff00; }
-    .theme-purple { --bg: #1f003f; --text: #eee0ff; --border: #a64aff; }
-    .theme-red { --bg: #330000; --text: #ffcccc; --border: red; }
+    body{background:var(--bg);color:var(--text);font-family:monospace}
 
     body {
       background: var(--bg);
