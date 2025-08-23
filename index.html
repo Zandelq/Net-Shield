@@ -8,6 +8,39 @@
     <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
 <style>
+    /* Close button styling */
+#closeChatBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+#closeChatBtn:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+
+.chat-box.fade-in {
+  animation: fadeIn 0.3s forwards;
+}
+
+.chat-box.fade-out {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to   { opacity: 0; transform: scale(0.9); }
+}
+
    #themeSelect{position:relative;z-index:1000;pointer-events:auto}
 
     :root{--cyan:#00ffff;--black:#000;--gray:#444}
