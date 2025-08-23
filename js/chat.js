@@ -23,7 +23,6 @@ const nicknameModal = document.getElementById("nicknameModal");
 const openBtn = document.getElementById("open-chat-btn");
 const chatHeader = document.getElementById("chatHeader");
 
-// --- THEME HANDLER ---
 function applyTheme(name) {
   const themes = ["default", "light", "dark", "blue", "green", "purple", "red"];
   document.body.classList.remove(...themes.map(t => `theme-${t}`));
@@ -37,11 +36,9 @@ function applyTheme(name) {
   gifBtn.style.backgroundColor = themedColor;
 }
 
-// Initialize theme
 applyTheme(theme);
 if (themeSelect) themeSelect.value = theme;
 
-// Dropdown change listener
 if (themeSelect) {
   themeSelect.addEventListener("change", () => {
     theme = themeSelect.value;
@@ -71,9 +68,16 @@ document.addEventListener("keydown", (e) => {
 });
 
 function closeChat() {
-  chatBox.style.display = "none";
-  chatBox.classList.remove("visible", "fade-in");
+  chatBox.classList.remove("fade-in");
+  chatBox.classList.add("fade-out");
+
+  setTimeout(() => {
+    chatBox.style.display = "none";
+    chatBox.classList.remove("fade-out");
+  }, 300); 
 }
+
+document.getElementById("closeChatBtn").addEventListener("click", closeChat);
 
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
