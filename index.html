@@ -5,494 +5,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="icon" type="image/png" href="assets/logo.png">
     <link rel="stylesheet" href="styles.css">
-<style>
-    /* Close button styling */
-#closeChatBtn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 2px;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
+    <style>
+        #themeSelect { position: relative; z-index: 1000; pointer-events: auto }
 
-#closeChatBtn:hover {
-  transform: scale(1.1);
-  opacity: 0.8;
-}
+        :root { --cyan:#00ffff; --black:#000; --gray:#444 }
+        .theme-default { --bg:#111; --text:#fff; --border:var(--cyan) }
+        .theme-light { --bg:#f0f0f0; --text:#111; --border:#ccc }
+        .theme-dark { --bg:#000; --text:#fff; --border:#333 }
+        .theme-blue { --bg:#001F3F; --text:#fff; --border:#39CCCC }
+        .theme-green { --bg:#001f00; --text:#bfffcf; --border:#00ff00 }
+        .theme-purple { --bg:#1f003f; --text:#eee0ff; --border:#a64aff }
+        .theme-red { --bg:#330000; --text:#ffcccc; --border:red }
 
+        body { background: var(--bg); color: var(--text); font-family: monospace; }
 
-.chat-box.fade-in {
-  animation: fadeIn 0.3s forwards;
-}
+        .chat-box {
+          position: fixed;
+          bottom: 60px;
+          right: 20px;
+          width: 320px;
+          min-width: 200px;
+          min-height: 200px;
+          display: flex;
+          flex-direction: column;
+          border: 2px solid var(--border);
+          background: var(--bg);
+          color: var(--text);
+          resize: both;
+          overflow: hidden;
+          z-index: 9999;
+          box-shadow: 0 0 10px var(--border);
+        }
 
-.chat-box.fade-out {
-  animation: fadeOut 0.3s forwards;
-}
+        .chat-header {
+          background: var(--black);
+          color: var(--cyan);
+          padding: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          cursor: move;
+          user-select: none;
+        }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.9); }
-  to   { opacity: 1; transform: scale(1); }
-}
+        .chat-header button {
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          padding: 0;
+        }
 
-@keyframes fadeOut {
-  from { opacity: 1; transform: scale(1); }
-  to   { opacity: 0; transform: scale(0.9); }
-}
+        .chat-header button img {
+          width: 18px;
+          height: 18px;
+          transition: transform 0.2s ease, opacity 0.2s ease;
+        }
 
-   #themeSelect{position:relative;z-index:1000;pointer-events:auto}
+        .chat-header button img:hover {
+          transform: rotate(90deg) scale(1.2);
+          opacity: 0.8;
+        }
 
-    :root{--cyan:#00ffff;--black:#000;--gray:#444}
-    .theme-default{--bg:#111;--text:#fff;--border:var(--cyan)}
-    .theme-light{--bg:#f0f0f0;--text:#111;--border:#ccc}
-    .theme-dark{--bg:#000;--text:#fff;--border:#333}
-    .theme-blue{--bg:#001F3F;--text:#fff;--border:#39CCCC}
-    .theme-green{--bg:#001f00;--text:#bfffcf;--border:#00ff00}
-    .theme-purple{--bg:#1f003f;--text:#eee0ff;--border:#a64aff}
-    .theme-red{--bg:#330000;--text:#ffcccc;--border:red}
+        .chat-messages {
+          flex: 1;
+          overflow-y: auto;
+          padding: 10px;
+          border-top: 1px solid var(--gray);
+          border-bottom: 1px solid var(--gray);
+          background: #222;
+          font-size: 14px;
+          scrollbar-width: thin;
+          scrollbar-color: cyan black;
+        }
 
-    body{background:var(--bg);color:var(--text);font-family:monospace}
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: monospace;
-    }
-
-    .chat-box {
-      position: fixed;
-      bottom: 60px;
-      right: 20px;
-      width: 320px;
-      min-width: 200px;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-      border: 2px solid var(--border);
-      background: var(--bg);
-      color: var(--text);
-      resize: both;
-      overflow: hidden;
-      z-index: 9999;
-      box-shadow: 0 0 10px var(--border);
-    }
-
-    .chat-header {
-      background: var(--black);
-      color: var(--cyan);
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: move;
-      user-select: none;
-    }
-
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px;
-      border-top: 1px solid var(--gray);
-      border-bottom: 1px solid var(--gray);
-      background: #222;
-      font-size: 14px;
-      scrollbar-width: thin;
-      scrollbar-color: cyan black;
-    }
-
-    .chat-messages::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .chat-messages::-webkit-scrollbar-thumb {
-      background: cyan;
-      border-radius: 8px;
-    }
-
-    #chatInput {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid cyan;
-      background: #000;
-      color: cyan;
-    }
-
-    #send-chat-btn, #gif-btn {
-      background: cyan;
-      color: black;
-      border: none;
-      border-radius: 5px;
-      padding: 8px;
-      cursor: pointer;
-    }
-
-    #open-chat-btn {
-      position: fixed;
-      bottom: 10px;
-      right: 20px;
-      background: cyan;
-      color: black;
-      padding: 10px 20px;
-      border-radius: 5px;
-      z-index: 9999;
-      border: none;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .modal-content {
-      background: #111;
-      padding: 30px;
-      border-radius: 10px;
-      color: white;
-      text-align: center;
-    }
-
-    .modal-content input {
-      padding: 10px;
-      border: none;
-      margin: 10px 0;
-      width: 200px;
-    }
-
-    .autocomplete {
-      background: #111;
-      color: gray;
-      font-size: 14px;
-      padding: 5px;
-    }
-
-    .autocomplete.active {
-      color: white;
-      background: #222;
-    }
-    .chat-messages::-webkit-scrollbar {
-  width: 8px;
-}
-.chat-messages::-webkit-scrollbar-track {
-  background: black;
-}
-.chat-messages::-webkit-scrollbar-thumb {
-  background-color: cyan;
-  border-radius: 10px;
-}
-
-    #chatPopup, .chat-box {
-  position: fixed;
-  resize: both;
-  overflow: auto;
-  box-sizing: border-box;
-  cursor: default;
-  border-radius: 10px;
-  border: 2px solid var(--border, #00ffff);
-  background: var(--bg, #111);
-  color: var(--text, white);
-  box-shadow: 0 0 10px var(--border, #00ffff);
-}
-
-.chat-header {
-  cursor: move;
-  user-select: none;
-  background-color: var(--border, #00ffff);
-  color: var(--text, white);
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#send-chat-btn, #gif-btn {
-  background-color: #00ffff;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-#send-chat-btn:hover, #gif-btn:hover {
-  background-color: #00ccff;
-}
-
-#secret-admin-box {
-  display: none !important;
-}
-
-
-.chat-box {
-  resize: both;
-}
-
-.theme-default { --bg: #111; --text: white; --border: #00ffff; }
-.theme-light { --bg: #ffffff; --text: #000000; --border: #cccccc; }
-.theme-dark { --bg: #000000; --text: #ffffff; --border: #222222; }
-.theme-blue { --bg: #003366; --text: white; --border: #00ffff; }
-.theme-green { --bg: #002d00; --text: #afffaf; --border: #00ff00; }
-.theme-purple { --bg: #2c003e; --text: #e0ccff; --border: #8a2be2; }
-.theme-red { --bg: #330000; --text: #ffcccc; --border: #ff0000; }
-
-    .chat-box {
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  width: 320px;
-  min-width: 200px;
-  min-height: 200px;
-  max-height: 80vh;
-  display: flex;
-  flex-direction: column;
-  background: #111;
-  color: #fff;
-  border: 2px solid cyan;
-  border-radius: 8px;
-  box-shadow: 0 0 10px cyan;
-  resize: both;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-.chat-header {
-  background-color: #000;
-  color: cyan;
-  padding: 10px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: move;
-  user-select: none;
-}
-
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-  background: #222;
-  border-top: 1px solid #444;
-  border-bottom: 1px solid #444;
-  font-family: monospace;
-}
-
-.chat-input-container {
-  display: flex;
-  padding: 10px;
-  background: #111;
-  border-top: 1px solid cyan;
-}
-
-#chatInput {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid cyan;
-  background: #000;
-  color: cyan;
-}
-
-#send-chat-btn, #gif-btn {
-  background: cyan;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  margin-left: 5px;
-  padding: 8px 10px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-#send-chat-btn:hover, #gif-btn:hover {
-  background: #00ccff;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-.modal-content {
-  background: #111;
-  padding: 30px;
-  border-radius: 10px;
-  color: white;
-  text-align: center;
-}
-.modal-content input {
-  padding: 10px;
-  border: none;
-  margin: 10px 0;
-  width: 200px;
-}
-.chat-box {
-  position: fixed;
-  bottom: 60px;
-  right: 20px;
-  width: 320px;
-  min-width: 200px;
-  min-height: 200px;
-  background: #111;
-  color: #fff;
-  border: 2px solid cyan;
-  border-radius: 8px;
-  box-shadow: 0 0 10px cyan;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  resize: both;
-  overflow: hidden;
-}
-.chat-header {
-  background-color: #000;
-  color: cyan;
-  padding: 10px;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: move;
-  user-select: none;
-}
-.chat-messages {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  border: 1px solid #444;
-  padding: 5px;
-  background: #222;
-  font-family: monospace;
-}
-#chatInput {
-  width: 100%;
-  background-color: #000;
-  color: cyan;
-  border: 1px solid #00ffff;
-  padding: 10px;
-  box-sizing: border-box;
-}
-#send-chat-btn,
-#gif-btn {
-  background-color: cyan;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-#send-chat-btn:hover,
-#gif-btn:hover {
-  background-color: #00ccff;
-}
-.chat-header button {
-  background: none;
-  border: none;
-  color: cyan;
-  font-size: 16px;
-  cursor: pointer;
-}
-.chat-header button:hover {
-  color: #00ccff;
-}
-#open-chat-btn {
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-  background-color: cyan;
-  color: black;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  z-index: 9999;
-  cursor: pointer;
-}
-#tab-bar button {
-  background-color: black;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-#tab-bar button:hover {
-  background-color: #333;
-  color: cyan;
-}
         .chat-messages::-webkit-scrollbar {
-      width: 8px;
-    }
-    .chat-messages::-webkit-scrollbar-track {
-      background: black;
-    }
-    .chat-messages::-webkit-scrollbar-thumb {
-      background-color: cyan;
-      border-radius: 10px;
-    }
-    .chat-box {
-      position: fixed;
-      bottom: 60px; right: 20px;
-      width: 320px; min-height: 200px; max-height: 80vh;
-      display: flex; flex-direction: column;
-      background: #111; color: white;
-      border: 2px solid cyan; border-radius: 8px;
-      box-shadow: 0 0 10px cyan;
-      resize: both; overflow: hidden;
-      font-size: 1.1rem;
-      z-index: 9999;
-    }
-    .chat-header {
-      background: #000; color: cyan;
-      padding: 10px; font-weight: bold;
-      display: flex; justify-content: space-between;
-      align-items: center; cursor: move;
-      user-select: none;
-    }
-    .chat-messages {
-      flex: 1 1 auto;
-      overflow-y: auto;
-      padding: 10px; background: #222;
-      border-top: 1px solid #444;
-      border-bottom: 1px solid #444;
-      font-family: monospace;
-      scroll-behavior: smooth;
-    }
-    .chat-input-container {
-      display: flex; padding: 10px; background: #111;
-      border-top: 1px solid cyan;
-    }
-    #chatInput {
-      flex: 1; padding: 8px;
-      background: #000; color: cyan;
-      border: 1px solid cyan;
-    }
-    #send-chat-btn, #gif-btn {
-      background: cyan; color: black;
-      border: none; border-radius: 5px;
-      margin-left: 5px; padding: 8px 10px;
-      cursor: pointer; transition: background .3s;
-    }
-    #send-chat-btn:hover, #gif-btn:hover {
-      background: #00ccff;
-    }
-    .mention {
-      background: yellow; color: black; padding: 0 4px;
-    }
-</style>
+          width: 8px;
+        }
+        .chat-messages::-webkit-scrollbar-thumb {
+          background: cyan;
+          border-radius: 8px;
+        }
+
+        #chatInput {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid cyan;
+          background: #000;
+          color: cyan;
+        }
+
+        #send-chat-btn, #gif-btn {
+          background: cyan;
+          color: black;
+          border: none;
+          border-radius: 5px;
+          padding: 8px;
+          cursor: pointer;
+        }
+        #send-chat-btn:hover, #gif-btn:hover {
+          background: #00ccff;
+        }
+
+        #open-chat-btn {
+          position: fixed;
+          bottom: 10px;
+          right: 20px;
+          background: cyan;
+          color: black;
+          padding: 10px 20px;
+          border-radius: 5px;
+          z-index: 9999;
+          border: none;
+        }
+
+        .modal {
+          display: none;
+          position: fixed;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
+        }
+
+        .mention { background: yellow; color: black; padding: 0 4px; }
+    </style>
 </head>
 <body>
   <div id="particles-js"></div>
@@ -502,30 +137,31 @@
 
   <button id="open-chat-btn">Chatroom</button>
 
-<div id="chatHeader" class="chat-header">
-  NetShield Chatroom
-  <label>Theme:</label>
-  <select id="themeSelect">
-    <option value="default">Default</option>
-    <option value="light">Light</option>
-    <option value="dark">Dark</option>
-    <option value="blue">Blue</option>
-    <option value="green">Green</option>
-    <option value="purple">Purple</option>
-    <option value="red">Red</option>
-  </select>
-  <button id="closeChatBtn">
-    <img src="assets/close.png" alt="Close" style="width:18px;height:18px;">
-  </button>
-</div>
+  <div id="chatPopup" class="chat-box" style="display: none;">
+    <div id="chatHeader" class="chat-header">
+      <span>NetShield Chatroom</span>
 
-  <div class="chat-resizer top"></div>
-  <div class="chat-resizer right"></div>
-  <div class="chat-resizer bottom"></div>
-  <div class="chat-resizer left"></div>
-</div>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <label for="themeSelect">Theme:</label>
+        <select id="themeSelect">
+          <option value="default">Default</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="purple">Purple</option>
+          <option value="red">Red</option>
+        </select>
+
+        <!-- Custom close button -->
+        <button id="closeChatBtn">
+          <img src="assets/close.png" alt="Close">
+        </button>
+      </div>
     </div>
+
     <div class="chat-messages" id="chatMessages"></div>
+
     <div style="display: flex;">
       <input type="text" id="chatInput" placeholder="Type your message..." />
       <button id="send-chat-btn">Send</button>
@@ -543,7 +179,6 @@
     </div>
   </div>
 
-<script src="js/chat.js"></script>
   <!-- Tab Bar -->
   <div id="tab-bar">
     <img src="assets/logo.png" alt="Tab Icon" id="tab-icon" />
@@ -555,10 +190,15 @@
     <button onclick="window.location.href='Information.html'">Info</button>
   </div>
 
-      <script src="script.js"></script>
+  <!-- Scripts -->
+  <script src="script.js"></script>
   <script src="demo/js/app.js"></script>
   <script src="../particles.js"></script>
   <script src="demo/js/app.js"></script>
   <script src="js/chat.js"></script>
+
+  <script>
+    document.getElementById("closeChatBtn").addEventListener("click", closeChat);
+  </script>
 </body>
 </html>
