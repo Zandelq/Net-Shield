@@ -7,12 +7,6 @@ const GIPHY_API_KEY = "mXzkENvCtDRjUVUZBxa4RZGNIb1GOyr8";
 const bannedWords = ["nigger", "nigga", "faggot", "bitch", "cunt", "balls", "dick", "dildo", "butt", "ass"];
 const socket = new WebSocket("wss://s14579.nyc1.piesocket.com/v3/1?api_key=LWRrgWpIRs39rZWrJKC2qCj74ZYCcGdFgGQQhtJR&notify_self=1");
 
-document.getElementById("themeSelect").addEventListener("change", function() {
-  const theme = this.value;
-  document.body.setAttribute("data-theme", theme);
-});
-
-
 const chatBox = document.getElementById("chatPopup");
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
@@ -22,7 +16,9 @@ const themeSelect = document.getElementById("themeSelect");
 const nicknameModal = document.getElementById("nicknameModal");
 const openBtn = document.getElementById("open-chat-btn");
 const chatHeader = document.getElementById("chatHeader");
+const closeBtn = document.getElementById("closeChatBtn"); // NEW
 
+// --- THEME HANDLER ---
 function applyTheme(name) {
   const themes = ["default", "light", "dark", "blue", "green", "purple", "red"];
   document.body.classList.remove(...themes.map(t => `theme-${t}`));
@@ -36,9 +32,11 @@ function applyTheme(name) {
   gifBtn.style.backgroundColor = themedColor;
 }
 
+// Initialize theme
 applyTheme(theme);
 if (themeSelect) themeSelect.value = theme;
 
+// Dropdown change listener
 if (themeSelect) {
   themeSelect.addEventListener("change", () => {
     theme = themeSelect.value;
@@ -67,17 +65,17 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeChat();
 });
 
+// CLOSE CHAT FUNCTION
 function closeChat() {
-  chatBox.classList.remove("fade-in");
   chatBox.classList.add("fade-out");
-
   setTimeout(() => {
     chatBox.style.display = "none";
-    chatBox.classList.remove("fade-out");
-  }, 300); 
+    chatBox.classList.remove("visible", "fade-in", "fade-out");
+  }, 300); // smooth animation
 }
 
-document.getElementById("closeChatBtn").addEventListener("click", closeChat);
+// BIND CUSTOM CLOSE BUTTON
+if (closeBtn) closeBtn.addEventListener("click", closeChat);
 
 function submitNickname() {
   const input = document.getElementById("nicknameInput").value.trim();
@@ -207,10 +205,13 @@ async function fetchGif(query) {
   return data.data[0]?.images.fixed_height.url || null;
 }
 
+// --- DRAGGABLE CHAT BOX (fixed) ---
 (function makeChatDraggable() {
   let isDragging = false, offsetX = 0, offsetY = 0;
   chatHeader.style.cursor = "move";
+
   chatHeader.addEventListener("mousedown", function (e) {
+    if (e.target.closest(".chat-controls")) return; // don’t drag when clicking controls
     isDragging = true;
     const rect = chatBox.getBoundingClientRect();
     offsetX = e.clientX - rect.left;
@@ -219,16 +220,13 @@ async function fetchGif(query) {
   });
 
   document.addEventListener("mousemove", function (e) {
-    if (isDragging) {
-      let left = e.clientX - offsetX;
-      let top = e.clientY - offsetY;
-      const maxLeft = window.innerWidth - chatBox.offsetWidth;
-      const maxTop = window.innerHeight - chatBox.offsetHeight;
-      left = Math.max(0, Math.min(left, maxLeft));
-      top = Math.max(0, Math.min(top, maxTop));
-      chatBox.style.left = `${left}px`;
-      chatBox.style.top = `${top}px`;
-    }
+    if (!isDragging) return;
+    let left = e.clientX - offsetX;
+    let top = e.clientY - offsetY;
+    const maxLeft = window.innerWidth - chatBox.offsetWidth;
+    const maxTop = window.innerHeight - chatBox.offsetHeight;
+    chatBox.style.left = `${Math.max(0, Math.min(left, maxLeft))}px`;
+    chatBox.style.top = `${Math.max(0, Math.min(top, maxTop))}px`;
   });
 
   document.addEventListener("mouseup", function () {
