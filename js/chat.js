@@ -16,9 +16,8 @@ const themeSelect = document.getElementById("themeSelect");
 const nicknameModal = document.getElementById("nicknameModal");
 const openBtn = document.getElementById("open-chat-btn");
 const chatHeader = document.getElementById("chatHeader");
-const closeBtn = document.getElementById("closeChatBtn"); // NEW
+const closeBtn = document.getElementById("closeChatBtn");
 
-// --- THEME HANDLER ---
 function applyTheme(name) {
   const themes = ["default", "light", "dark", "blue", "green", "purple", "red"];
   document.body.classList.remove(...themes.map(t => `theme-${t}`));
@@ -32,11 +31,9 @@ function applyTheme(name) {
   gifBtn.style.backgroundColor = themedColor;
 }
 
-// Initialize theme
 applyTheme(theme);
 if (themeSelect) themeSelect.value = theme;
 
-// Dropdown change listener
 if (themeSelect) {
   themeSelect.addEventListener("change", () => {
     theme = themeSelect.value;
@@ -65,16 +62,14 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeChat();
 });
 
-// CLOSE CHAT FUNCTION
 function closeChat() {
   chatBox.classList.add("fade-out");
   setTimeout(() => {
     chatBox.style.display = "none";
     chatBox.classList.remove("visible", "fade-in", "fade-out");
-  }, 300); // smooth animation
+  }, 300);
 }
 
-// BIND CUSTOM CLOSE BUTTON
 if (closeBtn) closeBtn.addEventListener("click", closeChat);
 
 function submitNickname() {
@@ -205,13 +200,12 @@ async function fetchGif(query) {
   return data.data[0]?.images.fixed_height.url || null;
 }
 
-// --- DRAGGABLE CHAT BOX (fixed) ---
 (function makeChatDraggable() {
   let isDragging = false, offsetX = 0, offsetY = 0;
   chatHeader.style.cursor = "move";
 
   chatHeader.addEventListener("mousedown", function (e) {
-    if (e.target.closest(".chat-controls")) return; // don’t drag when clicking controls
+    if (e.target.closest(".chat-controls")) return;
     isDragging = true;
     const rect = chatBox.getBoundingClientRect();
     offsetX = e.clientX - rect.left;
