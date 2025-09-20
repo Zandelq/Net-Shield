@@ -509,8 +509,8 @@
 <!-- Open button -->
 <button id="open-chat-btn">Chatroom</button>
 
-<!-- Chat Popup -->
-<div id="chatPopup" class="theme-default">
+<!-- Chat Popup (hidden by default) -->
+<div id="chatPopup" class="theme-default" style="display:none;">
   <div id="chatHeader">
     <span>NetShield Chatroom</span>
     <div style="display: flex; align-items: center; gap: 8px;">
@@ -537,8 +537,8 @@
   </div>
 </div>
 
-<!-- Nickname Modal -->
-<div id="nicknameModal">
+<!-- Nickname Modal (hidden by default) -->
+<div id="nicknameModal" class="modal" style="display:flex;">
   <div class="modal-content">
     <h2>Enter Nickname</h2>
     <input type="text" id="nicknameInput" placeholder="Nickname" /><br />
