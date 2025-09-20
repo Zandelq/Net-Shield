@@ -506,15 +506,15 @@
     <h1>Welcome to <span class="highlight">Net-Shield</span></h1>
   </div>
 
-  <button id="open-chat-btn">Chatroom</button>
+<!-- Open button -->
+<button id="open-chat-btn">Chatroom</button>
 
-
-<div id="chatPopup" class="chat-box" style="display:none;">
-  <div id="chatHeader" class="chat-header">
+<!-- Chat Popup -->
+<div id="chatPopup" class="theme-default">
+  <div id="chatHeader">
     <span>NetShield Chatroom</span>
-
-    <div class="chat-controls">
-      <label for="themeSelect">Theme:</label>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <label for="themeSelect" style="font-size: 14px;">Theme:</label>
       <select id="themeSelect">
         <option value="default">Default</option>
         <option value="light">Light</option>
@@ -524,14 +524,11 @@
         <option value="purple">Purple</option>
         <option value="red">Red</option>
       </select>
-
-      <button id="closeChatBtn" type="button" aria-label="Close chat">
-        <img src="assets/close.png" alt="" style="width:18px;height:18px;display:block;">
-      </button>
+      <button id="closeChatBtn">✕</button>
     </div>
   </div>
 
-  <div class="chat-messages" id="chatMessages"></div>
+  <div id="chatMessages"></div>
 
   <div class="chat-input-container">
     <input type="text" id="chatInput" placeholder="Type your message..." />
@@ -540,16 +537,16 @@
   </div>
 </div>
 
-
-  <div id="nicknameModal" class="modal">
-    <div class="modal-content">
-      <h2>Enter Nickname</h2>
-      <input type="text" id="nicknameInput" placeholder="Nickname" /><br />
-      <label>Pick a color:</label>
-      <input type="color" id="colorInput" value="#00ffff" /><br />
-      <button onclick="submitNickname()">Enter</button>
-    </div>
+<!-- Nickname Modal -->
+<div id="nicknameModal">
+  <div class="modal-content">
+    <h2>Enter Nickname</h2>
+    <input type="text" id="nicknameInput" placeholder="Nickname" /><br />
+    <label>Pick a color:</label>
+    <input type="color" id="colorInput" value="#00ffff" /><br />
+    <button onclick="submitNickname()">Enter</button>
   </div>
+</div>
 
 <script src="js/chat.js"></script>
   <!-- Tab Bar -->
