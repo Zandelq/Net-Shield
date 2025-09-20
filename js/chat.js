@@ -16,6 +16,7 @@ const themeSelect = document.getElementById("themeSelect");
 const nicknameModal = document.getElementById("nicknameModal");
 const openBtn = document.getElementById("open-chat-btn");
 const chatHeader = document.getElementById("chatHeader");
+const closeBtn = document.getElementById("closeChatBtn");
 
 let users = [];
 let typingUsers = new Set();
@@ -27,7 +28,6 @@ let autocompleteBox = null;
 let autocompleteIndex = -1;
 let autocompleteMatches = [];
 
-/* theme and animated backgrounds injection */
 function injectThemeAnimations() {
   if (document.getElementById("ns-theme-animations")) return;
   const s = document.createElement("style");
@@ -43,15 +43,8 @@ function injectThemeAnimations() {
   .theme-purple.animated { background: linear-gradient(120deg, rgba(30,0,40,0.95), rgba(10,0,20,0.95)); animation: ns-purple 12s ease-in-out infinite; }
   @keyframes ns-purple { 0% {opacity:0.95} 50% {opacity:1} 100% {opacity:0.95} }
 
-  .ns-typing-indicator { font-size: 12px; color: #9fefff; margin: 4px 10px; opacity: .95; }
-  .ns-user-list { position: absolute; right: 12px; top: 44px; background: rgba(0,0,0,0.6); color: white; padding: 6px; border-radius:6px; font-size:13px; max-height:210px; overflow:auto; width:120px; box-shadow:0 4px 14px rgba(0,0,0,0.6); }
-  .ns-user-list .ns-user { padding:4px 6px; cursor:pointer; border-radius:4px; color: #bfe; }
-  .ns-user-list .ns-user:hover { background: rgba(255,255,255,0.04); color: white; }
-  .ns-reply-badge { display:inline-block; background: rgba(0,255,200,0.08); color:#00ffd5; padding:2px 6px; border-radius:6px; font-size:12px; margin-right:6px; }
-  .ns-mention { background: yellow; color: black; padding:0 4px; border-radius:3px; }
-  .ns-autocomplete { position: absolute; left: 8px; bottom: 56px; background: #111; color: #9fefff; border:1px solid rgba(0,255,255,0.12); padding:6px; border-radius:6px; box-shadow:0 6px 20px rgba(0,0,0,0.6); z-index:20000; max-height:160px; overflow:auto; min-width:160px; }
-  .ns-autocomplete .item { padding:4px 8px; cursor:pointer; color:#9fefff; }
-  .ns-autocomplete .item.active { background: #00ffff22; color: white; }
+  #closeChatBtn { font-size: 22px; color: var(--border, #00ffff); cursor: pointer; background: none; border: none; transition: transform .2s; }
+  #closeChatBtn:hover { transform: scale(1.2); color: red; }
   `;
   document.head.appendChild(s);
 }
@@ -73,6 +66,7 @@ function applyTheme(name) {
   const themedColor = getComputedStyle(document.body).getPropertyValue("--border").trim() || "#00ffff";
   sendBtn.style.backgroundColor = themedColor;
   gifBtn.style.backgroundColor = themedColor;
+  closeBtn.style.color = themedColor;
 }
 
 applyTheme(theme);
@@ -85,7 +79,6 @@ if (themeSelect) {
   });
 }
 
-/* user list UI */
 function ensureUserList() {
   let el = document.querySelector(".ns-user-list");
   if (!el) {
@@ -113,7 +106,6 @@ function renderUserList() {
   });
 }
 
-/* typing indicator UI */
 function ensureTypingIndicator() {
   let el = chatBox.querySelector(".ns-typing-indicator");
   if (!el) {
@@ -139,7 +131,6 @@ function updateTypingIndicator() {
   }
 }
 
-/* manage users set */
 function addUserIfMissing(name) {
   if (!name) return;
   if (!users.includes(name)) {
@@ -148,7 +139,6 @@ function addUserIfMissing(name) {
   }
 }
 
-/* autocomplete UI */
 function showAutocomplete(matches, rect) {
   hideAutocomplete();
   autocompleteBox = document.createElement("div");
@@ -201,7 +191,6 @@ function chooseAutocomplete(index) {
   hideAutocomplete();
 }
 
-/* reply badge UI */
 function showReplyBadge() {
   let badge = chatBox.querySelector(".ns-current-reply");
   if (!badge) {
@@ -227,7 +216,6 @@ function showReplyBadge() {
   }
 }
 
-/* utility: parse plain join messages to update users list */
 function handlePossibleJoinText(text) {
   if (typeof text !== "string") return;
   const m = text.match(/^(.+?) joined the chat\./i);
@@ -236,7 +224,6 @@ function handlePossibleJoinText(text) {
   }
 }
 
-/* send typing events to server, throttled */
 function sendTypingStart() {
   if (!isTyping) {
     isTyping = true;
@@ -249,16 +236,14 @@ function sendTypingStart() {
   }, 1600);
 }
 
-/* attach message click to enable reply */
 function attachMessageClick(div, msgObj) {
-  div.addEventListener("click", (e) => {
+  div.addEventListener("click", () => {
     replyTarget = { name: msgObj.name || msgObj.from || "unknown", text: msgObj.text || "" };
     showReplyBadge();
   });
 }
 
-/* mention highlight and notification */
-function handleMentions(div, text, from, msgColor) {
+function handleMentions(div, text) {
   if (!text || !nickname) return false;
   const lowered = String(text).toLowerCase();
   const at = `@${nickname.toLowerCase()}`;
@@ -272,7 +257,6 @@ function handleMentions(div, text, from, msgColor) {
   return false;
 }
 
-/* receive messages from socket */
 socket.onmessage = (event) => {
   try {
     const msg = JSON.parse(event.data);
@@ -298,7 +282,7 @@ socket.onmessage = (event) => {
       attachMessageClick(div, msg);
       chatMessages.appendChild(div);
       chatMessages.scrollTop = chatMessages.scrollHeight;
-      handleMentions(div, msg.text, msg.name, msg.color);
+      handleMentions(div, msg.text);
       return;
     }
     if (msg.type === "system") {
@@ -326,9 +310,6 @@ socket.onmessage = (event) => {
         chatMessages.appendChild(div);
         chatMessages.scrollTop = chatMessages.scrollHeight;
       }
-      return;
-    }
-    if (msg.type === "count") {
       return;
     }
     if (msg.type === "users") {
@@ -359,7 +340,6 @@ socket.onmessage = (event) => {
   }
 };
 
-/* send functions */
 sendBtn.addEventListener("click", handleSend);
 chatInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") handleSend();
@@ -451,99 +431,5 @@ async function handleSend() {
   showReplyBadge();
 }
 
-/* gif fetcher */
 async function fetchGif(query) {
-  const res = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${GIPHY_API_KEY}&q=${encodeURIComponent(query)}&limit=1`);
-  const data = await res.json();
-  return data.data[0]?.images.fixed_height.url || null;
-}
-
-/* open/close chat and join handling */
-openBtn.addEventListener("click", () => {
-  if (!nickname) {
-    nicknameModal.style.display = "flex";
-    return;
-  }
-  if (!hasJoined) {
-    socket.send(JSON.stringify({ type: "join", nickname }));
-    socket.send(JSON.stringify({ type: "system", text: `${nickname} joined the chat.` }));
-    socket.send(JSON.stringify({ type: "private", from: nickname, to: nickname, text: `${nickname} joined the chat. Type /help for commands`, color }));
-    addUserIfMissing(nickname);
-    hasJoined = true;
-  }
-  chatBox.style.display = "flex";
-  chatBox.classList.add("visible", "fade-in");
-  chatInput.focus();
-});
-
-function closeChat() {
-  chatBox.classList.remove("fade-in");
-  chatBox.classList.add("fade-out");
-  setTimeout(() => {
-    chatBox.style.display = "none";
-    chatBox.classList.remove("fade-out");
-  }, 300);
-}
-const closeBtn = document.getElementById("closeChatBtn");
-if (closeBtn) closeBtn.addEventListener("click", closeChat);
-
-function submitNickname() {
-  const input = document.getElementById("nicknameInput").value.trim();
-  if (!input || bannedWords.some(w => input.toLowerCase().includes(w))) {
-    alert("Invalid nickname.");
-    return;
-  }
-  nickname = input;
-  color = document.getElementById("colorInput").value;
-  theme = themeSelect.value;
-  localStorage.setItem("nickname", nickname);
-  localStorage.setItem("color", color);
-  localStorage.setItem("theme", theme);
-  applyTheme(theme);
-  nicknameModal.style.display = "none";
-  chatBox.style.display = "flex";
-  chatBox.classList.add("visible", "fade-in");
-  if (!hasJoined) {
-    socket.send(JSON.stringify({ type: "join", nickname }));
-    socket.send(JSON.stringify({ type: "system", text: `${nickname} joined the chat.` }));
-    socket.send(JSON.stringify({ type: "private", from: nickname, to: nickname, text: `${nickname} joined the chat. Type /help for commands`, color }));
-    addUserIfMissing(nickname);
-    hasJoined = true;
-  }
-  chatInput.focus();
-}
-
-/* draggable header handle */
-(function makeChatDraggable() {
-  let isDragging = false, offsetX = 0, offsetY = 0;
-  if (chatHeader) chatHeader.style.cursor = "move";
-  if (chatHeader) chatHeader.addEventListener("mousedown", function (e) {
-    isDragging = true;
-    const rect = chatBox.getBoundingClientRect();
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-    e.preventDefault();
-  });
-  document.addEventListener("mousemove", function (e) {
-    if (isDragging) {
-      let left = e.clientX - offsetX;
-      let top = e.clientY - offsetY;
-      const maxLeft = window.innerWidth - chatBox.offsetWidth;
-      const maxTop = window.innerHeight - chatBox.offsetHeight;
-      left = Math.max(0, Math.min(left, maxLeft));
-      top = Math.max(0, Math.min(top, maxTop));
-      chatBox.style.left = `${left}px`;
-      chatBox.style.top = `${top}px`;
-      chatBox.style.right = "auto";
-      chatBox.style.bottom = "auto";
-    }
-  });
-  document.addEventListener("mouseup", function () {
-    isDragging = false;
-  });
-})();
-
-/* initialize UI pieces */
-renderUserList();
-updateTypingIndicator();
-showReplyBadge();
+  const res
