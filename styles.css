@@ -129,6 +129,245 @@ a {
     color: cyan; /* Change to your desired color */
     text-decoration: none; /* Optional: Removes the underline */
 }
+/* Base layout */
+#chatPopup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;
+  height: 500px;
+  display: none;
+  flex-direction: column;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  z-index: 99999;
+}
+
+#chatHeader {
+  background: var(--header-bg);
+  color: var(--header-text);
+  padding: 8px;
+  cursor: move;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#chatMessages {
+  flex: 1;
+  padding: 8px;
+  overflow-y: auto;
+  background: var(--msg-bg);
+  color: var(--msg-text);
+  font-size: 14px;
+}
+
+#chatInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 14px;
+  border-top: 1px solid var(--border);
+  background: var(--input-bg);
+  color: var(--input-text);
+}
+
+#send-chat-btn,
+#gif-btn {
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  margin: 4px;
+  border-radius: 4px;
+}
+
+#open-chat-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 390px;
+  padding: 8px 12px;
+  background: var(--border);
+  border: none;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Message styling */
+.chat-msg {
+  margin-bottom: 10px;
+  padding: 6px;
+  border-radius: 6px;
+  background: var(--bubble-bg);
+  word-wrap: break-word;
+}
+
+.chat-msg strong {
+  font-weight: bold;
+}
+
+.chat-body img {
+  max-width: 200px;
+  border-radius: 6px;
+}
+
+/* Reactions */
+.reactions {
+  margin-top: 4px;
+  font-size: 12px;
+  color: yellow;
+}
+
+.react-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Themes */
+.theme-default {
+  --bg: #111;
+  --border: #00ffff;
+  --header-bg: #222;
+  --header-text: #00ffff;
+  --msg-bg: #111;
+  --msg-text: #eee;
+  --bubble-bg: #1a1a1a;
+  --input-bg: #222;
+  --input-text: #fff;
+}
+
+.theme-light {
+  --bg: #fff;
+  --border: #888;
+  --header-bg: #f0f0f0;
+  --header-text: #000;
+  --msg-bg: #fff;
+  --msg-text: #000;
+  --bubble-bg: #f9f9f9;
+  --input-bg: #f0f0f0;
+  --input-text: #000;
+}
+
+.theme-dark {
+  --bg: #000;
+  --border: #555;
+  --header-bg: #111;
+  --header-text: #fff;
+  --msg-bg: #000;
+  --msg-text: #eee;
+  --bubble-bg: #111;
+  --input-bg: #111;
+  --input-text: #eee;
+}
+
+.theme-blue {
+  --bg: #0a0f2c;
+  --border: #1e90ff;
+  --header-bg: #102040;
+  --header-text: #1e90ff;
+  --msg-bg: #0a0f2c;
+  --msg-text: #cce4ff;
+  --bubble-bg: #152850;
+  --input-bg: #1b2b55;
+  --input-text: #cce4ff;
+}
+
+.theme-green {
+  --bg: #102418;
+  --border: #2ecc71;
+  --header-bg: #13301d;
+  --header-text: #2ecc71;
+  --msg-bg: #102418;
+  --msg-text: #d2f7de;
+  --bubble-bg: #184d2d;
+  --input-bg: #1c5632;
+  --input-text: #d2f7de;
+}
+
+.theme-purple {
+  --bg: #1b1024;
+  --border: #a569bd;
+  --header-bg: #281a34;
+  --header-text: #a569bd;
+  --msg-bg: #1b1024;
+  --msg-text: #eed9f5;
+  --bubble-bg: #2c1d40;
+  --input-bg: #35224d;
+  --input-text: #eed9f5;
+}
+
+.theme-red {
+  --bg: #240a0a;
+  --border: #e74c3c;
+  --header-bg: #3a1111;
+  --header-text: #e74c3c;
+  --msg-bg: #240a0a;
+  --msg-text: #fdd;
+  --bubble-bg: #3a1c1c;
+  --input-bg: #441919;
+  --input-text: #fdd;
+}
+
+/* Modal */
+#nicknameModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+}
+
+#nicknameModal .modal-content {
+  background: var(--bg);
+  padding: 20px;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  text-align: center;
+}
+
+/* Close button (X) */
+#closeChatBtn {
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: var(--header-text);
+}
+
+#closeChatBtn:hover {
+  color: red;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.3s forwards;
+}
+.fade-out {
+  animation: fadeOut 0.3s forwards;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(20px); }
+}
 
 /* Change the color of visited links */
 a:visited {
